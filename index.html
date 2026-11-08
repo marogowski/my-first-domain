@@ -49,6 +49,7 @@ p{margin:0 0 12px;max-width:62ch}
 .lang{display:flex;border:1px solid var(--ln);border-radius:4px;overflow:hidden}
 .lang button{border:0;background:var(--sf);color:var(--mu);padding:6px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;min-height:34px}
 .lang button[aria-pressed="true"]{background:var(--ac);color:#fff}
+.app+.app{margin-top:12px}
 </style>
 </head>
 <body>
@@ -95,7 +96,12 @@ p{margin:0 0 12px;max-width:62ch}
     <p data-en="Multidimensional analysis of financial, sales and operational results: revenue structure (interest, insurance, TOiP fees, FX differences, asset sales, debt collection), income statement, cost/income ratio, NIM, cost of risk and year-on-year comparison. Data can be loaded from a CSV file.">Wielowymiarowa analiza wyników finansowych, sprzedażowych i operacyjnych: struktura przychodów (odsetki, ubezpieczenia, TOiP, różnice kursowe, sprzedaż aktywów, windykacja), rachunek wyników, C/I, NIM, koszt ryzyka i porównanie rok do roku. Dane można wczytać z pliku CSV.</p>
     <span class="btn" data-en="Open the application">Otwórz aplikację</span>
    </a>
-   <p class="sm" data-en="The application opens in a new tab and its interface is in Polish. A loaded CSV file is processed locally in the browser.">Aplikacja otwiera się w nowej karcie. Wczytany plik CSV jest przetwarzany lokalnie w przeglądarce.</p>
+   <a class="app" href="kalkulator/" target="_blank" rel="noopener">
+    <h3 data-en="Leasing Installment Calculator">Kalkulator rat leasingowych</h3>
+    <p data-en="Calculation of installments and repayment schedules for operating lease, finance lease and loans: net and gross installment, interest, residual value and VAT.">Obliczanie rat i harmonogramu spłat dla leasingu operacyjnego, leasingu finansowego i pożyczki: rata netto i brutto, odsetki, wartość końcowa i VAT.</p>
+    <span class="btn" data-en="Open the calculator">Otwórz kalkulator</span>
+   </a>
+   <p class="sm" data-en="The applications open in a new tab and their interfaces are in Polish. A CSV file loaded into the KPI Dashboard is processed locally in the browser.">Aplikacje otwierają się w nowej karcie, a ich interfejs jest po polsku. Plik CSV wczytany w Panelu KPI jest przetwarzany lokalnie w przeglądarce.</p>
   </section>
  </main>
 </div>

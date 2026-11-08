@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kalkulator rat leasingowych</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF2F4;--sf:#fff;--ink:#12263A;--mu:#566878;--ln:#D3DCE2;--ac:#1D5C87;--ac2:#164A6D;--hl:#E3EEF5;--bad:#B3392F;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1A26;--sf:#16263A;--ink:#E4ECF3;--mu:#9AABBA;--ln:#27394D;--ac:#6FB0DB;--ac2:#8EC3E6;--hl:#1D3550;--bad:#F0786C;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1A26;--sf:#16263A;--ink:#E4ECF3;--mu:#9AABBA;--ln:#27394D;--ac:#6FB0DB;--ac2:#8EC3E6;--hl:#1D3550;--bad:#F0786C;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Figtree,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:24px;margin:0 0 2px}
+.sub{color:var(--mu);margin:0 0 16px;font-size:14px}
+.lay{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.lay{grid-template-columns:1fr}}
+.pn{background:var(--sf);border:1px solid var(--ln);padding:16px}
+.in{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+@media(max-width:900px){.in{position:static}}
+.fld{margin-bottom:16px}
+.fld.off{opacity:.45}
+label,.lb{display:block;font-size:13px;color:var(--mu);margin-bottom:5px;font-weight:500}
+.seg{display:flex;border:1px solid var(--ln);border-radius:4px;overflow:hidden}
+.seg button{flex:1;border:0;border-right:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 6px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ac);color:#fff;font-weight:600}
+.seg button:disabled{cursor:not-allowed;color:var(--mu)}
+.seg button[aria-pressed="true"]:disabled{background:var(--mu);color:var(--sf)}
+.ctl{display:flex;align-items:center;gap:8px;border:1px solid var(--ln);border-radius:4px;padding:0 10px;background:var(--sf)}
+.ctl:focus-within{border-color:var(--ac);outline:1px solid var(--ac)}
+.ctl input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:17px;font-weight:600;padding:8px 0;text-align:right;font-variant-numeric:tabular-nums;outline:none}
+.ctl .u{color:var(--mu);font-size:13px;white-space:nowrap}
+input[type=range]{width:100%;margin:8px 0 0;accent-color:var(--ac)}
+input:disabled{cursor:not-allowed}
+.hint{font-size:13px;color:var(--mu);margin-top:3px;min-height:1.2em;font-variant-numeric:tabular-nums}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--ln);border:1px solid var(--ln);margin-bottom:20px}
+.k{background:var(--sf);padding:12px 14px}
+.k .l{font-size:13px;color:var(--mu)}
+.k .v{font-size:23px;font-weight:700;font-variant-numeric:tabular-nums;margin:2px 0}
+.k .v small{font-size:13px;font-weight:500;color:var(--mu);margin-left:3px}
+.k .s{font-size:13px;color:var(--mu);font-variant-numeric:tabular-nums}
+.k.main .v{color:var(--ac)}
+.err{border:1px solid var(--bad);border-left-width:4px;background:var(--sf);color:var(--bad);padding:12px 14px;margin-bottom:20px}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.hd h2{font-size:16px;margin:0}
+button.b{font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:4px;padding:6px 12px;min-height:34px;cursor:pointer}
+button.b:hover{border-color:var(--ac)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ov{overflow:auto;max-height:560px;border:1px solid var(--ln)}
+table{border-collapse:separate;border-spacing:0;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--ln);white-space:nowrap}
+th:first-child,td:first-child{text-align:center}
+thead th{position:sticky;top:0;background:var(--hl);font-weight:600;font-size:13px;z-index:1}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--hl) 35%,var(--sf))}
+tfoot td{font-weight:700;background:var(--hl);position:sticky;bottom:0}
+tfoot tr.fv td{bottom:0}
+.note{color:var(--mu);font-size:13px;margin-top:14px;max-width:90ch}
+.st{font-size:13px;color:var(--mu)}
+.vu{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--ln);border-left:4px solid var(--ac);background:var(--hl);padding:10px 14px;margin-bottom:10px}
+.vu .l{font-size:13px;color:var(--mu)}
+.vu .v{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+.vu .v small{font-size:13px;font-weight:500;color:var(--mu);margin-left:3px}
+.vu .s{font-size:13px;color:var(--mu);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Kalkulator rat leasingowych</h1>
+<p class="sub">Harmonogram spłat dla leasingu operacyjnego, leasingu finansowego i pożyczki. Wszystkie kwoty w zł.</p>
+
+<div class="lay">
+ <div class="pn in" id="in">
+  <div class="fld"><span class="lb" id="lba">Rodzaj aktywa</span><div class="seg" id="asset" role="group" aria-labelledby="lba"></div></div>
+  <div class="fld"><span class="lb" id="lbp">Typ finansowania</span><div class="seg" id="prod" role="group" aria-labelledby="lbp"></div></div>
+  
+  <div id="fields"></div>
+ </div>
+
+ <div id="out">
+  <div id="msg"></div>
+  <div class="kp" id="kp"></div>
+  <div class="pn">
+   <div class="hd"><h2>Harmonogram spłat</h2><span><span class="st" id="cs"></span> <button class="b" id="cp" type="button">Kopiuj do Excela</button></span></div>
+   <div id="vu"></div>
+   <div class="ov"><table id="tb"></table></div>
+   <p class="note" id="as"></p>
+  </div>
+ </div>
+</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const PR=[['lo','Leasing operacyjny'],['lf','Leasing finansowy'],['po','Pożyczka']];
+const VT=[0,8,23];
+const AS=[['sam','Samochody'],['mas','Maszyny'],['it','Sprzęt IT']];
+const F=[
+ {k:'net',l:'Kwota umowy netto',min:0,max:1e8,step:10000,dec:2,u:'zł'},
+ {k:'vat'},
+ {k:'fee',l:'Wstępna opłata leasingowa',min:0,max:99,step:1,dec:2,u:'% kwoty netto'},
+ {k:'n',l:'Okres umowy',min:12,max:120,step:1,dec:0,u:'mies.'},
+ {k:'fv',l:'Wartość końcowa',min:0,max:99,step:1,dec:2,u:'% kwoty netto'},
+ {k:'rate',l:'Stopa procentowa w skali roku',min:0,max:10,step:.01,dec:2,u:'%'}
+];
+const S={prod:'lo',asset:'sam',vat:23,net:500000,fee:10,n:48,fv:10,rate:7.11};
+
+const fmtIn=(v,d)=>v.toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d});
+const money=c=>(c/100).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2});
+const tsv=c=>(c/100).toFixed(2).replace('.',',');
+const parse=s=>{s=String(s).replace(/[\s\u00a0]/g,'').replace(',','.');return s===''||isNaN(+s)?NaN:+s};
+const clamp=(v,f)=>{v=Math.min(f.max,Math.max(f.min,v));const m=Math.pow(10,f.dec);return Math.round(v*m)/m};
+/* Reguły biznesowe: leasing operacyjny + samochody lub maszyny => okres min. 24 mies., wartość końcowa min. 19%; leasing operacyjny => wstępna opłata maks. 45% */
+const rmin=k=>S.prod==='lo'&&(S.asset==='sam'||S.asset==='mas')?(k==='n'?24:k==='fv'?19:0):0;
+const rmax=k=>S.prod==='lo'&&k==='fee'?45:Infinity;
+const lim=f=>({...f,min:Math.max(f.min,rmin(f.k)),max:Math.min(f.max,rmax(f.k))});
+
+/* Obliczenia w groszach. Raty płatne z dołu, odsetki = saldo × stopa roczna / 12.
+   Rata annuitetowa z uwzględnieniem wartości końcowej (balonu); ostatnia rata korygowana o zaokrąglenia. */
+function calc(s){
+ const loan=s.prod==='po',netC=Math.round(s.net*100),feeC=loan?0:Math.round(netC*s.fee/100),finC=netC-feeC,fvC=Math.round(netC*s.fv/100),r=s.rate/100/12,n=s.n,vat=loan?0:s.vat;
+ const base={loan,netC,feeC,finC,fvC,r,n,vat};
+ if(finC<=0)return{...base,err:'Podaj kwotę umowy większą od zera, aby obliczyć harmonogram.'};
+ const pmt=r===0?(finC-fvC)/n:(finC-fvC/Math.pow(1+r,n))*r/(1-Math.pow(1+r,-n)),pmtC=Math.round(pmt);
+ if(!(pmtC>0))return{...base,err:'Wartość końcowa po zdyskontowaniu nie jest niższa od kwoty finansowanej, więc rata byłaby zerowa lub ujemna. Zmniejsz wartość końcową albo wstępną opłatę.'};
+ const rows=[];let bal=finC,sumInt=0,sumPay=0,sumPr=0,sumG=0;
+ for(let k=1;k<=n;k++){
+  const int=Math.round(bal*r);let pay=pmtC;if(k===n)pay=bal+int-fvC;
+  const pr=pay-int,g=Math.round(pay*(1+vat/100));
+  rows.push({k,bal,pay,int,pr,end:bal-pr,g});bal-=pr;sumInt+=int;sumPay+=pay;sumPr+=pr;sumG+=g}
+ if(rows[n-1].pay<=0)return{...base,err:'Po korekcie zaokrągleń ostatnia rata wyszła niedodatnia. Zmień parametry umowy.'};
+ return{...base,pmtC,rows,sumInt,sumPay,sumPr,sumG,last:rows[n-1].pay,gross:Math.round(pmtC*(1+vat/100))}
+}
+
+/* ---- UI ---- */
+function build(){
+ $('#prod').innerHTML=PR.map(([k,l])=>`<button type="button" data-p="${k}">${l}</button>`).join('');
+ $('#fields').innerHTML=F.map(f=>f.k==='vat'
+  ?`<div class="fld" id="w-vat"><span class="lb" id="lbv">Stawka VAT</span><div class="seg" id="vat" role="group" aria-labelledby="lbv">${VT.map(v=>`<button type="button" data-v="${v}">${v}%</button>`).join('')}</div></div>`
+  :`<div class="fld" id="w-${f.k}"><label for="t-${f.k}" id="l-${f.k}">${f.l}</label><div class="ctl"><input id="t-${f.k}" type="text" inputmode="decimal" autocomplete="off"><span class="u">${f.u}</span></div><input id="r-${f.k}" type="range" min="${f.min}" max="${f.max}" step="${f.step}" aria-label="${f.l}"><div class="hint" id="h-${f.k}"></div></div>`).join('');
+ F.filter(f=>f.k!=='vat').forEach(f=>{
+  const t=$('#t-'+f.k),r=$('#r-'+f.k);
+  t.value=fmtIn(S[f.k],f.dec);r.value=S[f.k];
+  t.addEventListener('input',()=>{const v=parse(t.value);if(!isNaN(v)){S[f.k]=clamp(v,lim(f));r.value=S[f.k];update()}});
+  t.addEventListener('blur',()=>{t.value=fmtIn(S[f.k],f.dec)});
+  t.addEventListener('focus',()=>t.select());
+  r.addEventListener('input',()=>{S[f.k]=clamp(+r.value,lim(f));t.value=fmtIn(S[f.k],f.dec);update()})});
+ document.querySelectorAll('#prod button').forEach(b=>b.onclick=()=>{S.prod=b.dataset.p;update()});
+ $('#asset').innerHTML=AS.map(([k,l])=>`<button type="button" data-a="${k}">${l}</button>`).join('');
+ document.querySelectorAll('#asset button').forEach(b=>b.onclick=()=>{S.asset=b.dataset.a;update()});
+ document.querySelectorAll('#vat button').forEach(b=>b.onclick=()=>{S.vat=+b.dataset.v;update()});
+}
+
+let CUR=null;
+function update(){
+ const loan=S.prod==='po';
+ document.querySelectorAll('#prod button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===S.prod));
+ document.querySelectorAll('#asset button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a===S.asset));
+ document.querySelectorAll('#vat button').forEach(b=>{b.setAttribute('aria-pressed',+b.dataset.v===S.vat);b.disabled=loan});
+ ['vat','fee'].forEach(k=>$('#w-'+k).classList.toggle('off',loan));
+ $('#t-fee').disabled=$('#r-fee').disabled=loan;
+ $('#l-net').textContent=loan?'Kwota pożyczki':'Kwota umowy netto';
+ $('#l-fv').textContent=loan?'Wartość końcowa (spłata na końcu okresu)':'Wartość końcowa';
+ F.forEach(f=>{if(f.k==='vat')return;const l=lim(f),r=$('#r-'+f.k);r.min=l.min;r.max=l.max;if(S[f.k]<l.min||S[f.k]>l.max){S[f.k]=Math.min(l.max,Math.max(l.min,S[f.k]));$('#t-'+f.k).value=fmtIn(S[f.k],f.dec);r.value=S[f.k]}});
+ const c=calc(S);CUR=c;
+ const vf=1+c.vat/100,lfm=S.prod==='lf';
+ $('#h-net').textContent=loan?'':(c.vat>0&&!lfm?`Brutto: ${money(Math.round(c.netC*vf))} zł`:'');
+ $('#h-fee').textContent=loan?'Nie dotyczy pożyczki':`= ${money(c.feeC)} zł netto`+(c.vat>0&&!lfm?` (brutto ${money(Math.round(c.feeC*vf))} zł)`:'');
+ $('#h-fv').textContent=`= ${money(c.fvC)} zł netto`+(c.vat>0&&!loan&&!lfm?` (brutto ${money(Math.round(c.fvC*vf))} zł)`:'');
+ $('#h-rate').textContent=`Stopa miesięczna: ${(S.rate/12).toLocaleString('pl-PL',{minimumFractionDigits:4,maximumFractionDigits:4})}%`;
+ $('#h-n').textContent=S.n>=24?`${Math.floor(S.n/12)} lat${S.n%12?' i '+S.n%12+' mies.':''}`:`${S.n} mies.`;
+ if(S.prod==='lo'){if(S.asset!=='it'){const an=S.asset==='sam'?'samochodów':'maszyn';$('#h-n').textContent+=` · min. 24 mies. dla leasingu operacyjnego ${an}`;$('#h-fv').textContent+=` · min. 19% dla leasingu operacyjnego ${an}`}$('#h-fee').textContent+=' · maks. 45% dla leasingu operacyjnego'}
+ render(c);
+}
+
+function render(c){
+ const msg=$('#msg');
+ if(c.err){msg.innerHTML=`<div class="err" role="alert">${c.err}</div>`;$('#kp').innerHTML='';$('#tb').innerHTML='';$('#as').textContent='';$('#vu').innerHTML='';return}
+ msg.innerHTML='';
+ const lf=S.prod==='lf',gv=c.vat>0&&!c.loan&&!lf;
+ const K=[
+  ['Rata miesięczna netto',money(c.pmtC),'zł',c.last!==c.pmtC?`Ostatnia rata: ${money(c.last)} zł (korekta zaokrągleń)`:'Stała w całym okresie',1],
+  ...(lf?[['VAT płatny z góry',money(Math.round(c.sumPay*c.vat/100)),'zł',`${c.vat}% × suma rat netto ${money(c.sumPay)} zł`]]:[]),
+  ...(gv?[[`Rata miesięczna brutto (VAT ${c.vat}%)`,money(c.gross),'zł',`VAT w racie: ${money(c.gross-c.pmtC)} zł`]]:[]),
+  ['Kwota finansowana',money(c.finC),'zł',c.loan?'Cała kwota pożyczki':`Kwota netto − wstępna opłata (${money(c.feeC)} zł)`],
+  ['Suma odsetek',money(c.sumInt),'zł',`${(c.sumInt/c.finC*100).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})}% kwoty finansowanej`],
+  ['Wartość końcowa',money(c.fvC),'zł',c.loan?'Płatna po ostatniej racie':`Stanowi ${fmtIn(S.fv,2)}% kwoty umowy netto`],
+  ['Suma płatności netto',money(c.feeC+c.sumPay+c.fvC),'zł',S.prod==='lo'?`Stanowi ${((c.feeC+c.sumPay+c.fvC)/c.netC*100).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})}% kwoty umowy netto`:'Wstępna opłata + raty + wartość końcowa']];
+ $('#kp').innerHTML=K.map(([l,v,u,s,m])=>`<div class="k${m?' main':''}"><div class="l">${l}</div><div class="v">${v}<small>${u}</small></div><div class="s">${s}</div></div>`).join('');
+ const th=`<thead><tr><th>Nr</th><th>Kapitał na początek okresu</th><th>Rata kapitałowo-odsetkowa</th><th>Odsetki</th><th>Część kapitałowa</th><th>Kapitał po racie</th>${gv?`<th>Rata brutto (VAT ${c.vat}%)</th>`:''}</tr></thead>`;
+ const tr=c.rows.map(x=>`<tr><td>${x.k}</td><td>${money(x.bal)}</td><td>${money(x.pay)}</td><td>${money(x.int)}</td><td>${money(x.pr)}</td><td>${money(x.end)}</td>${gv?`<td>${money(x.g)}</td>`:''}</tr>`).join('');
+ const tf=`<tfoot><tr><td>Razem</td><td></td><td>${money(c.sumPay)}</td><td>${money(c.sumInt)}</td><td>${money(c.sumPr)}</td><td></td>${gv?`<td>${money(c.sumG)}</td>`:''}</tr><tr class="fv"><td colspan="2">Wartość końcowa (po ostatniej racie)</td><td>${money(c.fvC)}</td><td></td><td></td><td></td>${gv?`<td>${money(Math.round(c.fvC*(1+c.vat/100)))}</td>`:''}</tr></tfoot>`;
+ $('#tb').innerHTML=th+`<tbody>${tr}</tbody>`+tf;
+ 
+ $('#as').textContent='Założenia: raty płatne z dołu (na koniec miesiąca); odsetki naliczane od salda kapitału według stopy rocznej podzielonej przez 12; rata kapitałowo-odsetkowa wyliczona tak, aby po ostatniej racie pozostał kapitał równy wartości końcowej; ostatnia rata skorygowana o różnice zaokrągleń do groszy. '+(c.loan?'Dla pożyczki VAT i wstępna opłata nie są stosowane. ':lf?'Dla leasingu finansowego VAT jest płatny z góry od sumy rat netto (stawka × suma rat) i nie jest doliczany do poszczególnych rat. ':'VAT dolicza się do rat, wstępnej opłaty i wartości końcowej. ')+'Wyniki mają charakter orientacyjny i nie stanowią oferty.';
+}
+
+$('#cp').onclick=async()=>{
+ const c=CUR,st=$('#cs');if(!c||c.err){st.textContent='Brak harmonogramu do skopiowania.';return}
+ const gv=c.vat>0&&!c.loan&&S.prod!=='lf',h=['Nr','Kapitał na początek okresu','Rata kapitałowo-odsetkowa','Odsetki','Część kapitałowa','Kapitał po racie'];if(gv)h.push('Rata brutto');
+ const txt=[h.join('\t'),...c.rows.map(x=>[x.k,tsv(x.bal),tsv(x.pay),tsv(x.int),tsv(x.pr),tsv(x.end),...(gv?[tsv(x.g)]:[])].join('\t'))].join('\n');
+ try{await navigator.clipboard.writeText(txt);st.textContent='Skopiowano. Wklej w Excelu.'}
+ catch(e){try{const a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();st.textContent='Skopiowano. Wklej w Excelu.'}catch(e2){st.textContent='Nie udało się skopiować. Zaznacz tabelę ręcznie.'}}
+ setTimeout(()=>{st.textContent=''},4000)};
+
+build();update();
+</script>
+</body>
+</html>
