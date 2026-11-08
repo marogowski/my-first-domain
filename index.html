@@ -45,54 +45,72 @@ p{margin:0 0 12px;max-width:62ch}
 .btn{display:inline-block;background:var(--ac);color:#fff;padding:9px 16px;font-weight:600;font-size:15px;border-radius:4px}
 .app:hover .btn{background:var(--ac2)}
 .sm{font-size:14px;color:var(--mu);margin-top:10px}
+.top{max-width:1080px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:flex-end}
+.lang{display:flex;border:1px solid var(--ln);border-radius:4px;overflow:hidden}
+.lang button{border:0;background:var(--sf);color:var(--mu);padding:6px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;min-height:34px}
+.lang button[aria-pressed="true"]{background:var(--ac);color:#fff}
 </style>
 </head>
 <body>
+<div class="top"><nav class="lang" aria-label="Język / Language"><button type="button" data-l="pl" aria-pressed="true">PL</button><button type="button" data-l="en" aria-pressed="false">EN</button></nav></div>
 <div class="page">
  <aside>
   <img class="photo" src="mariusz-rogowski.jpg" alt="Mariusz Rogowski" width="168" height="168">
   <h1>Mariusz Rogowski</h1>
   <p class="role">Head of Finance</p>
   <ul class="facts">
-   <li><b>Obszar</b>Finanse, controlling, leasing, usługi finansowe, ubezpieczenia</li>
-   <li><b>Kwalifikacje</b>ACMA CGMA (AICPA/CIMA), Master of Science (M.Sc.) in Economics</li>
-   <li><b>Doświadczenie</b>Zarządzanie finansami w Polsce i we Francji</li>
+   <li><b data-en="Focus">Obszar</b><span data-en="Finance, controlling, leasing, financial services, insurance">Finanse, controlling, leasing, usługi finansowe, ubezpieczenia</span></li>
+   <li><b data-en="Qualifications">Kwalifikacje</b><span data-en="ACMA CGMA (AICPA/CIMA), Master of Science (M.Sc.) in Economics">ACMA CGMA (AICPA/CIMA), Master of Science (M.Sc.) in Economics</span></li>
+   <li><b data-en="Experience">Doświadczenie</b><span data-en="Finance management in Poland and France">Zarządzanie finansami w Polsce i we Francji</span></li>
   </ul>
  </aside>
 
  <main>
   <section>
-   <h2>O mnie</h2>
-   <p class="lead">Łączę wiedzę teoretyczną z doświadczeniem CFO, controllingiem międzynarodowym, wszechstronną znajomością procesów finansowych i kilkuletnią praktyką realizacji projektów IT.</p>
-   <p>Zarządzam obszarem finansów, analizuję i zmieniam aktualne procesy, wykorzystując doświadczenie i technologię AI: od pozyskania i transformacji danych, poprzez planowanie, raportowanie i controllingu po pogłębioną analizę wyników i monitorowanie KPI. Zależy mi na tym, aby finanse nie tylko raportowały wyniki, ale szybciej i trafniej wspierały decyzje biznesowe.</p>
+   <h2 data-en="About me">O mnie</h2>
+   <p class="lead" data-en="I combine theoretical knowledge with CFO experience, international controlling, broad command of financial processes and several years of hands-on IT project delivery.">Łączę wiedzę teoretyczną z doświadczeniem CFO, controllingiem międzynarodowym, wszechstronną znajomością procesów finansowych i kilkuletnią praktyką realizacji projektów IT.</p>
+   <p data-en="I manage the finance function, analyse and redesign existing processes, drawing on experience and AI technology: from data acquisition and transformation, through planning, reporting and controlling, to in-depth results analysis and KPI monitoring. I want finance not only to report results, but to support business decisions faster and more accurately.">Zarządzam obszarem finansów, analizuję i zmieniam aktualne procesy, wykorzystując doświadczenie i technologię AI: od pozyskania i transformacji danych, poprzez planowanie, raportowanie i controllingu po pogłębioną analizę wyników i monitorowanie KPI. Zależy mi na tym, aby finanse nie tylko raportowały wyniki, ale szybciej i trafniej wspierały decyzje biznesowe.</p>
   </section>
 
   <section>
-   <h2>Doświadczenie</h2>
+   <h2 data-en="Experience">Doświadczenie</h2>
    <ul class="tl">
-    <li><div class="w">Obecnie</div><div><strong>Dyrektor Finansowy</strong><span>Pekao Leasing</span></div></li>
-    <li><div class="w">Dekada</div><div><strong>Chief Financial Officer</strong><span>BNP Paribas Lease Group Polska</span></div></li>
-    <li><div class="w">Wcześniej</div><div><strong>Head of Controlling</strong><span>Paryż</span></div></li>
+    <li><div class="w" data-en="Now">Obecnie</div><div><strong data-en="Financial Director">Dyrektor Finansowy</strong><span>Pekao Leasing</span></div></li>
+    <li><div class="w" data-en="A decade">Dekada</div><div><strong>Chief Financial Officer</strong><span data-en="BNP Paribas Lease Group Poland">BNP Paribas Lease Group Polska</span></div></li>
+    <li><div class="w" data-en="Earlier">Wcześniej</div><div><strong>Head of Controlling</strong><span data-en="Paris">Paryż</span></div></li>
    </ul>
   </section>
 
   <section>
-   <h2>Kompetencje</h2>
+   <h2 data-en="Competencies">Kompetencje</h2>
    <ul class="tags">
-    <li>Leasing</li><li>Usługi finansowe</li><li>Controlling</li><li>Zarządzanie finansami</li><li>Przywództwo finansowe w skali międzynarodowej</li><li>Analiza KPI</li>
+    <li><span data-en="Leasing">Leasing</span></li><li><span data-en="Financial services">Usługi finansowe</span></li><li><span>Controlling</span></li><li><span data-en="Finance management">Zarządzanie finansami</span></li><li><span data-en="International financial leadership">Przywództwo finansowe w skali międzynarodowej</span></li><li><span data-en="KPI analysis">Analiza KPI</span></li>
    </ul>
   </section>
 
   <section>
-   <h2>Narzędzia</h2>
+   <h2 data-en="Tools">Narzędzia</h2>
    <a class="app" href="kpi/" target="_blank" rel="noopener">
-    <h3>Panel KPI leasingu</h3>
-    <p>Wielowymiarowa analiza wyników finansowych, sprzedażowych i operacyjnych: struktura przychodów (odsetki, ubezpieczenia, TOiP, różnice kursowe, sprzedaż aktywów, windykacja), rachunek wyników, C/I, NIM, koszt ryzyka i porównanie rok do roku. Dane można wczytać z pliku CSV.</p>
-    <span class="btn">Otwórz aplikację</span>
+    <h3 data-en="Leasing KPI Dashboard">Panel KPI leasingu</h3>
+    <p data-en="Multidimensional analysis of financial, sales and operational results: revenue structure (interest, insurance, TOiP fees, FX differences, asset sales, debt collection), income statement, cost/income ratio, NIM, cost of risk and year-on-year comparison. Data can be loaded from a CSV file.">Wielowymiarowa analiza wyników finansowych, sprzedażowych i operacyjnych: struktura przychodów (odsetki, ubezpieczenia, TOiP, różnice kursowe, sprzedaż aktywów, windykacja), rachunek wyników, C/I, NIM, koszt ryzyka i porównanie rok do roku. Dane można wczytać z pliku CSV.</p>
+    <span class="btn" data-en="Open the application">Otwórz aplikację</span>
    </a>
-   <p class="sm">Aplikacja otwiera się w nowej karcie. Wczytany plik CSV jest przetwarzany lokalnie w przeglądarce.</p>
+   <p class="sm" data-en="The application opens in a new tab and its interface is in Polish. A loaded CSV file is processed locally in the browser.">Aplikacja otwiera się w nowej karcie. Wczytany plik CSV jest przetwarzany lokalnie w przeglądarce.</p>
   </section>
  </main>
 </div>
+<script>
+(function(){
+var els=document.querySelectorAll('[data-en]'),btns=document.querySelectorAll('.lang button'),T={pl:document.title,en:'Mariusz Rogowski \u2013 Head of Finance'};
+els.forEach(function(e){e.setAttribute('data-pl',e.textContent)});
+function set(l,keep){els.forEach(function(e){e.textContent=e.getAttribute('data-'+l)});document.documentElement.lang=l;document.title=T[l];
+ btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===l?'true':'false')});
+ if(!keep){try{history.replaceState(null,'','#'+l)}catch(e){}try{localStorage.setItem('lang',l)}catch(e){}}}
+btns.forEach(function(b){b.addEventListener('click',function(){set(b.getAttribute('data-l'))})});
+var h=(location.hash||'').slice(1),s=null;try{s=localStorage.getItem('lang')}catch(e){}
+var l=(h==='pl'||h==='en')?h:(s==='pl'||s==='en')?s:((navigator.language||'').toLowerCase().indexOf('pl')===0?'pl':'en');
+if(l!=='pl')set(l,true);
+})();
+</script>
 </body>
 </html>
