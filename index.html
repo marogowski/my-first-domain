@@ -50,6 +50,13 @@ p{margin:0 0 12px;max-width:62ch}
 .lang button{border:0;background:var(--sf);color:var(--mu);padding:6px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;min-height:34px}
 .lang button[aria-pressed="true"]{background:var(--ac);color:#fff}
 .app+.app{margin-top:12px}
+.legal{grid-column:1/-1;border-top:1px solid var(--ln);padding-top:16px;margin-top:8px;color:var(--mu);font-size:13px}
+.legal p{margin:0;max-width:90ch}
+.facts a{word-break:break-word}
+.facts a.li{display:inline-flex;align-items:center;gap:8px}
+.facts .li svg{width:20px;height:20px;flex:none;fill:#0A66C2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .facts .li svg{fill:var(--ac)}}
+:root[data-theme="dark"] .facts .li svg{fill:var(--ac)}
 </style>
 </head>
 <body>
@@ -63,6 +70,8 @@ p{margin:0 0 12px;max-width:62ch}
    <li><b data-en="Focus">Obszar</b><span data-en="Finance, controlling, leasing, financial services, insurance">Finanse, controlling, leasing, usługi finansowe, ubezpieczenia</span></li>
    <li><b data-en="Qualifications">Kwalifikacje</b><span data-en="ACMA CGMA (AICPA/CIMA), Master of Science (M.Sc.) in Economics">ACMA CGMA (AICPA/CIMA), Master of Science (M.Sc.) in Economics</span></li>
    <li><b data-en="Experience">Doświadczenie</b><span data-en="Finance management in Poland and France">Zarządzanie finansami w Polsce i we Francji</span></li>
+   <li><b data-en="Contact">Kontakt</b><span><a href="mailto:mariusz.rogowski@outlook.com">mariusz.rogowski@outlook.com</a></span></li>
+   <li><b>LinkedIn</b><span><a class="li" href="https://www.linkedin.com/in/m-rogowski/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>Mariusz Rogowski</a></span></li>
   </ul>
  </aside>
 
@@ -104,6 +113,7 @@ p{margin:0 0 12px;max-width:62ch}
    <p class="sm" data-en="The applications open in a new tab and their interfaces are in Polish. A CSV file loaded into the KPI Dashboard is processed locally in the browser.">Aplikacje otwierają się w nowej karcie, a ich interfejs jest po polsku. Plik CSV wczytany w Panelu KPI jest przetwarzany lokalnie w przeglądarce.</p>
   </section>
  </main>
+ <footer class="legal"><p data-en="© 2026 Mariusz Rogowski. All rights reserved. Copying, reproducing or distributing the content and materials on this website (including texts, the photo and the tools) requires the prior consent of the website owner.">© 2026 Mariusz Rogowski. Wszelkie prawa zastrzeżone. Kopiowanie, powielanie i rozpowszechnianie treści oraz materiałów zamieszczonych na tej stronie (w tym tekstów, zdjęcia i narzędzi) wymaga uprzedniej zgody właściciela strony.</p></footer>
 </div>
 <script>
 (function(){
