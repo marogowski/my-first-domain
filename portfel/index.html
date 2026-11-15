@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfel należności i wynik odsetkowy</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF2F4;--sf:#fff;--ink:#12263A;--mu:#566878;--ln:#D3DCE2;--ac:#1D5C87;--hl:#E3EEF5;--bad:#B3392F;--ok:#1E7F5C;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1A26;--sf:#16263A;--ink:#E4ECF3;--mu:#9AABBA;--ln:#27394D;--ac:#6FB0DB;--hl:#1D3550;--bad:#F0786C;--ok:#4CC596;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1A26;--sf:#16263A;--ink:#E4ECF3;--mu:#9AABBA;--ln:#27394D;--ac:#6FB0DB;--hl:#1D3550;--bad:#F0786C;--ok:#4CC596;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Figtree,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1320px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:24px;margin:0 0 2px}
+.sub{color:var(--mu);margin:0 0 16px;font-size:14px}
+.lay{display:grid;grid-template-columns:minmax(300px,360px) 1fr;gap:20px;align-items:start}
+@media(max-width:960px){.lay{grid-template-columns:1fr}}
+.pn{background:var(--sf);border:1px solid var(--ln);padding:16px;min-width:0}
+.in{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media(max-width:960px){.in{position:static;max-height:none}}
+.in h2{font-size:15px;margin:0 0 12px;font-weight:600}
+.in h2:not(:first-child){margin-top:20px;padding-top:14px;border-top:1px solid var(--ln)}
+.fld{margin-bottom:14px}
+label,.lb{display:block;font-size:13px;color:var(--mu);margin-bottom:4px;font-weight:500}
+.seg{display:flex;border:1px solid var(--ln);border-radius:4px;overflow:hidden}
+.seg button{flex:1;border:0;border-right:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:7px 6px;font:inherit;font-size:13px;cursor:pointer;min-height:36px}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ac);color:#fff;font-weight:600}
+.ctl{display:flex;align-items:center;gap:8px;border:1px solid var(--ln);border-radius:4px;padding:0 10px;background:var(--sf)}
+.ctl:focus-within{border-color:var(--ac);outline:1px solid var(--ac)}
+.ctl input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:16px;font-weight:600;padding:7px 0;text-align:right;font-variant-numeric:tabular-nums;outline:none}
+.ctl .u{color:var(--mu);font-size:13px;white-space:nowrap}
+input[type=range]{width:100%;margin:6px 0 0;accent-color:var(--ac)}
+input[type=month],input[type=number]{font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:4px;padding:6px 8px;width:100%;min-height:34px}
+.hint{font-size:12.5px;color:var(--mu);margin-top:3px;min-height:1.1em}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--ln);border:1px solid var(--ln);margin-bottom:18px}
+.k{background:var(--sf);padding:12px 14px}
+.k .l{font-size:13px;color:var(--mu)}
+.k .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;margin:2px 0}
+.k .v small{font-size:13px;font-weight:500;color:var(--mu);margin-left:3px}
+.k .s{font-size:12.5px;color:var(--mu);font-variant-numeric:tabular-nums}
+.err{border:1px solid var(--bad);border-left-width:4px;background:var(--sf);color:var(--bad);padding:12px 14px;margin-bottom:18px}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--ln);margin-bottom:14px}
+.tabs button{border:0;border-bottom:3px solid transparent;background:none;padding:9px 14px;font:inherit;color:var(--mu);cursor:pointer;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ac);font-weight:600}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+.hd h2{font-size:16px;margin:0}
+button.b,select{font:inherit;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:4px;padding:6px 12px;min-height:34px;cursor:pointer}
+button.b:hover{border-color:var(--ac)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ov{overflow:auto;max-height:520px;border:1px solid var(--ln)}
+table{border-collapse:separate;border-spacing:0;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--ln);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{position:sticky;top:0;background:var(--hl);font-weight:600;font-size:13px;z-index:1}
+tbody tr:nth-child(even) td{background:color-mix(in srgb,var(--hl) 35%,var(--sf))}
+tr.t td{font-weight:700;background:var(--hl)!important}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--mu);font:11px Figtree,Arial,sans-serif}
+.lg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--mu);margin-top:8px}
+.lg i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;margin-top:12px}
+.sg label{font-size:12px;margin:0 0 2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:10px}
+.row label{margin:0}
+textarea{width:100%;min-height:70px;font:inherit;font-size:13px;color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:4px;padding:8px}
+.note{color:var(--mu);font-size:13px;margin-top:12px;max-width:100ch}
+.st{font-size:13px;color:var(--mu)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Portfel należności i wynik odsetkowy</h1>
+<p class="sub">Profil umowy i założenia sprzedaży tworzą portfel, od którego liczone są marża, koszt finansowy i elementy ESP. Kwoty w jednostkach modelu (zł).</p>
+
+<div class="lay">
+ <div class="pn in" id="in"></div>
+ <div>
+  <div id="msg"></div>
+  <div class="kp" id="kp"></div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="pn" id="body"></div>
+ </div>
+</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const MN=['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
+const NS=60;
+const SALES0=[2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2000,3000,3500,4000,2500,1700,2300,2300,0,0,0,0,0,0,0,0,0,0];
+const ANN0=[3400000, 3150000, 3150000, 3370000, 3268000];
+const now=new Date();
+const S={V:100,fee:20,n:42,fv:1,rate:4,mode:'sheet',mg:3,fc:-1,e1:.25,e2:-.3,sales:SALES0.slice(),smode:'annual',annual:ANN0.slice(),sy:now.getFullYear(),sm:now.getMonth(),tab:'sum',chart:'ptf'};
+
+/* ================= SILNIK ================= */
+/* Profil umowy (zakładka Loan Schedule). Tryb 'sheet': rata = −PMT(stopa/12; okres; kwota finansowana; +wartość końcowa), jak w arkuszu.
+   Tryb 'balloon': wartość końcowa pozostaje w saldzie i jest spłacana z ostatnią ratą. */
+function profile(p){
+ const r=p.rate/100/12,n=p.n,fin=p.V*(1-p.fee/100),R=p.V*p.fv/100,g=Math.pow(1+r,n);
+ if(!(fin>0))return{err:'Podaj wartość umowy większą od zera.'};
+ const P=p.mode==='sheet'?(r===0?(fin+R)/n:(fin*g+R)*r/(g-1)):(r===0?(fin-R)/n:(fin*g-R)*r/(g-1));
+ if(!(P>0))return{err:'Wartość końcowa jest zbyt wysoka względem kwoty finansowanej: rata byłaby niedodatnia. Zmniejsz wartość końcową.'};
+ const rows=[];let bal=fin,cum=0;
+ for(let k=1;k<=n;k++){
+  const int=bal*r;let pay,end;
+  if(p.mode==='sheet'){if(P<=bal){pay=P;end=bal-(pay-int)}else{pay=bal;end=0}}
+  else{pay=k<n?P:P+R;end=k<n?bal-(pay-int):0}
+  cum+=int;rows.push({k,bal,pay,int,pr:pay-int,end,cum});bal=end}
+ const f=[-fin,...rows.map(x=>x.pay)],npv=x=>f.reduce((s,v,i)=>s+v/Math.pow(1+x,i),0);
+ let lo=-.2,hi=.2,irr=NaN;if(npv(lo)*npv(hi)<0){for(let i=0;i<200;i++){const m=(lo+hi)/2;if(npv(lo)*npv(m)<=0)hi=m;else lo=m}irr=(lo+hi)/2*12*100}
+ return{rows,fin,R,P,irr,totInt:cum,last:rows[n-1].pay}
+}
+/* Portfel (zakładka Potfolio): saldo na koniec miesiąca t = Σ liczba umów(c) × saldo początkowe profilu w okresie t−c+1 */
+function salesCounts(){return S.smode==='annual'?Array.from({length:NS},(_,i)=>Math.floor((S.annual[Math.floor(i/12)]||0)/12/S.V+1e-9)):S.sales.slice(0,NS)}
+function portfolio(pr){
+ const n=S.n,H=Math.ceil((NS+n)/12)*12,D=pr.rows.map(x=>x.bal),bal=new Array(H).fill(0);
+ const cn=salesCounts();for(let c=0;c<NS;c++){const N=cn[c];if(!N)continue;for(let k=0;k<n&&c+k<H;k++)bal[c+k]+=N*D[k]}
+ const rows=bal.map((b,i)=>{const mg=b*S.mg/1200,fc=b*S.fc/1200,e1=b*S.e1/1200,e2=b*S.e2/1200;
+  return{t:i+1,cnt:i<NS?cn[i]:0,sales:i<NS?cn[i]*S.V:0,bal:b,mg,fc,e1,e2,inc:mg+fc+e1+e2}});
+ const years=[];for(let y=0;y*12<H;y++){const a=rows.slice(y*12,y*12+12),sm=k=>a.reduce((s,x)=>s+x[k],0),avg=sm('bal')/12;
+  years.push({y:y+1,end:a[11].bal,avg,mg:sm('mg'),fc:sm('fc'),e1:sm('e1'),e2:sm('e2'),inc:sm('inc'),sales:sm('sales'),yld:avg>0?sm('inc')/avg*100:0})}
+ return{rows,years,H}
+}
+function monthLabel(t,full){const i=S.sm+t-1,y=S.sy+Math.floor(i/12),m=i%12;if(full){const d=new Date(y,m+1,0);return String(d.getDate()).padStart(2,'0')+'.'+String(m+1).padStart(2,'0')+'.'+y}return MN[m]+' '+String(y).slice(2)}
+/* ================= /SILNIK ================= */
+
+const fmtIn=(v,d)=>v.toLocaleString('pl-PL',{minimumFractionDigits:d,maximumFractionDigits:d});
+const f0=v=>Math.round(v).toLocaleString('pl-PL');
+const f2=v=>v.toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2});
+const parse=s=>{s=String(s).replace(/[\s\u00a0]/g,'').replace(',','.');return s===''||isNaN(+s)?NaN:+s};
+const clamp=(v,f)=>{v=Math.min(f.max,Math.max(f.min,v));const m=Math.pow(10,f.dec);return Math.round(v*m)/m};
+/* Limity: opłata wstępna 0–45%, wartość końcowa 0–90%, razem maks. 99% */
+const lim=f=>f.k==='fee'?{...f,max:Math.min(45,Math.round((99-S.fv)*100)/100)}:f.k==='fv'?{...f,max:Math.min(90,Math.round((99-S.fee)*100)/100)}:f;
+const FL=[
+ {k:'V',l:'Średnia wartość umowy',min:0,max:1e9,dec:2,u:'zł',g:'a'},
+ {k:'fee',l:'Wstępna opłata',min:0,max:45,step:1,dec:2,u:'%',g:'a',rg:1},
+ {k:'n',l:'Okres umowy',min:12,max:120,step:1,dec:0,u:'mies.',g:'a',rg:1},
+ {k:'fv',l:'Wartość końcowa',min:0,max:90,step:1,dec:2,u:'%',g:'a',rg:1},
+ {k:'rate',l:'Roczna stopa procentowa umowy',min:0,max:10,step:.01,dec:2,u:'%',g:'a',rg:1},
+ {k:'mg',l:'Marża brutto',min:-20,max:20,dec:2,u:'% rocznie',g:'b'},
+ {k:'fc',l:'Koszt finansowy',min:-20,max:20,dec:2,u:'% rocznie',g:'b'},
+ {k:'e1',l:'Element ESP1',min:-20,max:20,dec:2,u:'% rocznie',g:'b'},
+ {k:'e2',l:'Element ESP2',min:-20,max:20,dec:2,u:'% rocznie',g:'b'}];
+const fld=f=>`<div class="fld"><label for="t-${f.k}">${f.l}</label><div class="ctl"><input id="t-${f.k}" type="text" inputmode="decimal" autocomplete="off"><span class="u">${f.u}</span></div>${f.rg?`<input id="r-${f.k}" type="range" min="${f.min}" max="${f.max}" step="${f.step}" aria-label="${f.l}">`:''}<div class="hint" id="h-${f.k}"></div></div>`;
+
+let PR=null,PF=null;
+function buildIn(){
+ $('#in').innerHTML=`<h2>Profil umowy</h2>${FL.filter(f=>f.g==='a').map(fld).join('')}
+ <div class="fld"><span class="lb" id="lbm">Ujęcie wartości końcowej</span><div class="seg" id="mode" role="group" aria-labelledby="lbm"><button type="button" data-m="sheet">Jak w arkuszu</button><button type="button" data-m="balloon">Jako balon</button></div><div class="hint" id="h-mode"></div></div>
+ <h2>Wynik odsetkowy</h2><div class="hint" style="margin:-6px 0 10px">Stawki roczne od salda portfela, naliczane 1/12 miesięcznie.</div>${FL.filter(f=>f.g==='b').map(fld).join('')}
+ <h2>Sprzedaż</h2>
+ <div class="fld"><span class="lb" id="lbs">Sposób zadania sprzedaży</span><div class="seg" id="smode" role="group" aria-labelledby="lbs"><button type="button" data-s="annual">Roczna (Y1–Y5)</button><button type="button" data-s="monthly">Miesięczna</button></div><div class="hint" id="h-smode"></div></div>
+ <div id="ann">${[0,1,2,3,4].map(i=>`<div class="fld"><label for="ta${i}">Sprzedaż Y${i+1}</label><div class="ctl"><input id="ta${i}" type="text" inputmode="decimal" autocomplete="off"><span class="u">zł rocznie</span></div></div>`).join('')}</div>
+ <div class="fld"><label for="sm">Miesiąc początku sprzedaży</label><input id="sm" type="month"></div>`;
+ FL.forEach(f=>{const t=$('#t-'+f.k),r=$('#r-'+f.k);t.value=fmtIn(S[f.k],f.dec);if(r)r.value=S[f.k];
+  t.addEventListener('input',()=>{const v=parse(t.value);if(!isNaN(v)){S[f.k]=clamp(v,lim(f));if(r)r.value=S[f.k];update()}});
+  t.addEventListener('blur',()=>{t.value=fmtIn(S[f.k],f.dec)});t.addEventListener('focus',()=>t.select());
+  if(r)r.addEventListener('input',()=>{S[f.k]=clamp(+r.value,lim(f));t.value=fmtIn(S[f.k],f.dec);update()})});
+ document.querySelectorAll('#mode button').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;update()});
+ document.querySelectorAll('#smode button').forEach(b=>b.onclick=()=>{S.smode=b.dataset.s;update(true)});
+ S.annual.forEach((_,i)=>{const t=$('#ta'+i);t.value=fmtIn(S.annual[i],0);
+  t.addEventListener('input',()=>{const v=parse(t.value);if(!isNaN(v)){S.annual[i]=Math.max(0,v);S.smode='annual';update(true)}});
+  t.addEventListener('blur',()=>{t.value=fmtIn(S.annual[i],0)});t.addEventListener('focus',()=>t.select())});
+ const sm=$('#sm');sm.value=`${S.sy}-${String(S.sm+1).padStart(2,'0')}`;
+ sm.addEventListener('change',()=>{const m=/^(\d{4})-(\d{2})$/.exec(sm.value);if(m){S.sy=+m[1];S.sm=+m[2]-1;update(true)}});
+}
+const TABS=[['sum','Podsumowanie roczne'],['ptf','Portfel miesięczny'],['prof','Profil umowy'],['sal','Założenia sprzedaży']];
+function build(){
+ $('#tabs').innerHTML=TABS.map(([k,l])=>`<button type="button" role="tab" data-t="${k}">${l}</button>`).join('');
+ document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;renderTab()});
+ buildIn();update(true)}
+
+function update(full){
+ document.querySelectorAll('#mode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===S.mode));
+ document.querySelectorAll('#smode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===S.smode));
+ $('#ann').style.opacity=S.smode==='annual'?1:.45;
+ $('#h-smode').textContent=S.smode==='annual'?'Sprzedaż miesięczna = 1/12 sprzedaży rocznej; liczba umów w miesiącu to ta kwota podzielona przez średnią wartość umowy, zaokrąglona w dół.':'Używana jest sprzedaż miesięczna z zakładki „Założenia sprzedaży”.';
+ FL.filter(f=>f.k==='fee'||f.k==='fv').forEach(f=>{const l=lim(f),r=$('#r-'+f.k);r.max=l.max;if(S[f.k]>l.max){S[f.k]=clamp(S[f.k],l);$('#t-'+f.k).value=fmtIn(S[f.k],f.dec);r.value=S[f.k]}
+  $('#h-'+f.k).textContent=f.k==='fee'?`Zakres 0–${fmtIn(l.max,2)}% (maks. 45%, razem z wartością końcową do 99%)`:`Zakres 0–${fmtIn(l.max,2)}% (maks. 90%, razem z opłatą wstępną do 99%)`});
+ $('#h-n').textContent='Zakres 12–120 miesięcy';
+ $('#h-mode').textContent=S.mode==='sheet'?'Rata = −PMT(stopa/12; okres; kwota finansowana; +wartość końcowa), saldo amortyzuje się do zera, ostatnia rata skrócona.':'Wartość końcowa zostaje w saldzie i jest spłacana z ostatnią ratą.';
+ PR=profile(S);
+ if(PR.err){$('#msg').innerHTML=`<div class="err" role="alert">${PR.err}</div>`;$('#kp').innerHTML='';$('#body').innerHTML='';PF=null;return}
+ $('#msg').innerHTML='';PF=portfolio(PR);kpis();
+ if(full||S.tab!=='sal'||$('#body').innerHTML==='')renderTab()
+}
+function kpis(){
+ const mx=PF.rows.reduce((a,x)=>x.bal>a.bal?x:a,PF.rows[0]),y1=PF.years[0],y5=PF.years.slice(0,5).reduce((s,y)=>s+y.inc,0);
+ const K=[
+  ['Rata miesięczna',f2(PR.rows[0].pay),'zł',`Kwota finansowana: ${f2(PR.fin)} zł; ostatnia rata: ${f2(PR.last)} zł`],
+  ['Efektywna stopa umowy',isNaN(PR.irr)?'brak':f2(PR.irr),isNaN(PR.irr)?'':'%',`IRR przepływów umowy × 12 (nominalnie)`],
+  ['Odsetki umowy łącznie',f2(PR.totInt),'zł',`${f2(PR.totInt/PR.fin*100)}% kwoty finansowanej`],
+  ['Maksymalny portfel',f0(mx.bal),'zł',`w miesiącu ${monthLabel(mx.t)} (nr ${mx.t})`],
+  ['Dochód odsetkowy, rok 1',f0(y1.inc),'zł',`Średnie saldo: ${f0(y1.avg)} zł`],
+  ['Dochód odsetkowy, lata 1–5',f0(y5),'zł','Suma pierwszych 60 miesięcy']];
+ $('#kp').innerHTML=K.map(([l,v,u,s])=>`<div class="k"><div class="l">${l}</div><div class="v">${v}<small>${u}</small></div><div class="s">${s}</div></div>`).join('')
+}
+
+const COMP=[['mg','Marża brutto','#1D5C87'],['fc','Koszt finansowy','#D1603D'],['e1','ESP1','#2A9D8F'],['e2','ESP2','#E9A23B']];
+function chartSvg(){
+ const R=PF.rows,mode=S.chart,n=R.length,W=700,H=280,Lm=56,T=10,B=26,pw=W-Lm-8,ph=H-T-B;
+ let segs,line=null;
+ if(mode==='inc'){segs=R.map(x=>{let pos=0,neg=0;return COMP.map(([k,l,c])=>{const v=x[k];let y0,y1;if(v>=0){y0=pos;pos+=v;y1=pos}else{y0=neg;neg+=v;y1=neg}return{y0,y1,c,t:`${l}: ${f0(v)}`}})});line=R.map(x=>x.inc)}
+ else{const k=mode==='ptf'?'bal':'sales';segs=R.map(x=>[{y0:0,y1:x[k],c:'#1D5C87',t:f0(x[k])}])}
+ let mn=0,mx=0;segs.forEach(b=>b.forEach(s=>{mn=Math.min(mn,s.y0,s.y1);mx=Math.max(mx,s.y0,s.y1)}));if(line)line.forEach(v=>{mn=Math.min(mn,v);mx=Math.max(mx,v)});
+ let st=Math.pow(10,Math.floor(Math.log10(((mx-mn)||1)/4)));const m=((mx-mn)||1)/4/st;st*=m>5?10:m>2?5:m>1?2:1;mn=Math.floor(mn/st)*st;mx=Math.ceil(mx/st)*st;
+ const y=v=>T+ph*(1-(v-mn)/(mx-mn)),bw=pw/n,w=Math.max(bw*.7,1.5);let g='';
+ for(let v=mn;v<=mx+1e-9;v+=st)g+=`<line x1="${Lm}" x2="${W-8}" y1="${y(v)}" y2="${y(v)}" stroke="var(--ln)"/><text x="${Lm-6}" y="${y(v)+4}" text-anchor="end">${f0(v)}</text>`;
+ const step=Math.ceil(n/12);
+ segs.forEach((b,j)=>{const x=Lm+j*bw+(bw-w)/2;b.forEach(s=>{g+=`<rect x="${x}" y="${y(Math.max(s.y0,s.y1))}" width="${w}" height="${Math.max(Math.abs(y(s.y0)-y(s.y1)),.4)}" fill="${s.c}"><title>${monthLabel(j+1)} – ${s.t}</title></rect>`});if(j%step===0)g+=`<text x="${x+w/2}" y="${H-8}" text-anchor="middle">${monthLabel(j+1)}</text>`});
+ if(line)g+=`<path d="${line.map((v,j)=>(j?'L':'M')+(Lm+j*bw+bw/2)+','+y(v)).join('')}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+ return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Wykres miesięczny">${g}</svg><div class="lg">${mode==='inc'?COMP.map(([k,l,c])=>`<span><i style="background:${c}"></i>${l}</span>`).join('')+'<span>— Dochód odsetkowy</span>':`<span><i style="background:#1D5C87"></i>${mode==='ptf'?'Portfel razem (saldo na koniec miesiąca)':'Nowa sprzedaż (wartość umów)'}</span>`}</div>`
+}
+const copyBtn=id=>`<button class="b" type="button" data-copy="${id}">Kopiuj do Excela</button> <span class="st" data-st="${id}"></span>`;
+function renderTab(){
+ document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===S.tab));
+ const B=$('#body');let h='';
+ if(S.tab==='sum'){
+  const Y=PF.years,rows=[['Saldo końcowe','end'],['Saldo średnie','avg'],['Marża brutto','mg'],['Koszt finansowy','fc'],['ESP1','e1'],['ESP2','e2'],['Dochód odsetkowy','inc',1],['Nowa sprzedaż (wartość)','sales'],['Dochód / saldo średnie (%)','yld']];
+  h=`<div class="hd"><h2>Wynik odsetkowy w latach</h2><span><select id="cm" aria-label="Wskaźnik na wykresie"><option value="ptf">Portfel razem</option><option value="inc">Dochód odsetkowy</option><option value="sales">Nowa sprzedaż</option></select></span></div>${chartSvg()}
+  <div class="hd" style="margin-top:18px"><h2>Podsumowanie roczne</h2><span>${copyBtn('t-sum')}</span></div>
+  <div class="ov"><table id="t-sum"><thead><tr><th></th>${Y.map(y=>`<th>Y${y.y}</th>`).join('')}</tr></thead><tbody>${rows.map(([l,k,t])=>`<tr class="${t?'t':''}"><td>${l}</td>${Y.map(y=>`<td>${k==='yld'?f2(y[k]):f0(y[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+  <p class="note">Rok Y1 to pierwsze 12 miesięcy od miesiąca początku sprzedaży. Saldo końcowe to portfel na koniec ostatniego miesiąca roku, saldo średnie to średnia z 12 miesięcznych sald, a pozostałe wiersze są sumami z 12 miesięcy.</p>`}
+ else if(S.tab==='ptf'){
+  h=`<div class="hd"><h2>Portfel i wynik odsetkowy – miesięcznie</h2><span>${copyBtn('t-ptf')}</span></div><div class="ov"><table id="t-ptf"><thead><tr><th>Nr</th><th>Koniec miesiąca</th><th>Liczba umów</th><th>Nowa sprzedaż</th><th>Portfel razem</th><th>Marża brutto</th><th>Koszt finansowy</th><th>ESP1</th><th>ESP2</th><th>Dochód odsetkowy</th></tr></thead><tbody>${PF.rows.map(x=>`<tr><td>${x.t}</td><td>${monthLabel(x.t,1)}</td><td>${x.cnt%1?f2(x.cnt):f0(x.cnt)}</td><td>${f0(x.sales)}</td><td>${f0(x.bal)}</td><td>${f0(x.mg)}</td><td>${f0(x.fc)}</td><td>${f0(x.e1)}</td><td>${f0(x.e2)}</td><td>${f0(x.inc)}</td></tr>`).join('')}</tbody></table></div>`}
+ else if(S.tab==='prof'){
+  const last=PR.rows.length-1;
+  h=`<div class="hd"><h2>Profil umowy (harmonogram jednej umowy)</h2><span>${copyBtn('t-prof')}</span></div><div class="ov"><table id="t-prof"><thead><tr><th>Nr</th><th>Saldo początkowe</th><th>Rata</th><th>Odsetki</th><th>Część kapitałowa</th><th>Saldo końcowe</th><th>Odsetki narastająco</th></tr></thead><tbody>${PR.rows.map(x=>`<tr><td>${x.k}</td><td>${f2(x.bal)}</td><td>${f2(x.pay)}</td><td>${f2(x.int)}</td><td>${f2(x.pr)}</td><td>${f2(x.end)}</td><td>${f2(x.cum)}</td></tr>`).join('')}</tbody></table></div>
+  <p class="note">Saldo początkowe w okresie k to wartość, którą portfel bierze dla umowy sprzedanej k−1 miesięcy wcześniej. Pierwsze saldo to kwota finansowana (wartość umowy pomniejszona o wstępną opłatę).${S.mode==='balloon'?' Ostatnia rata zawiera wartość końcową.':''}</p>`}
+ else if(S.smode==='annual'){
+  const A=S.annual,tot=A.reduce((s,v)=>s+v,0),fl=v=>Math.floor(v/12/S.V+1e-9),cm=A.map(fl),ct=cm.reduce((s,n)=>s+n*12,0);
+  h=`<div class="hd"><h2>Założenia sprzedaży – roczne (Y1–Y5)</h2></div><div class="ov"><table id="t-sal"><thead><tr><th></th>${A.map((_,i)=>`<th>Y${i+1}</th>`).join('')}<th>Razem</th></tr></thead><tbody>
+  <tr><td>Sprzedaż roczna (wartość)</td>${A.map(v=>`<td>${f0(v)}</td>`).join('')}<td>${f0(tot)}</td></tr>
+  <tr><td>Sprzedaż miesięczna (1/12)</td>${A.map(v=>`<td>${f0(v/12)}</td>`).join('')}<td></td></tr>
+  <tr><td>Średnia wartość umowy</td>${A.map(()=>`<td>${f2(S.V)}</td>`).join('')}<td></td></tr>
+  <tr><td>Liczba umów miesięcznie (w dół)</td>${cm.map(n=>`<td>${f0(n)}</td>`).join('')}<td></td></tr>
+  <tr><td>Liczba umów rocznie</td>${cm.map(n=>`<td>${f0(n*12)}</td>`).join('')}<td>${f0(ct)}</td></tr>
+  <tr><td>Sprzedaż wynikająca z liczby umów</td>${cm.map(n=>`<td>${f0(n*12*S.V)}</td>`).join('')}<td>${f0(ct*S.V)}</td></tr></tbody></table></div>
+  <p class="note">Wartości roczne wpisujesz w panelu po lewej stronie. Każdy miesiąc roku dostaje 1/12 sprzedaży rocznej, a liczba umów to sprzedaż miesięczna podzielona przez średnią wartość umowy i zaokrąglona w dół do liczby naturalnej. Portfel jest liczony od tej liczby umów, więc sprzedaż wynikająca z liczby umów (umów × średnia wartość) jest nieco niższa od planu rocznego. Po 60 miesiącach sprzedaż się kończy i portfel wygasa. Przełącz sposób zadania sprzedaży na „Miesięczna”, aby wpisać liczbę umów w poszczególnych miesiącach.</p>`}
+ else{
+  const tot=S.sales.reduce((s,v)=>s+v,0);
+  h=`<div class="hd"><h2>Założenia sprzedaży (liczba umów w miesiącu)</h2><span class="st" id="stot">Średnia wartość umowy: ${f2(S.V)} zł. Razem: ${f0(tot)} umów, wartość ${f0(tot*S.V)} zł</span></div>
+  <div class="row"><label>Wypełnij wszystkie miesiące<br><input id="fillv" type="number" min="0" step="1" value="2000" style="width:120px"></label><button class="b" id="fillb" type="button">Zastosuj</button><button class="b" id="pastb" type="button">Wklej z Excela</button><button class="b" id="defb" type="button">Przywróć dane z arkusza</button></div>
+  <div id="pastebox" hidden><textarea id="pastet" placeholder="Wklej do ${NS} liczb (z kolumny lub wiersza Excela)"></textarea><div class="row" style="margin-top:6px"><button class="b" id="pastok" type="button">Wczytaj</button><span class="st" id="pastm"></span></div></div>
+  <div class="sg" id="sg">${S.sales.map((v,i)=>`<div><label for="s${i}">${i+1}. ${monthLabel(i+1)}</label><input id="s${i}" type="number" min="0" step="1" value="${v}"></div>`).join('')}</div>
+  <p class="note">Sprzedaż to liczba umów o wartości podanej w profilu umowy. Portfel w miesiącu sprzedaży zaczyna się od salda początkowego profilu, a po zakończeniu umowy spada do zera.</p>`}
+ B.innerHTML=h;
+ const cm=$('#cm');if(cm){cm.value=S.chart;cm.onchange=()=>{S.chart=cm.value;renderTab()}}
+ document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>copyTable(b.dataset.copy));
+ if(S.tab==='sal'&&S.smode==='monthly'){
+  const upd=()=>{const tot=S.sales.reduce((s,v)=>s+v,0);$('#stot').textContent=`Średnia wartość umowy: ${f2(S.V)} zł. Razem: ${f0(tot)} umów, wartość ${f0(tot*S.V)} zł`};
+  S.sales.forEach((_,i)=>$('#s'+i).addEventListener('input',e=>{const v=parse(e.target.value);S.sales[i]=isNaN(v)||v<0?0:Math.round(v);PR=profile(S);if(!PR.err){PF=portfolio(PR);kpis()}upd()}));
+  const setAll=a=>{S.sales=a;update(true)};
+  $('#fillb').onclick=()=>{const v=parse($('#fillv').value);setAll(new Array(NS).fill(isNaN(v)||v<0?0:Math.round(v)))};
+  $('#defb').onclick=()=>setAll(SALES0.slice());
+  $('#pastb').onclick=()=>{const b=$('#pastebox');b.hidden=!b.hidden};
+  $('#pastok').onclick=()=>{const nums=$('#pastet').value.split(/[\s;]+/).map(parse).filter(v=>!isNaN(v));if(!nums.length){$('#pastm').textContent='Nie znaleziono liczb.';return}
+   const a=new Array(NS).fill(0);nums.slice(0,NS).forEach((v,i)=>a[i]=Math.max(0,Math.round(v)));setAll(a)}
+ }
+}
+function copyTable(id){
+ const t=document.getElementById(id),st=document.querySelector(`[data-st="${id}"]`);
+ const txt=[...t.rows].map(r=>[...r.cells].map(c=>c.textContent.replace(/(\d)[\s\u00a0](?=\d)/g,'$1').replace(/[\s\u00a0]+/g,' ').trim()).join('\t')).join('\n');
+ const done=m=>{st.textContent=m;setTimeout(()=>{st.textContent=''},4000)};
+ navigator.clipboard.writeText(txt).then(()=>done('Skopiowano. Wklej w Excelu.')).catch(()=>{try{const a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done('Skopiowano. Wklej w Excelu.')}catch(e){done('Nie udało się skopiować.')}})
+}
+build();
+</script>
+<script data-goatcounter="https://kod-serwisu.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
