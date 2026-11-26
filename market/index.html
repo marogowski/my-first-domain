@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AssetMarket – pojazdy i środki trwałe online</title>
+<meta name="description" content="Platforma sprzedaży, najmu i leasingu pojazdów oraz środków trwałych – w pełni online, z ubezpieczeniem i usługami.">
+<meta name="theme-color" content="#0b2545">
+<style>:root{
+  --ink:#0d1b2e;--ink-2:#3b4a60;--ink-3:#6b7a90;--line:#e3e8f0;--bg:#f4f6fa;--card:#fff;
+  --navy:#0b2545;--navy-2:#13315c;--accent:#0f9d8f;--accent-2:#0b7f74;--accent-soft:#e3f5f2;
+  --warm:#f29e4c;--warm-soft:#fff2e3;--danger:#d64545;--danger-soft:#fdeaea;--ok:#1f9d55;--ok-soft:#e5f6ec;
+  --info-soft:#e8f0fe;--r:14px;--r-sm:9px;--sh:0 1px 2px rgba(13,27,46,.06),0 6px 24px rgba(13,27,46,.06);
+  --sh-lg:0 10px 40px rgba(13,27,46,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent-2);text-decoration:none}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0 0 .4em;line-height:1.2;letter-spacing:-.01em}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:750}
+h2{font-size:22px;font-weight:700}
+h3{font-size:17px;font-weight:650}
+.muted{color:var(--ink-3)}.small{font-size:13px}.xs{font-size:12px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+.row{display:flex;gap:12px;align-items:center}.row.wrapf{flex-wrap:wrap}.sp{flex:1}
+.grid{display:grid;gap:16px}
+.hidden{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* header */
+.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:40;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo .mk{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#56cfc3);display:grid;place-items:center;font-size:15px}
+.nav{display:flex;gap:4px}
+.nav a{color:#c9d6ea;padding:8px 12px;border-radius:8px;font-weight:550;font-size:14px}
+.nav a.on,.nav a:hover{color:#fff;background:rgba(255,255,255,.09)}
+.seg{display:inline-flex;background:rgba(255,255,255,.1);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;color:#c9d6ea;padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600}
+.seg button.on{background:#fff;color:var(--navy)}
+.seg.light{background:#eef1f6}.seg.light button{color:var(--ink-2)}.seg.light button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.iconbtn{position:relative;border:0;background:rgba(255,255,255,.08);color:#fff;width:38px;height:38px;border-radius:10px;display:grid;place-items:center}
+.iconbtn .cnt{position:absolute;top:-4px;right:-4px;background:var(--warm);color:#1b1205;font-size:11px;font-weight:800;border-radius:9px;padding:0 5px;min-width:17px;height:17px;line-height:17px;text-align:center}
+.burger{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:10px;padding:10px 16px;font-weight:650;font-size:14px;background:var(--accent);color:#fff;transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--accent-2)}
+.btn.lg{padding:14px 22px;font-size:16px;border-radius:12px}
+.btn.block{width:100%}
+.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:#c3ccda;background:#fafbfd}
+.btn.dark{background:var(--navy)}.btn.dark:hover{background:var(--navy-2)}
+.btn.warn{background:var(--warm);color:#1b1205}
+.btn.danger{background:#fff;color:var(--danger);border-color:#f2c5c5}
+.btn.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.link{border:0;background:none;color:var(--accent-2);font-weight:600;padding:0}
+
+/* hero */
+.hero{background:radial-gradient(1200px 400px at 80% -10%,#1d4b7a 0,transparent 60%),linear-gradient(180deg,var(--navy),#0f2f55);color:#fff;padding:44px 0 80px}
+.hero p.lead{color:#c9d6ea;font-size:17px;max-width:640px;margin:8px 0 22px}
+.search{background:#fff;border-radius:16px;padding:8px;display:flex;gap:8px;box-shadow:var(--sh-lg);max-width:900px}
+.search input,.search select{color:var(--ink)}
+.search input{flex:1;border:0;outline:0;font-size:16px;padding:10px 12px;min-width:0}
+.search select{border:0;border-left:1px solid var(--line);padding:0 12px;outline:0;background:#fff;min-width:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600}
+.chip.on,.chip:hover{background:#fff;color:var(--navy)}
+.props{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-46px;position:relative}
+.prop{background:#fff;border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);display:flex;gap:12px;align-items:flex-start}
+.prop .ic{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);display:grid;place-items:center;font-size:18px}
+.prop b{display:block;font-size:14px}.prop span{font-size:13px;color:var(--ink-3)}
+
+/* catalog */
+.layout{display:grid;grid-template-columns:270px 1fr;gap:24px;margin:28px auto 60px}
+.filters{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px;align-self:start;position:sticky;top:80px;max-height:calc(100vh - 100px);overflow:auto}
+.filters h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin:16px 0 8px}
+.filters h4:first-child{margin-top:0}
+.ck{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:14px;cursor:pointer}
+.ck input{accent-color:var(--accent);width:16px;height:16px}
+.ck .n{margin-left:auto;color:var(--ink-3);font-size:12px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink-2)}
+.inp,select.inp,textarea.inp{border:1px solid var(--line);border-radius:var(--r-sm);padding:9px 11px;background:#fff;outline:0;width:100%;transition:.12s}
+.inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.inp.err{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft)}
+.ferr{color:var(--danger);font-size:12px}
+.toolbar{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:.18s;position:relative}
+.card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
+.card .media{aspect-ratio:16/10;position:relative;display:block}
+.card .media svg{width:100%;height:100%;display:block}
+.card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:16px;margin:0}
+.card .spec{font-size:13px;color:var(--ink-3)}
+.card .price{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+.card .price .p{font-weight:800;font-size:19px}
+.card .price .m{text-align:right;font-size:12px;color:var(--ink-3)}
+.card .price .m b{display:block;color:var(--accent-2);font-size:16px}
+.card .tools{position:absolute;top:10px;right:10px;display:flex;gap:6px}
+.card .tools button{width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.92);display:grid;place-items:center;font-size:16px;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.card .tools button.on{background:var(--warm)}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-size:11px;font-weight:700;border-radius:6px;padding:3px 7px;background:#eef1f6;color:var(--ink-2);white-space:nowrap}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}.badge.acc{background:var(--accent-soft);color:var(--accent-2)}.badge.w{background:var(--warm-soft);color:#9a5410}.badge.d{background:var(--danger-soft);color:var(--danger)}.badge.i{background:var(--info-soft);color:#2456b8}
+.modes{display:flex;gap:4px;flex-wrap:wrap}
+.mode{font-size:11px;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--ink-2)}
+.cond{position:absolute;left:10px;top:10px}
+.empty{background:#fff;border-radius:var(--r);padding:40px;text-align:center;box-shadow:var(--sh)}
+
+/* detail */
+.crumbs{font-size:13px;color:var(--ink-3);margin:20px 0 10px}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:24px;margin-bottom:60px;align-items:start}
+.panel{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px}
+.panel+.panel{margin-top:18px}
+.gallery .main{border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+.gallery .main svg{width:100%;height:100%;display:block}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.thumbs button{border:2px solid transparent;border-radius:9px;overflow:hidden;padding:0;aspect-ratio:16/10;background:none}
+.thumbs button.on{border-color:var(--accent)}
+.thumbs svg{width:100%;height:100%;display:block}
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.spec-i{background:var(--bg);border-radius:10px;padding:10px 12px}
+.spec-i span{display:block;font-size:12px;color:var(--ink-3)}.spec-i b{font-size:14px}
+.feat{display:flex;flex-wrap:wrap;gap:8px}
+.feat span{background:var(--accent-soft);color:var(--accent-2);border-radius:999px;padding:5px 11px;font-size:13px;font-weight:600}
+.trust{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.trust>div{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.trust i{font-style:normal;font-size:18px}
+.cfg{position:sticky;top:80px}
+.cfg .head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.price-big{font-size:28px;font-weight:800;letter-spacing:-.02em}
+.tabs{display:flex;gap:4px;background:#eef1f6;border-radius:11px;padding:4px;margin:12px 0 14px;flex-wrap:wrap}
+.tabs button{flex:1 1 auto;border:0;background:transparent;border-radius:8px;padding:8px 8px;font-size:12.5px;font-weight:650;color:var(--ink-2)}
+.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.rng{margin:8px 0 14px}
+.rng .top-l{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink-2)}
+.rng .top-l b{color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--accent);margin:6px 0 0}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 11px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.opt.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-2)}
+.result{background:linear-gradient(180deg,#f7fbfa,#eef8f6);border:1px solid #cfeae5;border-radius:12px;padding:14px 16px;margin:14px 0}
+.result .big{font-size:30px;font-weight:800;color:var(--accent-2);letter-spacing:-.02em}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:3px 0}
+.kv span{color:var(--ink-2)}.kv b{font-weight:650;text-align:right}
+.kv.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-size:15px}
+.kv.tot b{font-weight:800}
+details{border:1px solid var(--line);border-radius:11px;padding:10px 14px;margin-top:10px;background:#fff}
+details summary{cursor:pointer;font-weight:650;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+details summary::-webkit-details-marker{display:none}
+details summary:after{content:"▾";margin-left:auto;color:var(--ink-3)}
+details[open] summary:after{content:"▴"}
+.sec-t{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:700;margin:16px 0 8px}
+.line-ck{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f2f6;font-size:13.5px;cursor:pointer}
+.line-ck:last-child{border-bottom:0}
+.line-ck input{accent-color:var(--accent);width:17px;height:17px;flex:0 0 17px}
+.line-ck .pr{margin-left:auto;font-weight:650;white-space:nowrap}
+.line-ck small{display:block;color:var(--ink-3);font-size:12px}
+.note{font-size:12.5px;color:var(--ink-2);background:var(--info-soft);border-radius:9px;padding:8px 11px;margin:8px 0}
+.note.w{background:var(--warm-soft);color:#7a420c}.note.ok{background:var(--ok-soft);color:#16693a}.note.d{background:var(--danger-soft);color:#962f2f}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;font-size:12px;color:var(--ink-3);font-weight:650;border-bottom:1px solid var(--line);padding:7px 8px;white-space:nowrap}
+table.t td{padding:7px 8px;border-bottom:1px solid #f0f2f6;vertical-align:top}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr:hover td{background:#fafbfd}
+.scroll{max-height:320px;overflow:auto}
+.quote-card{border:1px solid var(--line);border-radius:11px;padding:11px 13px;margin-top:8px;cursor:pointer;display:flex;gap:10px;align-items:flex-start;transition:.12s}
+.quote-card:hover{border-color:#b9c4d4}
+.quote-card.on{border-color:var(--accent);background:var(--accent-soft)}
+.quote-card .pp{margin-left:auto;text-align:right;font-weight:800;white-space:nowrap}
+
+/* compare modal */
+.modal-bg{position:fixed;inset:0;background:rgba(9,20,36,.55);z-index:80;display:grid;place-items:center;padding:20px;animation:fade .15s}
+.modal{background:#fff;border-radius:16px;max-width:980px;width:100%;max-height:90vh;overflow:auto;padding:22px;box-shadow:var(--sh-lg)}
+.modal .x{float:right;border:0;background:#eef1f6;border-radius:9px;width:34px;height:34px;font-size:18px}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.cmp td,.cmp th{text-align:center!important}
+.cmp td:first-child,.cmp th:first-child{text-align:left!important}
+.best{color:var(--ok);font-weight:800}
+
+/* checkout */
+.steps{display:flex;gap:6px;margin:22px 0 18px;flex-wrap:wrap}
+.step{flex:1;min-width:110px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-3);background:#fff;border-radius:10px;padding:10px 12px;box-shadow:var(--sh)}
+.step .no{width:24px;height:24px;border-radius:50%;background:#eef1f6;display:grid;place-items:center;font-size:12px;font-weight:800;flex:0 0 24px}
+.step.on{color:var(--ink)}.step.on .no{background:var(--accent);color:#fff}
+.step.done .no{background:var(--ok);color:#fff}
+.co{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;margin-bottom:60px;align-items:start}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 14px}
+.typecards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tc{border:2px solid var(--line);border-radius:13px;padding:14px;cursor:pointer;background:#fff;text-align:left}
+.tc.on{border-color:var(--accent);background:var(--accent-soft)}
+.tc b{display:block;margin:6px 0 2px}.tc span{font-size:12.5px;color:var(--ink-3)}
+.kyc{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.progress{list-style:none;padding:0;margin:10px 0}
+.progress li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f2f6;font-size:14px}
+.progress .st{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:0 0 26px;background:#eef1f6;font-size:13px}
+.progress li.run .st{border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:spin .8s linear infinite;background:#fff}
+.progress li.ok .st{background:var(--ok);color:#fff}.progress li.bad .st{background:var(--danger);color:#fff}.progress li.wait .st{background:var(--warm);color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+.decision{border-radius:14px;padding:20px;margin:14px 0}
+.decision.approved{background:var(--ok-soft)}.decision.conditional,.decision.manual{background:var(--warm-soft)}.decision.rejected{background:var(--danger-soft)}
+.decision h2{margin-bottom:4px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;padding:6px 0}
+.consent input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px;flex:0 0 16px}
+.doc{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;font-size:14px}
+.doc .ic{font-size:20px}
+.pay{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.timeline{border-left:3px solid var(--accent-soft);margin:10px 0 0 10px;padding-left:18px}
+.timeline div{position:relative;padding:6px 0 12px}
+.timeline div:before{content:"";position:absolute;left:-26px;top:9px;width:13px;height:13px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 2px var(--accent-soft)}
+
+/* admin */
+.admin{display:grid;grid-template-columns:230px 1fr;gap:22px;margin:24px auto 60px}
+.side{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:10px;align-self:start;position:sticky;top:80px}
+.side button{display:flex;width:100%;gap:10px;align-items:center;border:0;background:none;text-align:left;padding:10px 12px;border-radius:9px;font-weight:600;color:var(--ink-2);font-size:14px}
+.side button.on,.side button:hover{background:var(--accent-soft);color:var(--accent-2)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kpi{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:16px}
+.kpi span{font-size:12px;color:var(--ink-3);font-weight:600}.kpi b{display:block;font-size:24px;margin-top:2px;letter-spacing:-.02em}
+.mode-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.mode-box.off{background:#fafbfc}
+.mode-box .mh{display:flex;align-items:center;gap:10px;font-weight:700}
+.switch{position:relative;display:inline-block;width:40px;height:23px;flex:0 0 40px}
+.switch input{opacity:0;width:0;height:0}
+.switch span{position:absolute;inset:0;background:#cfd6e2;border-radius:23px;transition:.15s;cursor:pointer}
+.switch span:before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.15s}
+.switch input:checked+span{background:var(--accent)}
+.switch input:checked+span:before{transform:translateX(17px)}
+.f4{display:grid;grid-template-columns:repeat(4,1fr);gap:0 12px}
+.f5{display:grid;grid-template-columns:repeat(5,1fr);gap:0 12px}
+.st-pill{font-size:12px;font-weight:700;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;box-shadow:var(--sh-lg);z-index:100;font-weight:600;font-size:14px;animation:fade .2s}
+.log{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:#0d1b2e;color:#cfe3ff;border-radius:10px;padding:12px;max-height:420px;overflow:auto;white-space:pre-wrap}
+footer{background:var(--navy);color:#9fb2cd;font-size:13px;padding:28px 0;margin-top:20px}
+footer a{color:#cfe0f5}
+footer .wrap>div:first-child{flex:1;min-width:280px}
+
+@media (max-width:1100px){.detail,.co{grid-template-columns:1fr}.cfg{position:static}.props{grid-template-columns:repeat(2,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .layout,.admin{grid-template-columns:1fr}.filters,.side{position:static;max-height:none}
+  .nav{display:none;position:absolute;top:64px;left:0;right:0;background:var(--navy);flex-direction:column;padding:10px}
+  .nav.open{display:flex}.burger{display:grid}
+  .specs{grid-template-columns:repeat(2,1fr)}.typecards,.kyc,.pay{grid-template-columns:1fr}
+  .f2,.f3,.f4,.f5{grid-template-columns:1fr 1fr}.trust{grid-template-columns:1fr}
+  .search{flex-wrap:wrap}.search input{flex:1 1 100%}.search select{flex:1;border-left:0;border-top:1px solid var(--line);padding:10px}
+  .hide-m{display:none!important}
+}
+@media (max-width:520px){.props{grid-template-columns:1fr}.f2,.f3,.f4,.f5{grid-template-columns:1fr}.top .wrap{gap:10px}}
+@media print{.top,footer,.no-print{display:none!important}body{background:#fff}.panel{box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+<div id="app"><div style="padding:80px 20px;text-align:center;font-family:system-ui;color:#6b7a90">Ładowanie platformy…</div></div>
+<script>
+/* ======== KONFIGURACJA WDROŻENIA ========
+   apiBase: ''  -> tryb demonstracyjny (dane w przeglądarce, symulowane integracje)
+   apiBase: 'https://api.mariusz-rogowski.pl' -> produkcja z backendem (server/server.js)
+*/
+window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_CONFIG || {});
+</script>
+<script>/* ---- shared/calc.js ---- */
+/*
+ * AssetMarket – silnik kalkulacji ofert (wspólny dla frontu i backendu).
+ * Wszystkie kwoty w PLN, zaokrąglane do groszy na końcu obliczeń.
+ * Formy: purchase (zakup), str (najem krótkoterminowy), ltr (najem długoterminowy),
+ *        lease_op (leasing operacyjny), lease_fin (leasing finansowy).
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.AMCalc = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const r2 = (x) => Math.round((x + Number.EPSILON) * 100) / 100;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+
+  /** Stawka VAT jako ułamek. 'zw' i 'marza' => 0 (dla marży VAT jest w cenie, nie wykazywany). */
+  function vatRate(code) {
+    if (code === 'zw' || code === 'marza' || code === 'np') return 0;
+    const n = Number(code);
+    return isFinite(n) ? n / 100 : 0.23;
+  }
+
+  /** Cena brutto z netto */
+  function grossFromNet(net, vatCode) { return r2(net * (1 + vatRate(vatCode))); }
+  /** Cena netto z brutto */
+  function netFromGross(gross, vatCode) { return r2(gross / (1 + vatRate(vatCode))); }
+
+  /**
+   * Rata annuitetowa płatna z dołu.
+   * pv – kapitał do spłaty (dodatni), fv – wartość końcowa (wykup), i – stopa miesięczna.
+   */
+  function pmt(i, n, pv, fv) {
+    fv = fv || 0;
+    if (n <= 0) return 0;
+    if (Math.abs(i) < 1e-12) return (pv - fv) / n;
+    const q = Math.pow(1 + i, n);
+    return (pv * q - fv) * i / (q - 1);
+  }
+
+  /** Harmonogram kapitał/odsetki dla leasingu */
+  function schedule(i, n, pv, fv, installment) {
+    const rows = [];
+    let bal = pv;
+    for (let k = 1; k <= n; k++) {
+      const interest = bal * i;
+      const capital = installment - interest;
+      bal = bal - capital;
+      rows.push({ no: k, installment: r2(installment), interest: r2(interest), capital: r2(capital), balance: r2(Math.max(bal, 0)) });
+    }
+    return rows;
+  }
+
+  /** Podstawa finansowania: dla VAT-marża / zw. leasingodawca finansuje cenę brutto (bez odliczenia VAT). */
+  function financingBase(offer) {
+    const v = offer.vat;
+    if (v === 'marza' || v === 'zw') return Number(offer.priceGross || offer.priceNet);
+    return Number(offer.priceNet);
+  }
+
+  /** Stawka VAT od opłat leasingowych/najmu – dla marży/zw. opłaty są i tak opodatkowane 23% */
+  function serviceVatCode(offer) {
+    return (offer.vat === 'marza' || offer.vat === 'zw') ? '23' : offer.vat;
+  }
+
+  // ------------------------------------------------------------------ ZAKUP
+  function calcPurchase(offer, p) {
+    const cfg = (offer.modes && offer.modes.purchase) || {};
+    const discountPct = Number(cfg.discountPct || 0);
+    const net = r2(Number(offer.priceNet) * (1 - discountPct / 100));
+    const gross = offer.vat === 'marza' ? r2(Number(offer.priceGross) * (1 - discountPct / 100)) : grossFromNet(net, offer.vat);
+    const vat = r2(gross - net);
+    return {
+      mode: 'purchase',
+      net, vat, gross,
+      discountPct,
+      reservationFee: r2(Number(cfg.reservationFee || 0)),
+      returnDays: Number(cfg.returnDays || 0),
+      upfrontNet: net, upfrontGross: gross,
+      monthlyNet: 0, monthlyGross: 0,
+      lines: [
+        { label: 'Cena netto', net, gross: null },
+        { label: 'VAT ' + (offer.vat === 'marza' ? '(marża – nie wykazywany)' : offer.vat === 'zw' ? 'zw.' : offer.vat + '%'), net: vat },
+        { label: 'Cena brutto', net: gross }
+      ]
+    };
+  }
+
+  // ------------------------------------------------------------------ NAJEM KRÓTKOTERMINOWY
+  function calcShortRent(offer, p) {
+    const cfg = (offer.modes && offer.modes.str) || {};
+    const days = Math.max(Number(cfg.minDays || 1), Math.round(Number(p.days || cfg.minDays || 1)));
+    const maxDays = Number(cfg.maxDays || 365);
+    const d = Math.min(days, maxDays);
+    let disc = 0;
+    (cfg.tiers || []).forEach((t) => { if (d >= t.fromDays) disc = Math.max(disc, Number(t.discountPct)); });
+    const dayNet = r2(Number(cfg.dayRateNet) * (1 - disc / 100));
+    const rentNet = r2(dayNet * d);
+    const vc = serviceVatCode(offer);
+    const rentGross = grossFromNet(rentNet, vc);
+    const deposit = r2(Number(cfg.deposit || 0));
+    return {
+      mode: 'str', days: d, discountPct: disc, dayNet, dayGross: grossFromNet(dayNet, vc),
+      net: rentNet, vat: r2(rentGross - rentNet), gross: rentGross,
+      deposit, kmPerDay: Number(cfg.kmPerDay || 0), kmLimit: Number(cfg.kmPerDay || 0) * d,
+      extraKmNet: Number(cfg.extraKmNet || 0),
+      upfrontNet: rentNet, upfrontGross: r2(rentGross + deposit),
+      monthlyNet: 0, monthlyGross: 0
+    };
+  }
+
+  // ------------------------------------------------------------------ LEASING
+  function calcLease(offer, p, kind) {
+    const cfg = (offer.modes && offer.modes[kind]) || {};
+    const base = financingBase(offer);
+    const term = clamp(Math.round(Number(p.term || cfg.terms && cfg.terms[0] || 36)), Number(cfg.minTerm || 12), Number(cfg.maxTerm || 84));
+    const downPct = clamp(Number(p.downPct != null ? p.downPct : cfg.defaultDownPct || 10), Number(cfg.minDownPct || 0), Number(cfg.maxDownPct || 45));
+    let rvMin = Number(cfg.minRvPct != null ? cfg.minRvPct : 1), rvMax = Number(cfg.maxRvPct != null ? cfg.maxRvPct : 40);
+    const rvPct = clamp(Number(p.rvPct != null ? p.rvPct : cfg.defaultRvPct || rvMin), rvMin, rvMax);
+    const annual = Number(cfg.ratePct || 9) / 100;
+    const i = annual / 12;
+    const feePct = Number(cfg.prepFeePct || 0);
+
+    const down = r2(base * downPct / 100);
+    const rv = r2(base * rvPct / 100);
+    const fee = r2(base * feePct / 100);
+    const financed = r2(base - down);
+    const inst = pmt(i, term, financed, rv);
+    const installmentNet = r2(inst);
+    const vc = serviceVatCode(offer);
+    const vr = vatRate(vc);
+    const totalNet = r2(down + installmentNet * term + rv + fee);
+    const res = {
+      mode: kind, term, downPct, rvPct, ratePct: annual * 100, prepFeePct: feePct,
+      base: r2(base), down, rv, fee, financed, installmentNet,
+      totalNet, sumOfPaymentsPct: r2(totalNet / base * 100),
+      schedule: schedule(i, term, financed, rv, inst)
+    };
+    if (kind === 'lease_op') {
+      // VAT doliczany do każdej opłaty
+      res.installmentGross = r2(installmentNet * (1 + vr));
+      res.downGross = r2(down * (1 + vr));
+      res.rvGross = r2(rv * (1 + vr));
+      res.feeGross = r2(fee * (1 + vr));
+      res.vatUpfront = 0;
+      res.upfrontNet = r2(down + fee); res.upfrontGross = r2(res.downGross + res.feeGross);
+      res.monthlyNet = installmentNet; res.monthlyGross = res.installmentGross;
+      res.taxNote = 'Raty netto stanowią koszt uzyskania przychodu; VAT od każdej raty do odliczenia (dla aut osobowych wg limitów 50%/100%).';
+    } else {
+      // Leasing finansowy: VAT od całej wartości przedmiotu płatny z góry, raty bez VAT (część odsetkowa zw.)
+      const vatUp = r2(base * vatRate(offer.vat === 'marza' || offer.vat === 'zw' ? '0' : offer.vat));
+      res.vatUpfront = vatUp;
+      res.installmentGross = installmentNet;
+      res.downGross = down; res.rvGross = rv; res.feeGross = r2(fee * (1 + vr));
+      res.upfrontNet = r2(down + fee); res.upfrontGross = r2(down + res.feeGross + vatUp);
+      res.monthlyNet = installmentNet; res.monthlyGross = installmentNet;
+      res.taxNote = 'Przedmiot w ewidencji korzystającego (amortyzacja); VAT od całej wartości płatny z pierwszą fakturą; w kosztach część odsetkowa rat.';
+    }
+    return res;
+  }
+
+  // ------------------------------------------------------------------ NAJEM DŁUGOTERMINOWY
+  function calcLongRent(offer, p) {
+    const cfg = (offer.modes && offer.modes.ltr) || {};
+    const base = financingBase(offer);
+    const term = clamp(Math.round(Number(p.term || (cfg.terms && cfg.terms[0]) || 36)), Number(cfg.minTerm || 12), Number(cfg.maxTerm || 60));
+    const km = Number(p.kmYear || (cfg.kmOptions && cfg.kmOptions[0]) || 20000);
+    const downPct = clamp(Number(p.downPct != null ? p.downPct : cfg.defaultDownPct || 0), 0, Number(cfg.maxDownPct || 30));
+    // wartość rezydualna z tabeli (interpolacja liniowa po miesiącach) skorygowana o przebieg
+    const tbl = (cfg.rvTable || [{ term: 24, rvPct: 62 }, { term: 36, rvPct: 52 }, { term: 48, rvPct: 43 }]).slice().sort((a, b) => a.term - b.term);
+    let rvPct = tbl[0].rvPct;
+    for (let k = 0; k < tbl.length; k++) {
+      if (term >= tbl[k].term) rvPct = tbl[k].rvPct;
+      if (k < tbl.length - 1 && term > tbl[k].term && term < tbl[k + 1].term) {
+        const t = (term - tbl[k].term) / (tbl[k + 1].term - tbl[k].term);
+        rvPct = tbl[k].rvPct + t * (tbl[k + 1].rvPct - tbl[k].rvPct);
+      }
+    }
+    const refKm = Number(cfg.refKmYear || 20000);
+    const pen = Number(cfg.rvPenaltyPer10k || 3);
+    rvPct = clamp(rvPct - ((km - refKm) / 10000) * pen, 5, 85);
+    const annual = Number(cfg.ratePct || 9.5) / 100;
+    const i = annual / 12;
+    const down = r2(base * downPct / 100);
+    const rv = r2(base * rvPct / 100);
+    const finance = r2(pmt(i, term, base - down, rv));
+    const services = [];
+    const sel = p.ltrServices || cfg.includedServices || [];
+    const catalog = cfg.servicePrices || {};
+    let svc = 0;
+    Object.keys(catalog).forEach((k) => {
+      const it = catalog[k];
+      const mandatory = !!it.mandatory;
+      if (mandatory || sel.indexOf(k) >= 0) {
+        const kmFactor = it.perKm ? km / refKm : 1;
+        const val = r2(Number(it.monthlyNet) * kmFactor);
+        svc += val; services.push({ key: k, label: it.label, monthlyNet: val, mandatory });
+      }
+    });
+    const monthlyNet = r2(finance + svc);
+    const vc = serviceVatCode(offer);
+    return {
+      mode: 'ltr', term, kmYear: km, downPct, rvPct: r2(rvPct), ratePct: annual * 100,
+      base: r2(base), down, rv, financeNet: finance, servicesNet: r2(svc), services,
+      monthlyNet, monthlyGross: grossFromNet(monthlyNet, vc),
+      upfrontNet: down, upfrontGross: grossFromNet(down, vc),
+      totalNet: r2(down + monthlyNet * term),
+      extraKmNet: Number(cfg.extraKmNet || 0.25),
+      endOfTerm: 'Zwrot pojazdu (bez obowiązku wykupu); opcjonalnie odkup po wartości rynkowej.'
+    };
+  }
+
+  // ------------------------------------------------------------------ UBEZPIECZENIE STATYCZNE
+  /**
+   * products: [{code,label,type:'pctValue'|'fixed', ratePct, fixed, appliesTo:['vehicle'|'asset']}]
+   * opts: { selected:[codes], deductiblePct, inInstallment, months }
+   */
+  function calcStaticInsurance(offer, products, opts) {
+    opts = opts || {};
+    const value = Number(offer.priceGross || offer.priceNet);
+    const isVehicle = offer.assetType === 'vehicle';
+    const sel = opts.selected || [];
+    const lines = [];
+    let annual = 0;
+    (products || []).forEach((pr) => {
+      if (sel.indexOf(pr.code) < 0) return;
+      if (pr.appliesTo && pr.appliesTo.indexOf(isVehicle ? 'vehicle' : 'asset') < 0) return;
+      let prem = pr.type === 'pctValue' ? value * Number(pr.ratePct) / 100 : Number(pr.fixed);
+      if (pr.deductibleSensitive && opts.deductiblePct) {
+        prem = prem * (1 - Math.min(0.35, Number(opts.deductiblePct) * 0.035));
+      }
+      if (pr.oneOff) {
+        // np. GAP – składka jednorazowa za cały okres; przeliczamy na rok dla porównania
+        const years = Math.max(1, (opts.months || 36) / 12);
+        prem = prem / years;
+      }
+      prem = r2(Math.max(prem, Number(pr.minPremium || 0)));
+      annual += prem;
+      lines.push({ code: pr.code, label: pr.label, annual: prem });
+    });
+    annual = r2(annual);
+    return { annual, monthly: r2(annual / 12), lines, vat: 'zw', inInstallment: !!opts.inInstallment };
+  }
+
+  // ------------------------------------------------------------------ USŁUGI DODATKOWE
+  function calcServices(services, selected) {
+    let net = 0, gross = 0, monthlyNet = 0, monthlyGross = 0;
+    const lines = [];
+    (services || []).forEach((s) => {
+      if ((selected || []).indexOf(s.code) < 0) return;
+      const n = Number(s.priceNet);
+      const g = grossFromNet(n, s.vat || '23');
+      if (s.billing === 'monthly') { monthlyNet += n; monthlyGross += g; }
+      else { net += n; gross += g; }
+      lines.push({ code: s.code, label: s.label, net: r2(n), gross: g, billing: s.billing || 'oneoff' });
+    });
+    return { oneOffNet: r2(net), oneOffGross: r2(gross), monthlyNet: r2(monthlyNet), monthlyGross: r2(monthlyGross), lines };
+  }
+
+  /** Główna funkcja – zwraca kalkulację dla wybranej formy */
+  function quote(offer, mode, params) {
+    params = params || {};
+    switch (mode) {
+      case 'purchase': return calcPurchase(offer, params);
+      case 'str': return calcShortRent(offer, params);
+      case 'ltr': return calcLongRent(offer, params);
+      case 'lease_op': return calcLease(offer, params, 'lease_op');
+      case 'lease_fin': return calcLease(offer, params, 'lease_fin');
+      default: throw new Error('Nieznana forma: ' + mode);
+    }
+  }
+
+  /** Najniższa „rata od” do prezentacji na liście ofert */
+  function fromMonthly(offer) {
+    let best = null;
+    ['lease_op', 'ltr', 'lease_fin'].forEach((m) => {
+      if (!offer.modes || !offer.modes[m] || !offer.modes[m].enabled) return;
+      const cfg = offer.modes[m];
+      const q = quote(offer, m, { term: cfg.terms ? cfg.terms[cfg.terms.length - 1] : undefined, downPct: m === 'ltr' ? 0 : cfg.maxDownPct ? Math.min(20, cfg.maxDownPct) : 10, rvPct: cfg.defaultRvPct });
+      if (best === null || q.monthlyNet < best.monthlyNet) best = { mode: m, monthlyNet: q.monthlyNet, monthlyGross: q.monthlyGross };
+    });
+    return best;
+  }
+
+  const MODE_LABELS = {
+    purchase: 'Zakup', str: 'Najem krótkoterminowy', ltr: 'Najem długoterminowy',
+    lease_op: 'Leasing operacyjny', lease_fin: 'Leasing finansowy'
+  };
+
+  return { r2, clamp, vatRate, grossFromNet, netFromGross, pmt, schedule, quote, calcStaticInsurance, calcServices, fromMonthly, MODE_LABELS };
+});
+
+/* ---- shared/validators.js ---- */
+/* AssetMarket – walidatory danych klienta (PESEL, NIP, REGON, IBAN, kod pocztowy) */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.AMValid = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+  const digits = (s) => String(s || '').replace(/[\s-]/g, '');
+
+  function pesel(v) {
+    const s = digits(v);
+    if (!/^\d{11}$/.test(s)) return false;
+    const w = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+    let sum = 0;
+    for (let i = 0; i < 10; i++) sum += w[i] * Number(s[i]);
+    const c = (10 - (sum % 10)) % 10;
+    if (c !== Number(s[10])) return false;
+    return !!peselBirthDate(s);
+  }
+
+  function peselBirthDate(v) {
+    const s = digits(v);
+    let y = Number(s.slice(0, 2)), m = Number(s.slice(2, 4)), d = Number(s.slice(4, 6));
+    let century = 1900;
+    if (m > 80) { century = 1800; m -= 80; } else if (m > 60) { century = 2200; m -= 60; }
+    else if (m > 40) { century = 2100; m -= 40; } else if (m > 20) { century = 2000; m -= 20; }
+    const dt = new Date(Date.UTC(century + y, m - 1, d));
+    if (dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
+    return dt;
+  }
+
+  function ageFromPesel(v, now) {
+    const b = peselBirthDate(v); if (!b) return null;
+    now = now || new Date();
+    let a = now.getUTCFullYear() - b.getUTCFullYear();
+    const md = (now.getUTCMonth() - b.getUTCMonth()) || (now.getUTCDate() - b.getUTCDate());
+    if (md < 0) a--;
+    return a;
+  }
+
+  function nip(v) {
+    const s = digits(v).replace(/^PL/i, '');
+    if (!/^\d{10}$/.test(s)) return false;
+    const w = [6, 5, 7, 2, 3, 4, 5, 6, 7];
+    let sum = 0;
+    for (let i = 0; i < 9; i++) sum += w[i] * Number(s[i]);
+    const c = sum % 11;
+    return c !== 10 && c === Number(s[9]);
+  }
+
+  function regon(v) {
+    const s = digits(v);
+    if (/^\d{9}$/.test(s)) {
+      const w = [8, 9, 2, 3, 4, 5, 6, 7]; let sum = 0;
+      for (let i = 0; i < 8; i++) sum += w[i] * Number(s[i]);
+      return (sum % 11 % 10) === Number(s[8]);
+    }
+    if (/^\d{14}$/.test(s)) {
+      const w = [2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8]; let sum = 0;
+      for (let i = 0; i < 13; i++) sum += w[i] * Number(s[i]);
+      return (sum % 11 % 10) === Number(s[13]);
+    }
+    return false;
+  }
+
+  function iban(v) {
+    let s = String(v || '').replace(/\s/g, '').toUpperCase();
+    if (/^\d{26}$/.test(s)) s = 'PL' + s;
+    if (!/^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/.test(s)) return false;
+    const r = s.slice(4) + s.slice(0, 4);
+    let num = '';
+    for (const ch of r) num += /[A-Z]/.test(ch) ? String(ch.charCodeAt(0) - 55) : ch;
+    let mod = 0;
+    for (let i = 0; i < num.length; i += 7) mod = Number(String(mod) + num.slice(i, i + 7)) % 97;
+    return mod === 1;
+  }
+
+  const email = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || ''));
+  const phone = (v) => /^(\+48)?\d{9}$/.test(digits(v));
+  const postcode = (v) => /^\d{2}-\d{3}$/.test(String(v || '').trim());
+
+  return { pesel, peselBirthDate, ageFromPesel, nip, regon, iban, email, phone, postcode, digits };
+});
+
+/* ---- shared/mock-services.js ---- */
+/*
+ * AssetMarket – symulatory usług zewnętrznych (tryb MOCK).
+ * Te same funkcje wykorzystuje backend (adaptery w trybie mock) i front w trybie standalone.
+ *
+ * Scenariusze testowe (sterowane cyfrą seryjną PESEL – 10. cyfra / NIP – 9. cyfra):
+ *   ...8.  -> weryfikacja tożsamości (KYC) negatywna
+ *   ...9.  -> BIK negatywny (zaległości) -> odmowa
+ *   ...7.  -> BIK średni -> decyzja warunkowa (wyższa opłata wstępna)
+ *   inne   -> pozytywnie
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./validators.js'), require('./calc.js'));
+  else root.AMMock = factory(root.AMValid, root.AMCalc);
+})(typeof self !== 'undefined' ? self : this, function (V, C) {
+  'use strict';
+
+  function hash(str) {
+    let h = 2166136261;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return (h >>> 0);
+  }
+  const uid = (p) => p + '-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 1e6).toString(36).toUpperCase();
+  const key = (applicant) => applicant.type === 'consumer' ? V.digits(applicant.pesel) : V.digits(applicant.nip);
+  const scenarioDigit = (applicant) => {
+    const k = key(applicant);
+    return applicant.type === 'consumer' ? k[9] : k[8];
+  };
+
+  /** Rejestr przedsiębiorców (GUS BIR / CEIDG / KRS) */
+  function registryLookup(nip) {
+    if (!V.nip(nip)) return { ok: false, error: 'Nieprawidłowy NIP (suma kontrolna)' };
+    const h = hash(V.digits(nip));
+    const forms = ['jdg', 'spzoo', 'sa', 'spk'];
+    const form = forms[h % 4];
+    const names = ['Transbud', 'Agro-Pol', 'MedTech', 'Logistyka Plus', 'Inwest-Bau', 'Green Energy', 'Precyzja', 'NovaPrint'];
+    const name = names[h % names.length] + (form === 'jdg' ? ' Jan Kowalski' : form === 'spzoo' ? ' Sp. z o.o.' : form === 'sa' ? ' S.A.' : ' Sp.k.');
+    const months = 3 + (h % 180);
+    const start = new Date(); start.setMonth(start.getMonth() - months);
+    return {
+      ok: true, source: form === 'jdg' ? 'CEIDG' : 'KRS / GUS BIR',
+      nip: V.digits(nip), name, legalForm: form,
+      regon: String(100000000 + (h % 899999999)).slice(0, 9),
+      address: { street: 'ul. Przemysłowa ' + (1 + h % 120), postcode: (10 + h % 89) + '-' + String(100 + h % 899), city: ['Warszawa', 'Kraków', 'Poznań', 'Gdańsk', 'Wrocław', 'Łódź'][h % 6] },
+      startDate: start.toISOString().slice(0, 10), monthsActive: months,
+      pkd: ['49.41.Z', '01.11.Z', '86.21.Z', '41.20.Z', '62.01.Z'][h % 5],
+      vatActive: true, whiteListAccount: true
+    };
+  }
+
+  /** Weryfikacja tożsamości: mObywatel / mojeID / przelew weryfikacyjny / selfie + dokument */
+  function verifyIdentity(applicant, method) {
+    const ok = scenarioDigit(applicant) !== '8';
+    return {
+      ok, method, provider: { mobywatel: 'mObywatel (broker tożsamości)', mojeid: 'mojeID (KIR)', transfer: 'Przelew weryfikacyjny 1 zł', selfie: 'Selfie + dokument (liveness)' }[method] || method,
+      verificationId: uid('KYC'),
+      level: method === 'transfer' ? 'substantial' : 'high',
+      matchedFields: ok ? ['imię', 'nazwisko', 'PESEL', 'seria i nr dokumentu', 'adres'] : [],
+      amlScreening: ok ? { pep: false, sanctions: false } : null,
+      reason: ok ? null : 'Dane z dokumentu nie zgadzają się z wnioskiem',
+      at: new Date().toISOString()
+    };
+  }
+
+  /** BIK (konsument: Raport BIK / BIK Przedsiębiorcy) + BIG (KRD/ERIF) */
+  function creditCheck(applicant) {
+    const d = scenarioDigit(applicant);
+    const h = hash(key(applicant));
+    let score, status, debts;
+    if (d === '9') { score = 210 + h % 90; status = 'negative'; debts = 2 + h % 3; }
+    else if (d === '7') { score = 430 + h % 60; status = 'medium'; debts = 0; }
+    else { score = 560 + h % 160; status = 'positive'; debts = 0; }
+    const existingMonthly = applicant.type === 'consumer' ? (h % 5) * 350 : (h % 6) * 2200;
+    return {
+      ok: true, reportId: uid('BIK'),
+      bureau: applicant.type === 'consumer' ? 'BIK – Raport klienta indywidualnego' : 'BIK Przedsiębiorcy + KRD/BIG',
+      score, scoreMax: 720, status,
+      activeCredits: 1 + h % 4, overdueAccounts: debts, maxDpd: debts ? 60 + h % 120 : 0,
+      existingMonthlyObligations: existingMonthly,
+      bigDebts: debts ? debts * 1200 : 0,
+      inquiries90d: h % 4,
+      at: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Silnik decyzyjny leasingodawcy (scoring wniosku).
+   * rules: { autoApproveLimit, minScore, conditionalScore, maxDti, minCompanyMonths, conditionalDownPct }
+   */
+  function leasingDecision(input, rules) {
+    rules = Object.assign({ autoApproveLimit: 400000, minScore: 380, conditionalScore: 520, maxDti: 0.55, minCompanyMonths: 0, conditionalDownPct: 20 }, rules || {});
+    const { applicant, credit, quote, registry } = input;
+    const reasons = [];
+    let decision = 'approved';
+    const amount = Number(quote.financed || quote.base || 0);
+    const monthly = Number(quote.monthlyGross || 0);
+    if (credit.status === 'negative' || credit.score < rules.minScore) { decision = 'rejected'; reasons.push('Negatywna historia kredytowa (BIK/BIG)'); }
+    let dti = null;
+    if (applicant.type === 'consumer') {
+      const inc = Number(applicant.monthlyIncome || 0);
+      dti = inc > 0 ? (monthly + Number(credit.existingMonthlyObligations || 0)) / inc : 9;
+      if (dti > rules.maxDti && decision !== 'rejected') { decision = 'rejected'; reasons.push('Zbyt niska zdolność (DTI ' + Math.round(dti * 100) + '%)'); }
+    } else {
+      const rev = Number(applicant.annualRevenue || 0);
+      if (rev > 0 && monthly * 12 > rev * 0.35 && decision !== 'rejected') { decision = 'manual'; reasons.push('Obciążenie ratami > 35% przychodów – analiza analityka'); }
+      if (registry && registry.monthsActive < rules.minCompanyMonths && decision === 'approved') { decision = 'manual'; reasons.push('Krótki staż działalności'); }
+    }
+    if (decision === 'approved' && amount > rules.autoApproveLimit) { decision = 'manual'; reasons.push('Kwota powyżej limitu procedury uproszczonej'); }
+    let conditions = null;
+    if (decision === 'approved' && credit.score < rules.conditionalScore) {
+      decision = 'conditional';
+      conditions = { minDownPct: rules.conditionalDownPct };
+      reasons.push('Średni scoring – wymagana opłata wstępna min. ' + rules.conditionalDownPct + '%');
+      if (Number(quote.downPct || 0) >= rules.conditionalDownPct) { decision = 'approved'; conditions = null; reasons.pop(); }
+    }
+    if (decision === 'approved') reasons.push('Wniosek spełnia kryteria procedury uproszczonej');
+    return {
+      applicationId: uid('WN'), decision, reasons, conditions,
+      dti: dti != null ? Math.round(dti * 1000) / 10 : null,
+      validUntil: new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10),
+      at: new Date().toISOString()
+    };
+  }
+
+  /** Agencja ubezpieczeniowa – kalkulacja dynamiczna u wielu towarzystw */
+  function insuranceQuotes(req) {
+    const value = Number(req.value || 0);
+    const h = hash(JSON.stringify([req.assetType, req.category, Math.round(value / 1000), req.postcode, req.driverAge, req.claimFreeYears, req.usage]));
+    const insurers = [
+      { id: 'alfa', name: 'TU Alfa S.A.', rating: 4.6 },
+      { id: 'beta', name: 'Beta Ubezpieczenia', rating: 4.3 },
+      { id: 'gamma', name: 'Gamma TUiR', rating: 4.5 },
+      { id: 'delta', name: 'Delta Insurance', rating: 4.1 }
+    ];
+    const isVehicle = req.assetType === 'vehicle';
+    const age = Number(req.driverAge || 40), cfy = Number(req.claimFreeYears || 0);
+    const ageF = age < 26 ? 1.45 : age < 30 ? 1.18 : age > 70 ? 1.2 : 1;
+    const bonus = Math.max(0.4, 1 - cfy * 0.06);
+    const city = /^(00|01|02|03|04|30|31|50|51|60|61|80|81)/.test(String(req.postcode || '')) ? 1.15 : 1;
+    const usage = req.usage === 'taxi' ? 1.8 : req.usage === 'rental' ? 1.4 : 1;
+    const out = insurers.map((ins, idx) => {
+      const f = 0.88 + ((h >> (idx * 4)) % 25) / 100;
+      const covers = [];
+      if (isVehicle) {
+        const oc = C.r2(780 * ageF * bonus * city * usage * f);
+        const ac = req.ac !== false ? C.r2(value * 0.031 * ageF * Math.max(0.55, bonus) * f) : 0;
+        const nnw = C.r2(69 * f), ass = C.r2((idx % 2 ? 149 : 119) * f);
+        covers.push({ code: 'OC', label: 'OC komunikacyjne', premium: oc });
+        if (ac) covers.push({ code: 'AC', label: 'Autocasco (wariant serwisowy)', premium: ac, deductible: idx === 3 ? '500 zł' : '0 zł' });
+        covers.push({ code: 'NNW', label: 'NNW kierowcy i pasażerów', premium: nnw, sum: '20 000 zł' });
+        covers.push({ code: 'ASS', label: 'Assistance ' + (idx % 2 ? 'Premium (EU)' : 'Standard (PL)'), premium: ass });
+      } else {
+        covers.push({ code: 'ALLRISK', label: 'Mienie od wszystkich ryzyk', premium: C.r2(value * 0.0042 * f) });
+        covers.push({ code: 'MACH', label: 'Ubezpieczenie maszyn od awarii', premium: C.r2(value * 0.0031 * f) });
+        if (/medical|it/.test(req.category || '')) covers.push({ code: 'ELEC', label: 'Sprzęt elektroniczny', premium: C.r2(value * 0.006 * f) });
+        covers.push({ code: 'OCD', label: 'OC z tytułu posiadania mienia', premium: C.r2(320 * f) });
+      }
+      const total = C.r2(covers.reduce((a, c) => a + c.premium, 0));
+      return { quoteId: uid('Q' + ins.id.toUpperCase()), insurer: ins, covers, annualPremium: total, monthly: C.r2(total / 12), installments: [1, 2, 4, 12], validUntil: new Date(Date.now() + 14 * 864e5).toISOString().slice(0, 10) };
+    }).sort((a, b) => a.annualPremium - b.annualPremium);
+    return { ok: true, agency: 'Agencja ubezpieczeniowa (integracja API)', requestId: uid('IRQ'), quotes: out, at: new Date().toISOString() };
+  }
+
+  function bindPolicy(quoteId) {
+    return { ok: true, policyNo: 'POL/' + new Date().getFullYear() + '/' + Math.floor(1e6 + Math.random() * 9e6), quoteId, startDate: new Date(Date.now() + 864e5).toISOString().slice(0, 10) };
+  }
+
+  /** Podpis elektroniczny (np. Autenti / SimplySign) */
+  function eSign(docs, signer) {
+    return { ok: true, envelopeId: uid('ENV'), signer: signer.name, method: 'Kwalifikowany podpis jednorazowy (mObywatel) / podpis elektroniczny', documents: docs.map((d) => ({ name: d, status: 'signed' })), signedAt: new Date().toISOString() };
+  }
+
+  /** Bramka płatności (BLIK / pay-by-link / karta) */
+  function payment(amount, method) {
+    return { ok: true, transactionId: uid('PAY'), method, amount: C.r2(amount), status: 'paid', at: new Date().toISOString() };
+  }
+
+  return { registryLookup, verifyIdentity, creditCheck, leasingDecision, insuranceQuotes, bindPolicy, eSign, payment, uid, hash };
+});
+
+/* ---- shared/seed.js ---- */
+/* AssetMarket – dane startowe (katalog demonstracyjny, konfiguracja, cenniki) */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./calc.js'));
+  else root.AMSeed = factory(root.AMCalc);
+})(typeof self !== 'undefined' ? self : this, function (C) {
+  'use strict';
+
+  const settings = {
+    brand: 'AssetMarket',
+    tagline: 'Pojazdy i środki trwałe – kup, wynajmij lub sfinansuj w pełni online',
+    company: 'Operator platformy (dane do uzupełnienia)',
+    defaultVat: '23',
+    baseRatePct: 5.8, // stopa bazowa (np. WIBOR 1M / WIRON) – informacyjnie
+    decisionRules: { autoApproveLimit: 400000, minScore: 380, conditionalScore: 520, maxDti: 0.55, minCompanyMonths: 0, conditionalDownPct: 20 },
+    integrations: {
+      mode: 'mock',
+      leasingCore: { url: 'https://api.leasing.example/v1', enabled: true },
+      bik: { url: 'https://api.bik.example/v2', enabled: true },
+      kyc: { url: 'https://broker-id.example/api', enabled: true },
+      registry: { url: 'https://wyszukiwarkaregon.stat.gov.pl/wsBIR', enabled: true },
+      insurance: { url: 'https://api.agencja.example/quotes', enabled: true },
+      esign: { url: 'https://api.esign.example/v1', enabled: true },
+      payments: { url: 'https://secure.payments.example', enabled: true }
+    }
+  };
+
+  const partners = [
+    { id: 'p1', name: 'Dealer Motors Warszawa', type: 'Dealer autoryzowany', city: 'Warszawa' },
+    { id: 'p2', name: 'Centrum Poleasingowe (własne)', type: 'Remarketing leasingodawcy', city: 'Magnice' },
+    { id: 'p3', name: 'MaszBud Partner', type: 'Dostawca maszyn budowlanych', city: 'Poznań' },
+    { id: 'p4', name: 'AgroTech Dystrybucja', type: 'Dealer maszyn rolniczych', city: 'Lublin' },
+    { id: 'p5', name: 'MedEquip Polska', type: 'Dostawca sprzętu medycznego', city: 'Kraków' },
+    { id: 'p6', name: 'Flota Rent', type: 'Wypożyczalnia / CFM', city: 'Gdańsk' }
+  ];
+
+  // Katalog ubezpieczeń statycznych (składka roczna; ubezpieczenia zwolnione z VAT)
+  const insuranceProducts = [
+    { code: 'OC', label: 'OC komunikacyjne', type: 'fixed', fixed: 890, appliesTo: ['vehicle'], mandatory: true, desc: 'Obowiązkowe ubezpieczenie odpowiedzialności cywilnej' },
+    { code: 'AC', label: 'Autocasco (serwis ASO, bez amortyzacji części)', type: 'pctValue', ratePct: 3.2, appliesTo: ['vehicle'], deductibleSensitive: true, minPremium: 900, desc: 'Szkody własne, kradzież, żywioły' },
+    { code: 'NNW', label: 'NNW kierowcy i pasażerów (20 tys. zł)', type: 'fixed', fixed: 79, appliesTo: ['vehicle'] },
+    { code: 'ASS', label: 'Assistance Premium + auto zastępcze', type: 'fixed', fixed: 189, appliesTo: ['vehicle'] },
+    { code: 'GLASS', label: 'Ubezpieczenie szyb', type: 'fixed', fixed: 149, appliesTo: ['vehicle'] },
+    { code: 'GAP', label: 'GAP fakturowy (cały okres umowy)', type: 'pctValue', ratePct: 2.4, oneOff: true, appliesTo: ['vehicle', 'asset'], desc: 'Pokrywa różnicę między wartością fakturową a odszkodowaniem' },
+    { code: 'ALLRISK', label: 'Mienie od wszystkich ryzyk (All Risks)', type: 'pctValue', ratePct: 0.45, appliesTo: ['asset'], deductibleSensitive: true, minPremium: 350, desc: 'Ogień, kradzież, zalanie, przepięcie, szkody w transporcie' },
+    { code: 'MACH', label: 'Maszyny od awarii (MB)', type: 'pctValue', ratePct: 0.35, appliesTo: ['asset'], minPremium: 250 },
+    { code: 'ELEC', label: 'Sprzęt elektroniczny (EEI)', type: 'pctValue', ratePct: 0.7, appliesTo: ['asset'], minPremium: 200 },
+    { code: 'CPI', label: 'Ochrona spłaty rat (utrata pracy / NW)', type: 'pctValue', ratePct: 0.9, appliesTo: ['vehicle', 'asset'] }
+  ];
+
+  // Usługi dodatkowe (zidentyfikowane na platformach rynkowych)
+  const services = [
+    { code: 'REG', label: 'Rejestracja pojazdu i tablice', priceNet: 390, vat: '23', billing: 'oneoff', appliesTo: ['vehicle'], desc: 'Rejestracja w wydziale komunikacji, tablice, dowód rejestracyjny' },
+    { code: 'DELIV', label: 'Dostawa pod wskazany adres', priceNet: 790, vat: '23', billing: 'oneoff', appliesTo: ['vehicle', 'asset'], desc: 'Transport na lawecie / niskopodwoziowy' },
+    { code: 'WARR12', label: 'Gwarancja mechaniczna 12 mies.', priceNet: 1490, vat: '23', billing: 'oneoff', appliesTo: ['vehicle'], desc: 'Silnik, skrzynia, układ napędowy, elektronika' },
+    { code: 'WARR24', label: 'Gwarancja rozszerzona 24 mies.', priceNet: 2690, vat: '23', billing: 'oneoff', appliesTo: ['vehicle', 'asset'] },
+    { code: 'INSP', label: 'Niezależna inspekcja przed zakupem (raport 120 pkt)', priceNet: 450, vat: '23', billing: 'oneoff', appliesTo: ['vehicle', 'asset'] },
+    { code: 'VIN', label: 'Raport historii VIN (przebieg, szkody, właściciele)', priceNet: 49, vat: '23', billing: 'oneoff', appliesTo: ['vehicle'] },
+    { code: 'SERV', label: 'Pakiet serwisowy (przeglądy + materiały)', priceNet: 189, vat: '23', billing: 'monthly', appliesTo: ['vehicle', 'asset'] },
+    { code: 'TYRES', label: 'Opony sezonowe + wymiana i przechowywanie', priceNet: 119, vat: '23', billing: 'monthly', appliesTo: ['vehicle'] },
+    { code: 'REPAIR', label: 'Obsługa szkód i napraw (likwidacja bezgotówkowa)', priceNet: 39, vat: '23', billing: 'monthly', appliesTo: ['vehicle', 'asset'] },
+    { code: 'FUEL', label: 'Karta paliwowa / ładowania', priceNet: 0, vat: '23', billing: 'monthly', appliesTo: ['vehicle'] },
+    { code: 'GPS', label: 'Telematyka GPS / monitoring', priceNet: 49, vat: '23', billing: 'monthly', appliesTo: ['vehicle', 'asset'] },
+    { code: 'TRADEIN', label: 'Wycena i odkup obecnego pojazdu (trade-in)', priceNet: 0, vat: '23', billing: 'oneoff', appliesTo: ['vehicle'] },
+    { code: 'INSTALL', label: 'Montaż, uruchomienie i odbiór techniczny', priceNet: 2400, vat: '23', billing: 'oneoff', appliesTo: ['asset'] },
+    { code: 'TRAIN', label: 'Szkolenie operatora', priceNet: 900, vat: '23', billing: 'oneoff', appliesTo: ['asset'] },
+    { code: 'UDT', label: 'Odbiór / przegląd UDT', priceNet: 650, vat: '23', billing: 'oneoff', appliesTo: ['asset'] }
+  ];
+
+  const ltrServicePrices = (asset) => asset === 'vehicle' ? {
+    fin: { label: 'Finansowanie i zarządzanie', monthlyNet: 49, mandatory: true },
+    serv: { label: 'Serwis i przeglądy', monthlyNet: 210, perKm: true },
+    tyres: { label: 'Opony + przechowywanie', monthlyNet: 115 },
+    ins: { label: 'Ubezpieczenie OC/AC/NNW w racie', monthlyNet: 290 },
+    ass: { label: 'Assistance + auto zastępcze', monthlyNet: 69 }
+  } : {
+    fin: { label: 'Finansowanie i zarządzanie', monthlyNet: 79, mandatory: true },
+    serv: { label: 'Serwis i przeglądy okresowe', monthlyNet: 390, perKm: false },
+    ins: { label: 'Ubezpieczenie mienia w racie', monthlyNet: 180 }
+  };
+
+  function modes(asset, o) {
+    o = o || {};
+    return {
+      purchase: Object.assign({ enabled: true, discountPct: 0, reservationFee: 1000, returnDays: asset === 'vehicle' ? 14 : 0 }, o.purchase),
+      str: Object.assign({ enabled: false, dayRateNet: 199, deposit: 2000, minDays: 1, maxDays: 90, kmPerDay: 300, extraKmNet: 0.6, tiers: [{ fromDays: 7, discountPct: 10 }, { fromDays: 30, discountPct: 25 }] }, o.str),
+      ltr: Object.assign({ enabled: true, ratePct: 9.4, terms: [24, 36, 48], minTerm: 12, maxTerm: 60, kmOptions: [10000, 20000, 30000, 40000], refKmYear: 20000, rvPenaltyPer10k: 3.5, rvTable: [{ term: 24, rvPct: 60 }, { term: 36, rvPct: 50 }, { term: 48, rvPct: 41 }], maxDownPct: 30, defaultDownPct: 0, servicePrices: ltrServicePrices(asset), includedServices: ['serv', 'ins', 'ass', 'tyres'] }, o.ltr),
+      lease_op: Object.assign({ enabled: true, ratePct: 8.9, prepFeePct: 0.5, terms: [24, 36, 48, 60], minTerm: 24, maxTerm: 84, minDownPct: 0, maxDownPct: 45, defaultDownPct: 10, minRvPct: 1, maxRvPct: 40, defaultRvPct: 20 }, o.lease_op),
+      lease_fin: Object.assign({ enabled: true, ratePct: 8.6, prepFeePct: 0.5, terms: [24, 36, 48, 60, 72], minTerm: 12, maxTerm: 96, minDownPct: 0, maxDownPct: 40, defaultDownPct: 10, minRvPct: 0, maxRvPct: 30, defaultRvPct: 1 }, o.lease_fin)
+    };
+  }
+
+  function offer(o) {
+    const asset = o.assetType || 'vehicle';
+    const res = Object.assign({
+      status: 'available', vat: '23', badges: [], features: [],
+      insurance: { static: asset === 'vehicle' ? ['OC', 'AC', 'NNW', 'ASS', 'GLASS', 'GAP', 'CPI'] : ['ALLRISK', 'MACH', 'ELEC', 'GAP', 'CPI'], dynamic: true },
+      services: services.filter((s) => s.appliesTo.indexOf(asset) >= 0).map((s) => s.code),
+      createdAt: '2026-11-01'
+    }, o);
+    res.assetType = asset;
+    res.modes = modes(asset, o.modesOverride);
+    delete res.modesOverride;
+    if (res.vat === 'marza') res.priceGross = res.priceGross || res.priceNet;
+    else res.priceGross = C.grossFromNet(res.priceNet, res.vat);
+    return res;
+  }
+
+  const offers = [
+    offer({ id: 'o1', title: 'Skoda Octavia Combi 2.0 TDI Style', make: 'Skoda', model: 'Octavia', category: 'car', body: 'Kombi', condition: 'exlease', year: 2023, mileage: 68400, fuel: 'Diesel', gearbox: 'Automatyczna DSG', power: '150 KM', color: 'Szary', location: 'Magnice', partnerId: 'p2', priceNet: 79900, badges: ['history', 'inspection', 'firstOwner'], hue: 210, features: ['Matrix LED', 'Virtual Cockpit', 'ACC', 'Podgrzewane fotele', 'Hak'], description: 'Auto poleasingowe od pierwszego właściciela, kupione w polskim salonie, serwisowane w ASO. Pełna historia szkód i napraw. Raport z niezależnej inspekcji technicznej.', modesOverride: { str: { enabled: true, dayRateNet: 169 } } }),
+    offer({ id: 'o2', title: 'Toyota RAV4 2.5 Hybrid AWD Selection', make: 'Toyota', model: 'RAV4', category: 'car', body: 'SUV', condition: 'new', year: 2026, mileage: 10, fuel: 'Hybryda', gearbox: 'Automatyczna e-CVT', power: '222 KM', color: 'Biały perła', location: 'Warszawa', partnerId: 'p1', priceNet: 175600, badges: ['warranty', 'new'], hue: 150, features: ['Napęd AWD-i', 'JBL', 'Head-up', 'Kamera 360°', 'Pakiet zimowy'], description: 'Nowy samochód z salonu partnera. Gwarancja producenta 3 lata / 100 000 km + gwarancja na układ hybrydowy. Dostępny od ręki.', modesOverride: { purchase: { discountPct: 3, returnDays: 0 } } }),
+    offer({ id: 'o3', title: 'BMW 320d xDrive Touring M Sport', make: 'BMW', model: 'Seria 3', category: 'car', body: 'Kombi', condition: 'used', year: 2022, mileage: 92300, fuel: 'Diesel', gearbox: 'Automatyczna', power: '190 KM', color: 'Czarny', location: 'Warszawa', partnerId: 'p1', priceNet: 104000, vat: '23', badges: ['history', 'warranty'], hue: 230, features: ['Pakiet M', 'Live Cockpit Pro', 'Harman Kardon', 'Asystent parkowania'], description: 'Samochód używany premium z gwarancją dealera 12 miesięcy. Bezwypadkowy, udokumentowany przebieg.' }),
+    offer({ id: 'o4', title: 'Volkswagen Crafter 35 L3H3 2.0 TDI', make: 'Volkswagen', model: 'Crafter', category: 'lcv', body: 'Furgon', condition: 'exlease', year: 2022, mileage: 121000, fuel: 'Diesel', gearbox: 'Manualna', power: '140 KM', color: 'Biały', location: 'Magnice', partnerId: 'p2', priceNet: 98500, badges: ['history', 'inspection'], hue: 30, features: ['Zabudowa regałowa', 'Klimatyzacja', 'Tempomat', 'Kamera cofania'], description: 'Dostawczy po leasingu, flota firmy kurierskiej. Serwis ASO, wymieniony rozrząd i sprzęgło.', modesOverride: { str: { enabled: true, dayRateNet: 229, deposit: 3000, kmPerDay: 400 } } }),
+    offer({ id: 'o5', title: 'Kia EV6 GT-Line 77 kWh RWD', make: 'Kia', model: 'EV6', category: 'car', body: 'Crossover', condition: 'used', year: 2024, mileage: 21500, fuel: 'Elektryczny', gearbox: 'Automatyczna', power: '229 KM', color: 'Granatowy', location: 'Gdańsk', partnerId: 'p6', priceNet: 139000, badges: ['history', 'warranty'], hue: 260, features: ['Zasięg do 528 km (WLTP)', 'Ładowanie 800V', 'V2L', 'Pompa ciepła'], description: 'Prawie nowy elektryk z gwarancją producenta 7 lat. Dostępny także w najmie krótkoterminowym.', modesOverride: { str: { enabled: true, dayRateNet: 259, deposit: 3000 } } }),
+    offer({ id: 'o6', title: 'Fiat 500 1.0 Hybrid Dolcevita', make: 'Fiat', model: '500', category: 'car', body: 'Miejski', condition: 'used', year: 2021, mileage: 54300, fuel: 'Benzyna MHEV', gearbox: 'Manualna', power: '70 KM', color: 'Czerwony', location: 'Kraków', partnerId: 'p1', priceNet: 41900, priceGross: 41900, vat: 'marza', badges: ['history'], hue: 0, features: ['Panorama', 'CarPlay', 'Czujniki parkowania'], description: 'Sprzedaż na fakturze VAT-marża (od osoby prywatnej). Idealny do miasta.', modesOverride: { lease_fin: { enabled: false }, str: { enabled: true, dayRateNet: 99, deposit: 1000 } } }),
+    offer({ id: 'o7', title: 'DAF XF 480 FT Space Cab – ciągnik siodłowy', make: 'DAF', model: 'XF 480', category: 'truck', assetType: 'vehicle', body: 'Ciągnik siodłowy', condition: 'exlease', year: 2021, mileage: 512000, fuel: 'Diesel', gearbox: 'Automatyczna TraXon', power: '480 KM', color: 'Biały', location: 'Magnice', partnerId: 'p2', priceNet: 239000, badges: ['inspection'], hue: 15, features: ['Euro 6', 'Retarder', 'Klimatyzacja postojowa', 'Lodówka'], description: 'Ciągnik po zakończonym leasingu, wycena rzeczoznawcy dostępna. Możliwe finansowanie z procedurą uproszczoną.', modesOverride: { ltr: { enabled: false } } }),
+    offer({ id: 'o8', title: 'Koparko-ładowarka JCB 3CX Eco', make: 'JCB', model: '3CX', category: 'construction', assetType: 'asset', body: 'Koparko-ładowarka', condition: 'used', year: 2020, mileage: 4850, mileageUnit: 'mth', fuel: 'Diesel', power: '109 KM', color: 'Żółty', location: 'Poznań', partnerId: 'p3', priceNet: 265000, badges: ['inspection'], hue: 45, features: ['Szybkozłącze', '4 łyżki', 'Młot hydrauliczny – instalacja', 'Klimatyzacja'], description: 'Maszyna po przeglądzie dealerskim, aktualne badanie UDT. Możliwy transport niskopodwoziowy na budowę.', modesOverride: { str: { enabled: true, dayRateNet: 690, deposit: 8000, kmPerDay: 0, minDays: 3 }, ltr: { ratePct: 9.9, rvTable: [{ term: 24, rvPct: 55 }, { term: 36, rvPct: 45 }, { term: 48, rvPct: 36 }] } } }),
+    offer({ id: 'o9', title: 'Ciągnik rolniczy John Deere 6R 150', make: 'John Deere', model: '6R 150', category: 'agri', assetType: 'asset', body: 'Ciągnik rolniczy', condition: 'new', year: 2026, mileage: 5, mileageUnit: 'mth', fuel: 'Diesel', power: '150 KM', color: 'Zielony', location: 'Lublin', partnerId: 'p4', priceNet: 689000, badges: ['warranty', 'new'], hue: 110, features: ['AutoPowr', 'AutoTrac ready', 'Przedni TUZ', 'Kabina z amortyzacją'], description: 'Nowy ciągnik z gwarancją producenta. Harmonogram spłat dopasowany do sezonowości (raty sezonowe na życzenie).', modesOverride: { ltr: { enabled: false }, lease_fin: { terms: [36, 48, 60, 72, 84] } } }),
+    offer({ id: 'o10', title: 'Centrum obróbcze CNC Haas VF-2SS', make: 'Haas', model: 'VF-2SS', category: 'industrial', assetType: 'asset', body: 'Pionowe centrum obróbcze', condition: 'new', year: 2026, mileage: 0, mileageUnit: 'mth', fuel: 'Elektryczny', power: '22,4 kW', color: '—', location: 'Poznań', partnerId: 'p3', priceNet: 512000, badges: ['warranty', 'new'], hue: 190, features: ['Wrzeciono 12 000 obr/min', 'Magazyn 24 narzędzi', 'Sonda WIPS', 'Chłodzenie przez wrzeciono'], description: 'Nowa maszyna z montażem, uruchomieniem i szkoleniem operatorów. Możliwość leasingu w EUR.', modesOverride: { ltr: { enabled: false } } }),
+    offer({ id: 'o11', title: 'Aparat USG GE Voluson E10 (BT24)', make: 'GE HealthCare', model: 'Voluson E10', category: 'medical', assetType: 'asset', body: 'Ultrasonograf', condition: 'new', year: 2026, mileage: 0, mileageUnit: 'mth', fuel: '—', power: '—', color: '—', location: 'Kraków', partnerId: 'p5', priceNet: 389000, vat: '8', badges: ['warranty', 'new'], hue: 300, features: ['4 głowice', 'Obrazowanie 3D/4D', 'Moduł AI', 'Serwis 24h'], description: 'Wyrób medyczny – VAT 8%. Leasing dla gabinetów i klinik, także dla młodych lekarzy.', modesOverride: { ltr: { enabled: false } } }),
+    offer({ id: 'o12', title: 'Wózek widłowy Linde E20 PH (elektryczny)', make: 'Linde', model: 'E20 PH', category: 'forklift', assetType: 'asset', body: 'Wózek widłowy', condition: 'exlease', year: 2021, mileage: 6200, mileageUnit: 'mth', fuel: 'Elektryczny', power: '2 t / 4,7 m', color: 'Czerwony', location: 'Magnice', partnerId: 'p2', priceNet: 54900, badges: ['inspection'], hue: 355, features: ['Przesuw boczny', 'Bateria Li-Ion 2024', 'Pozycjoner wideł'], description: 'Wózek po leasingu, nowa bateria Li-Ion. Dostępny także na wynajem krótkoterminowy.', modesOverride: { str: { enabled: true, dayRateNet: 149, deposit: 2500, kmPerDay: 0, minDays: 7 } } })
+  ];
+
+  const categories = {
+    car: 'Samochody osobowe', lcv: 'Dostawcze', truck: 'Ciężarowe', construction: 'Maszyny budowlane',
+    agri: 'Maszyny rolnicze', industrial: 'Maszyny przemysłowe', medical: 'Sprzęt medyczny', forklift: 'Wózki i magazyn', it: 'IT / elektronika'
+  };
+  const conditions = { new: 'Nowy', used: 'Używany', exlease: 'Poleasingowy' };
+
+  return { settings, partners, insuranceProducts, services, offers, categories, conditions, modes, offer };
+});
+
+/* ---- web/app.js ---- */
+/* AssetMarket – aplikacja webowa (SPA, vanilla JS, bez zależności) */
+(function () {
+  'use strict';
+  const C = window.AMCalc, V = window.AMValid, M = window.AMMock, SEED = window.AMSeed;
+  const CONFIG = Object.assign({ apiBase: '', adminPin: 'admin', latency: true }, window.AM_CONFIG || {});
+
+  // ------------------------------------------------------------------ utils
+  const $ = (s, el) => (el || document).querySelector(s);
+  const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  const nf0 = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 });
+  const nf2 = new Intl.NumberFormat('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const zl = (n) => (n == null || !isFinite(n)) ? '—' : nf0.format(Math.round(n)) + ' zł';
+  const zl2 = (n) => (n == null || !isFinite(n)) ? '—' : nf2.format(n) + ' zł';
+  const num = (n) => nf0.format(n);
+  const delay = (ms) => new Promise((r) => setTimeout(r, CONFIG.latency ? ms : 0));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* tryb prywatny / iframe */ } }
+  };
+  function setPath(obj, path, val) {
+    const ks = path.split('.'); let o = obj;
+    for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = /^\d+$/.test(ks[i + 1]) ? [] : {}; o = o[ks[i]]; }
+    o[ks[ks.length - 1]] = val;
+  }
+  const getPath = (obj, path) => path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  function toast(msg) {
+    const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2600);
+  }
+  const FIN = ['lease_op', 'lease_fin', 'ltr'];
+  const MODE_ORDER = ['lease_op', 'ltr', 'lease_fin', 'purchase', 'str'];
+  const ML = C.MODE_LABELS;
+  const MODE_SHORT = { purchase: 'Zakup', str: 'Najem krótki', ltr: 'Najem długi', lease_op: 'Leasing oper.', lease_fin: 'Leasing fin.' };
+  const STATUS = {
+    draft: ['Szkic', ''], kyc_failed: ['Weryfikacja negatywna', 'd'], rejected: ['Odmowa', 'd'], manual_review: ['Analiza analityka', 'w'],
+    conditional: ['Decyzja warunkowa', 'w'], approved: ['Zaakceptowany', 'ok'], reserved: ['Zarezerwowany', 'i'], paid: ['Opłacony – w realizacji', 'ok'],
+    signed: ['Umowa podpisana', 'ok'], delivered: ['Wydany klientowi', 'acc'], completed: ['Zakończony', 'acc'], cancelled: ['Anulowany', '']
+  };
+  const pill = (s) => { const x = STATUS[s] || [s, '']; return `<span class="badge ${x[1]}">${esc(x[0])}</span>`; };
+
+  // ------------------------------------------------------------------ backend lokalny (tryb standalone)
+  const DBKEY = 'am_db_v1';
+  const LocalDB = {
+    db: null,
+    load() { this.db = store.get(DBKEY, null); if (!this.db || !this.db.offers) this.reset(); },
+    reset() {
+      this.db = clone({ settings: SEED.settings, partners: SEED.partners, services: SEED.services, insuranceProducts: SEED.insuranceProducts, offers: SEED.offers, orders: [], log: [] });
+      this.save();
+    },
+    save() { store.set(DBKEY, this.db); },
+    log(svc, req, res) { this.db.log.unshift({ at: new Date().toISOString(), svc, req, res }); this.db.log = this.db.log.slice(0, 150); this.save(); }
+  };
+  const INTEGRATION = { 'registry.lookup': 700, 'kyc.verify': 1400, 'bik.check': 1200, 'leasing.decide': 1500, 'insurance.quotes': 1300, 'insurance.bind': 700, 'esign.sign': 1300, 'payments.pay': 1100 };
+  const findOffer = (id) => LocalDB.db.offers.find((o) => o.id === id);
+  const local = {
+    'bootstrap': () => { const d = LocalDB.db; return { settings: d.settings, partners: d.partners, services: d.services, insuranceProducts: d.insuranceProducts, offers: d.offers, categories: SEED.categories, conditions: SEED.conditions, mode: 'standalone' }; },
+    'registry.lookup': (p) => M.registryLookup(p.nip),
+    'kyc.verify': (p) => M.verifyIdentity(p.applicant, p.method),
+    'bik.check': (p) => M.creditCheck(p.applicant),
+    'leasing.decide': (p) => { const o = findOffer(p.offerId); const q = C.quote(o, p.mode, p.params); return M.leasingDecision({ applicant: p.applicant, credit: p.credit, quote: q, registry: p.registry }, LocalDB.db.settings.decisionRules); },
+    'insurance.quotes': (p) => M.insuranceQuotes(p.req),
+    'insurance.bind': (p) => M.bindPolicy(p.quoteId),
+    'esign.sign': (p) => M.eSign(p.docs, p.signer),
+    'payments.pay': (p) => M.payment(p.amount, p.method),
+    'orders.save': (p) => {
+      const o = p.order; const offer = findOffer(o.offerId);
+      if (!offer) throw new Error('Oferta nie istnieje');
+      o.quote = C.quote(offer, o.mode, o.params); // przeliczenie po stronie „serwera”
+      if (!o.id) { o.id = 'ZAM/' + new Date().getFullYear() + '/' + String(LocalDB.db.orders.length + 1001); o.createdAt = new Date().toISOString(); }
+      o.updatedAt = new Date().toISOString();
+      const i = LocalDB.db.orders.findIndex((x) => x.id === o.id);
+      if (i >= 0) LocalDB.db.orders[i] = o; else LocalDB.db.orders.unshift(o);
+      if (o.status === 'paid' || o.status === 'reserved') {
+        if (o.mode === 'purchase') offer.status = o.status === 'paid' ? 'sold' : 'reserved';
+        else if (o.mode !== 'str') offer.status = 'reserved';
+      }
+      LocalDB.save(); return { ok: true, id: o.id, order: o };
+    },
+    'orders.mine': (p) => LocalDB.db.orders.filter((o) => (p.ids || []).indexOf(o.id) >= 0),
+    'admin.orders.list': () => LocalDB.db.orders,
+    'admin.orders.status': (p) => { const o = LocalDB.db.orders.find((x) => x.id === p.id); if (o) { o.status = p.status; (o.history = o.history || []).push({ at: new Date().toISOString(), status: p.status, by: 'operator' }); LocalDB.save(); } return { ok: !!o }; },
+    'admin.offer.save': (p) => {
+      const o = p.offer; if (!o.id) o.id = 'o' + Date.now().toString(36);
+      o.priceGross = o.vat === 'marza' ? Number(o.priceGross || o.priceNet) : C.grossFromNet(Number(o.priceNet), o.vat);
+      const i = LocalDB.db.offers.findIndex((x) => x.id === o.id);
+      if (i >= 0) LocalDB.db.offers[i] = o; else LocalDB.db.offers.unshift(o);
+      LocalDB.save(); return { ok: true, id: o.id };
+    },
+    'admin.offer.delete': (p) => { LocalDB.db.offers = LocalDB.db.offers.filter((o) => o.id !== p.id); LocalDB.save(); return { ok: true }; },
+    'admin.settings.save': (p) => { LocalDB.db.settings = p.settings; LocalDB.save(); return { ok: true }; },
+    'admin.catalog.save': (p) => { ['services', 'insuranceProducts', 'partners'].forEach((k) => { if (p[k]) LocalDB.db[k] = p[k]; }); LocalDB.save(); return { ok: true }; },
+    'admin.log': () => LocalDB.db.log,
+    'admin.reset': () => { LocalDB.reset(); return { ok: true }; },
+    'admin.login': (p) => ({ ok: p.pin === CONFIG.adminPin })
+  };
+
+  async function api(name, payload) {
+    payload = payload || {};
+    if (CONFIG.apiBase) {
+      const headers = { 'Content-Type': 'application/json' };
+      const tok = sessionStorage.getItem('am_admin_token');
+      if (tok) headers.Authorization = 'Bearer ' + tok;
+      const r = await fetch(CONFIG.apiBase.replace(/\/$/, '') + '/api/rpc/' + name, { method: 'POST', headers, body: JSON.stringify(payload) });
+      const j = await r.json().catch(() => ({ error: 'Błąd odpowiedzi serwera' }));
+      if (!r.ok) throw new Error(j.error || ('HTTP ' + r.status));
+      return j;
+    }
+    if (!local[name]) throw new Error('Brak usługi ' + name);
+    if (INTEGRATION[name]) await delay(INTEGRATION[name]); else await delay(60);
+    const res = local[name](clone(payload));
+    if (INTEGRATION[name]) LocalDB.log(name, payload, res);
+    return clone(res);
+  }
+
+  // ------------------------------------------------------------------ stan aplikacji
+  const S = {
+    data: null,
+    ui: Object.assign({ client: 'b2b', fav: [], cmp: [], myOrders: [], sort: 'popular' }, store.get('am_ui', {})),
+    f: { q: '', cat: [], cond: [], mode: [], make: [], partner: [], fuel: [], maxPrice: '', maxMonthly: '', yearFrom: '' },
+    cfg: {}, co: null, admin: { authed: false, tab: 'dash', edit: null, cat: null, orders: [], log: [], open: {} }, navOpen: false
+  };
+  const saveUi = () => store.set('am_ui', { client: S.ui.client, fav: S.ui.fav, cmp: S.ui.cmp, myOrders: S.ui.myOrders, sort: S.ui.sort });
+  const isB2B = () => S.ui.client === 'b2b';
+  const priceOf = (o) => isB2B() ? o.priceNet : o.priceGross;
+  const nettoLbl = () => isB2B() ? 'netto' : 'brutto';
+  const partner = (id) => (S.data.partners.find((p) => p.id === id) || { name: '—' });
+  const offerById = (id) => S.data.offers.find((o) => o.id === id);
+  const enabledModes = (o) => MODE_ORDER.filter((m) => o.modes[m] && o.modes[m].enabled);
+
+  // ------------------------------------------------------------------ ilustracje SVG (bez zewnętrznych zdjęć)
+  function art(o, v) {
+    v = v || 0;
+    const h = o.hue || 210;
+    const id = 'g' + o.id + v;
+    const dark = v === 3;
+    const bg1 = dark ? `hsl(${h},35%,22%)` : `hsl(${h},45%,93%)`, bg2 = dark ? `hsl(${h},40%,12%)` : `hsl(${h},35%,80%)`;
+    const body = dark ? `hsl(${h},60%,62%)` : `hsl(${h},55%,34%)`, glass = dark ? '#0c1726' : `hsl(${h},40%,86%)`, wheel = '#1a2230';
+    const W = (x, r) => `<circle cx="${x}" cy="146" r="${r || 19}" fill="${wheel}"/><circle cx="${x}" cy="146" r="${(r || 19) * .45}" fill="#c8d1dd"/>`;
+    const shapes = {
+      car: `<path d="M38 140 Q40 112 78 104 L116 80 Q126 72 146 72 L198 72 Q214 72 228 82 L258 104 Q286 108 290 128 L290 142 L38 142Z" fill="${body}"/><path d="M124 84 L141 77 L170 77 L170 101 L106 101Z M178 77 L198 77 Q209 77 219 86 L233 101 L178 101Z" fill="${glass}"/>${W(92)}${W(236)}`,
+      lcv: `<path d="M34 142 L34 70 Q34 58 48 58 L214 58 Q230 58 242 74 L276 108 Q290 114 290 128 L290 142Z" fill="${body}"/><path d="M222 66 L236 66 L266 104 L222 104Z" fill="${glass}"/><rect x="48" y="96" width="160" height="4" fill="${glass}" opacity=".5"/>${W(86)}${W(240)}`,
+      truck: `<rect x="196" y="48" width="86" height="80" rx="10" fill="${body}"/><rect x="206" y="60" width="66" height="34" rx="5" fill="${glass}"/><rect x="40" y="118" width="170" height="14" fill="${wheel}"/><rect x="60" y="104" width="96" height="16" rx="4" fill="${body}" opacity=".7"/>${W(232, 21)}${W(104, 21)}${W(150, 21)}`,
+      construction: `<rect x="120" y="98" width="120" height="34" rx="6" fill="${body}"/><rect x="176" y="58" width="56" height="44" rx="6" fill="${body}"/><rect x="184" y="64" width="40" height="30" rx="4" fill="${glass}"/><path d="M128 104 L76 60 L44 92" stroke="${body}" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M34 88 L60 88 L52 116 L36 112Z" fill="${body}"/><path d="M240 112 L286 112 L292 132 L240 132Z" fill="${body}" opacity=".8"/>${W(146)}${W(222, 23)}`,
+      agri: `<rect x="96" y="92" width="150" height="34" rx="8" fill="${body}"/><rect x="150" y="46" width="70" height="56" rx="8" fill="${body}"/><rect x="158" y="54" width="54" height="40" rx="4" fill="${glass}"/><rect x="72" y="100" width="40" height="18" rx="4" fill="${body}"/><circle cx="214" cy="140" r="34" fill="${wheel}"/><circle cx="214" cy="140" r="15" fill="#c8d1dd"/><circle cx="100" cy="148" r="18" fill="${wheel}"/><circle cx="100" cy="148" r="8" fill="#c8d1dd"/>`,
+      industrial: `<rect x="70" y="40" width="180" height="110" rx="10" fill="${body}"/><rect x="88" y="56" width="106" height="70" rx="5" fill="${glass}"/><rect x="206" y="56" width="30" height="40" rx="4" fill="#e8eef6"/><circle cx="215" cy="108" r="5" fill="#e74c3c"/><circle cx="228" cy="108" r="5" fill="#2ecc71"/><rect x="64" y="148" width="192" height="8" rx="3" fill="${wheel}"/>`,
+      medical: `<rect x="130" y="40" width="96" height="62" rx="8" fill="${body}"/><rect x="138" y="47" width="80" height="48" rx="4" fill="${glass}"/><path d="M146 80 Q160 58 172 74 T206 66" stroke="${body}" stroke-width="3" fill="none"/><rect x="118" y="106" width="120" height="26" rx="6" fill="${body}"/><rect x="170" y="102" width="16" height="6" fill="${body}"/><rect x="168" y="132" width="20" height="16" fill="${body}" opacity=".7"/><rect x="132" y="146" width="92" height="5" rx="2" fill="${wheel}"/><circle cx="138" cy="154" r="5" fill="${wheel}"/><circle cx="218" cy="154" r="5" fill="${wheel}"/>`,
+      forklift: `<rect x="70" y="36" width="10" height="112" fill="${wheel}"/><rect x="84" y="36" width="10" height="112" fill="${wheel}"/><path d="M50 138 L96 138 L96 146 L50 146Z" fill="${wheel}"/><rect x="100" y="82" width="120" height="50" rx="8" fill="${body}"/><path d="M130 82 L144 46 L206 46 L214 82" stroke="${wheel}" stroke-width="6" fill="none"/><rect x="214" y="92" width="40" height="40" rx="6" fill="${body}" opacity=".8"/>${W(128, 16)}${W(214, 16)}`
+    };
+    let s = shapes[o.category] || shapes.car;
+    if (o.category === 'car' && /SUV|Crossover/.test(o.body || '')) s = s.replace('M38 140 Q40 112 78 104 L116 80', 'M38 140 Q40 104 78 96 L116 70').replace('Q126 72 146 72 L198 72 Q214 72 228 82', 'Q126 62 146 62 L198 62 Q214 62 228 72');
+    const tr = v === 1 ? 'transform="translate(320 0) scale(-1 1)"' : v === 2 ? 'transform="translate(-60 -40) scale(1.35)"' : '';
+    return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(o.title)}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="${v === 1 ? 0 : 1}" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="320" height="200" fill="url(#${id})"/><circle cx="${v === 1 ? 70 : 262}" cy="44" r="${dark ? 14 : 26}" fill="${dark ? '#f5f0c8' : '#fff'}" opacity="${dark ? .8 : .55}"/><rect y="166" width="320" height="34" fill="${dark ? '#0a1220' : `hsl(${h},25%,72%)`}" opacity=".55"/><g ${tr}>${s}</g></svg>`;
+  }
+
+  // ------------------------------------------------------------------ layout
+  function header(active) {
+    const d = S.data.settings;
+    const L = (h, t, k) => `<a href="#${h}" class="${active === k ? 'on' : ''}">${t}</a>`;
+    return `<header class="top"><div class="wrap">
+      <a class="logo" href="#/"><span class="mk">▲</span>${esc(d.brand)}</a>
+      <nav class="nav ${S.navOpen ? 'open' : ''}" id="nav">${L('/', 'Oferta', 'home')}${L('/jak-to-dziala', 'Jak to działa', 'how')}${L('/moje', 'Moje wnioski', 'mine')}${L('/admin', 'Panel operatora', 'admin')}</nav>
+      <span class="sp"></span>
+      <div class="seg hide-m" role="group" aria-label="Typ klienta"><button data-a="client" data-v="b2b" class="${isB2B() ? 'on' : ''}">Firma · netto</button><button data-a="client" data-v="b2c" class="${!isB2B() ? 'on' : ''}">Konsument · brutto</button></div>
+      <a class="iconbtn" href="#/?ulubione=1" title="Ulubione">♥${S.ui.fav.length ? `<span class="cnt">${S.ui.fav.length}</span>` : ''}</a>
+      <a class="iconbtn" href="#/porownaj" title="Porównaj">⇄${S.ui.cmp.length ? `<span class="cnt">${S.ui.cmp.length}</span>` : ''}</a>
+      <button class="iconbtn burger" data-a="burger" aria-label="Menu">☰</button>
+    </div></header>`;
+  }
+  function footer() {
+    const d = S.data.settings;
+    return `<footer><div class="wrap row wrapf"><div><b style="color:#fff">${esc(d.brand)}</b> · ${esc(d.tagline)}<br><span class="xs">Kalkulacje mają charakter informacyjny i nie stanowią oferty w rozumieniu art. 66 KC. Ostateczne warunki zależą od oceny wniosku. Tryb: ${S.data.mode === 'standalone' ? 'demonstracyjny (symulowane integracje)' : 'API'}.</span></div><span class="sp"></span><a href="#/jak-to-dziala">Jak to działa</a>&nbsp;·&nbsp;<a href="#/admin">Panel operatora</a></div></footer>`;
+  }
+  function page(active, inner) {
+    $('#app').innerHTML = header(active) + `<main id="view">${inner}</main>` + footer();
+  }
+
+  // ------------------------------------------------------------------ katalog
+  const BADGE = { history: ['Udokumentowana historia', 'ok'], inspection: ['Raport z inspekcji', 'i'], warranty: ['Gwarancja', 'acc'], firstOwner: ['1. właściciel', 'ok'], new: ['Nowy', 'acc'] };
+  const fromCache = {};
+  function fromM(o) { const k = o.id + JSON.stringify(o.modes) + o.priceNet; if (!(k in fromCache)) fromCache[k] = C.fromMonthly(o); return fromCache[k]; }
+
+  function filtered() {
+    const f = S.f, q = f.q.trim().toLowerCase();
+    let list = S.data.offers.filter((o) => {
+      if (S.route.query.ulubione && S.ui.fav.indexOf(o.id) < 0) return false;
+      if (o.status === 'sold') return false;
+      if (q && (o.title + ' ' + o.make + ' ' + o.model + ' ' + o.body + ' ' + o.location).toLowerCase().indexOf(q) < 0) return false;
+      if (f.cat.length && f.cat.indexOf(o.category) < 0) return false;
+      if (f.cond.length && f.cond.indexOf(o.condition) < 0) return false;
+      if (f.mode.length && !f.mode.some((m) => o.modes[m] && o.modes[m].enabled)) return false;
+      if (f.make.length && f.make.indexOf(o.make) < 0) return false;
+      if (f.partner.length && f.partner.indexOf(o.partnerId) < 0) return false;
+      if (f.fuel.length && f.fuel.indexOf(o.fuel) < 0) return false;
+      if (f.maxPrice && priceOf(o) > Number(f.maxPrice)) return false;
+      if (f.yearFrom && o.year < Number(f.yearFrom)) return false;
+      if (f.maxMonthly) { const m = fromM(o); if (!m || (isB2B() ? m.monthlyNet : m.monthlyGross) > Number(f.maxMonthly)) return false; }
+      return true;
+    });
+    const s = S.ui.sort;
+    const mon = (o) => { const m = fromM(o); return m ? m.monthlyNet : 1e12; };
+    if (s === 'priceAsc') list.sort((a, b) => a.priceNet - b.priceNet);
+    else if (s === 'priceDesc') list.sort((a, b) => b.priceNet - a.priceNet);
+    else if (s === 'monthly') list.sort((a, b) => mon(a) - mon(b));
+    else if (s === 'year') list.sort((a, b) => b.year - a.year);
+    return list;
+  }
+
+  function facet(key, label, values, labels) {
+    const counts = {};
+    S.data.offers.forEach((o) => { if (o.status === 'sold') return; const v = key === 'mode' ? null : o[key === 'cat' ? 'category' : key === 'cond' ? 'condition' : key === 'partner' ? 'partnerId' : key]; if (v != null) counts[v] = (counts[v] || 0) + 1; });
+    if (key === 'mode') S.data.offers.forEach((o) => MODE_ORDER.forEach((m) => { if (o.status !== 'sold' && o.modes[m] && o.modes[m].enabled) counts[m] = (counts[m] || 0) + 1; }));
+    return `<h4>${label}</h4>` + values.filter((v) => counts[v]).map((v) => `<label class="ck"><input type="checkbox" data-a="fck" data-k="${key}" value="${esc(v)}" ${S.f[key].indexOf(v) >= 0 ? 'checked' : ''}>${esc(labels ? labels[v] : v)}<span class="n">${counts[v]}</span></label>`).join('');
+  }
+
+  function card(o) {
+    const m = fromM(o);
+    const fav = S.ui.fav.indexOf(o.id) >= 0, cmp = S.ui.cmp.indexOf(o.id) >= 0;
+    const unit = o.mileageUnit === 'mth' ? 'mth' : 'km';
+    return `<article class="card" data-testid="card-${o.id}">
+      <a class="media" href="#/oferta/${o.id}">${art(o)}<span class="cond badge ${o.condition === 'new' ? 'acc' : o.condition === 'exlease' ? 'w' : ''}">${esc(S.data.conditions[o.condition])}</span>${o.status === 'reserved' ? '<span class="badge d" style="position:absolute;left:10px;bottom:10px">Zarezerwowany</span>' : ''}</a>
+      <div class="tools"><button data-a="fav" data-id="${o.id}" class="${fav ? 'on' : ''}" title="Ulubione" aria-label="Ulubione">♥</button><button data-a="cmp" data-id="${o.id}" class="${cmp ? 'on' : ''}" title="Porównaj" aria-label="Porównaj">⇄</button></div>
+      <div class="body">
+        <a href="#/oferta/${o.id}" style="color:inherit"><h3>${esc(o.title)}</h3></a>
+        <div class="spec">${o.year} · ${num(o.mileage)} ${unit} · ${esc(o.fuel)} · ${esc(o.location)}</div>
+        <div class="badges">${o.badges.slice(0, 3).map((b) => BADGE[b] ? `<span class="badge ${BADGE[b][1]}">${BADGE[b][0]}</span>` : '').join('')}</div>
+        <div class="modes">${enabledModes(o).map((x) => `<span class="mode">${MODE_SHORT[x]}</span>`).join('')}</div>
+        <div class="price"><div><div class="xs muted">Cena ${nettoLbl()}${o.vat === 'marza' ? ' (VAT-marża)' : ''}</div><div class="p">${zl(priceOf(o))}</div></div>
+        ${m ? `<div class="m">rata od<b>${zl(isB2B() ? m.monthlyNet : m.monthlyGross)}</b>/mies. ${nettoLbl()}</div>` : ''}</div>
+      </div></article>`;
+  }
+
+  function viewHome() {
+    const d = S.data; const cats = d.categories;
+    const makes = Array.from(new Set(d.offers.map((o) => o.make))).sort();
+    const fuels = Array.from(new Set(d.offers.map((o) => o.fuel))).sort();
+    const list = filtered();
+    const plabels = {}; d.partners.forEach((p) => { plabels[p.id] = p.name; });
+    const favMode = !!S.route.query.ulubione;
+    page('home', `
+    <section class="hero"><div class="wrap">
+      <h1>${favMode ? 'Twoje ulubione oferty' : 'Pojazdy, maszyny i sprzęt – z finansowaniem w 15 minut'}</h1>
+      <p class="lead">${esc(d.settings.tagline)}. Kup, wynajmij na doby lub lata, weź w leasing operacyjny albo finansowy – z ubezpieczeniem i serwisem w jednej racie.</p>
+      <div class="search"><input id="q" placeholder="Marka, model, typ, np. „Octavia”, „koparka”, „USG”" value="${esc(S.f.q)}" data-a="q" aria-label="Szukaj">
+        <select data-a="catsel" aria-label="Kategoria"><option value="">Wszystkie kategorie</option>${Object.keys(cats).map((k) => `<option value="${k}" ${S.f.cat.length === 1 && S.f.cat[0] === k ? 'selected' : ''}>${cats[k]}</option>`).join('')}</select>
+        <button class="btn" data-a="go">Szukaj</button></div>
+      <div class="chips">${MODE_ORDER.map((m) => `<button class="chip ${S.f.mode.indexOf(m) >= 0 ? 'on' : ''}" data-a="fck-chip" data-k="mode" data-v="${m}">${ML[m]}</button>`).join('')}</div>
+    </div></section>
+    <div class="wrap"><div class="props">
+      <div class="prop"><div class="ic">⚡</div><div><b>Decyzja nawet w 15 min</b><span>Automatyczna ocena BIK i scoring wniosku</span></div></div>
+      <div class="prop"><div class="ic">🖊</div><div><b>100% online</b><span>mObywatel, mojeID, e-podpis umowy</span></div></div>
+      <div class="prop"><div class="ic">🛡</div><div><b>Ubezpieczenie w racie</b><span>Pakiet albo porównanie ofert agencji</span></div></div>
+      <div class="prop"><div class="ic">↺</div><div><b>14 dni na zwrot</b><span>Dla wybranych aut używanych</span></div></div>
+    </div>
+    <div class="layout">
+      <aside class="filters" aria-label="Filtry">
+        <div class="seg light" style="width:100%;margin-bottom:10px"><button style="flex:1" data-a="client" data-v="b2b" class="${isB2B() ? 'on' : ''}">Firma (netto)</button><button style="flex:1" data-a="client" data-v="b2c" class="${!isB2B() ? 'on' : ''}">Konsument</button></div>
+        ${facet('mode', 'Forma nabycia', MODE_ORDER, ML)}
+        ${facet('cat', 'Kategoria', Object.keys(cats), cats)}
+        ${facet('cond', 'Stan', ['new', 'used', 'exlease'], d.conditions)}
+        <h4>Budżet (${nettoLbl()})</h4>
+        <div class="field"><input class="inp" type="number" min="0" step="1000" placeholder="Cena maks. [zł]" value="${esc(S.f.maxPrice)}" data-a="fnum" data-k="maxPrice" aria-label="Cena maksymalna"></div>
+        <div class="field"><input class="inp" type="number" min="0" step="100" placeholder="Rata maks. [zł/mies.]" value="${esc(S.f.maxMonthly)}" data-a="fnum" data-k="maxMonthly" aria-label="Rata maksymalna"></div>
+        <div class="field"><input class="inp" type="number" min="1990" max="2030" placeholder="Rok produkcji od" value="${esc(S.f.yearFrom)}" data-a="fnum" data-k="yearFrom" aria-label="Rok od"></div>
+        ${facet('make', 'Marka / producent', makes)}
+        ${facet('fuel', 'Napęd / zasilanie', fuels)}
+        ${facet('partner', 'Sprzedawca / partner', d.partners.map((p) => p.id), plabels)}
+        <button class="btn ghost block" style="margin-top:12px" data-a="freset">Wyczyść filtry</button>
+      </aside>
+      <section>
+        <div class="toolbar"><b data-testid="count">${list.length} ${list.length === 1 ? 'oferta' : list.length < 5 && list.length > 1 ? 'oferty' : 'ofert'}</b><span class="sp"></span>
+          <label class="small muted" for="sort">Sortuj</label><select id="sort" class="inp" style="width:auto" data-a="sort">
+          ${[['popular', 'Polecane'], ['monthly', 'Najniższa rata'], ['priceAsc', 'Cena rosnąco'], ['priceDesc', 'Cena malejąco'], ['year', 'Najnowsze roczniki']].map((x) => `<option value="${x[0]}" ${S.ui.sort === x[0] ? 'selected' : ''}>${x[1]}</option>`).join('')}</select></div>
+        ${list.length ? `<div class="cards">${list.map(card).join('')}</div>` : `<div class="empty"><h3>Brak ofert spełniających kryteria</h3><p class="muted">Zmień filtry lub zapisz wyszukiwanie – poinformujemy Cię o nowych ofertach.</p><button class="btn" data-a="freset">Wyczyść filtry</button></div>`}
+      </section>
+    </div></div>`);
+  }
+
+  // ------------------------------------------------------------------ szczegóły oferty + konfigurator
+  function cfgState(o) {
+    if (!S.cfg[o.id]) {
+      const modes = enabledModes(o);
+      const pref = isB2B() ? ['lease_op', 'ltr', 'lease_fin', 'purchase', 'str'] : ['ltr', 'lease_op', 'purchase', 'lease_fin', 'str'];
+      const mode = pref.find((m) => modes.indexOf(m) >= 0) || modes[0];
+      const st = { mode, params: {}, ins: { type: 'static', selected: o.assetType === 'vehicle' ? ['OC', 'AC', 'NNW'] : ['ALLRISK'], deductiblePct: 0, inInstallment: true, dyn: { req: { driverAge: 40, postcode: '00-001', claimFreeYears: 5, usage: 'business', ac: true }, res: null, chosen: null, loading: false } }, svc: [], gal: 0 };
+      st.ins.selected = st.ins.selected.filter((c) => o.insurance.static.indexOf(c) >= 0);
+      resetParams(o, st);
+      S.cfg[o.id] = st;
+    }
+    return S.cfg[o.id];
+  }
+  function resetParams(o, st) {
+    const c = o.modes[st.mode] || {};
+    const t = c.terms ? c.terms[Math.min(1, c.terms.length - 1)] : 36;
+    if (st.mode === 'lease_op' || st.mode === 'lease_fin') st.params = { term: t, downPct: c.defaultDownPct, rvPct: c.defaultRvPct };
+    else if (st.mode === 'ltr') st.params = { term: t, kmYear: (c.kmOptions || [20000])[1] || 20000, downPct: c.defaultDownPct || 0, ltrServices: (c.includedServices || []).slice() };
+    else if (st.mode === 'str') { const dt = new Date(Date.now() + 864e5); st.params = { days: Math.max(c.minDays || 1, 3), start: dt.toISOString().slice(0, 10) }; }
+    else st.params = { payOption: 'full' };
+  }
+
+  function totals(o, st) {
+    const q = C.quote(o, st.mode, st.params);
+    const fin = FIN.indexOf(st.mode) >= 0;
+    let ins = null, insNote = null;
+    if (st.mode === 'str') insNote = 'W cenie najmu: OC, AC z udziałem własnym (kaucja), assistance.';
+    else if (st.mode === 'ltr' && q.services.some((s) => s.key === 'ins')) insNote = 'Ubezpieczenie OC/AC/NNW jest wliczone w ratę najmu (stała składka przez cały okres).';
+    else if (st.ins.type === 'static') {
+      const prods = S.data.insuranceProducts.filter((p) => o.insurance.static.indexOf(p.code) >= 0);
+      const r = C.calcStaticInsurance(o, prods, { selected: st.ins.selected, deductiblePct: st.ins.deductiblePct, months: q.term || 36 });
+      if (r.annual > 0) ins = { kind: 'static', annual: r.annual, monthly: r.monthly, lines: r.lines };
+    } else if (st.ins.type === 'dynamic' && st.ins.dyn.chosen) {
+      const ch = st.ins.dyn.chosen;
+      ins = { kind: 'dynamic', annual: ch.annualPremium, monthly: ch.monthly, lines: ch.covers.map((c) => ({ label: c.label, annual: c.premium })), insurer: ch.insurer.name, quoteId: ch.quoteId };
+    }
+    const inInst = !!(fin && st.ins.inInstallment && ins);
+    const svcAllowed = S.data.services.filter((s) => o.services.indexOf(s.code) >= 0 && s.appliesTo.indexOf(o.assetType) >= 0);
+    const sv = C.calcServices(svcAllowed, st.svc);
+    const r2 = C.r2;
+    let upNet = q.upfrontNet + sv.oneOffNet + (ins && !inInst ? ins.annual : 0);
+    let upGross = q.upfrontGross + sv.oneOffGross + (ins && !inInst ? ins.annual : 0);
+    let payNow = upGross;
+    if (st.mode === 'purchase' && st.params.payOption === 'reservation') payNow = q.reservationFee;
+    return {
+      q, ins, insNote, inInst, sv, fin,
+      monthlyNet: r2(q.monthlyNet + sv.monthlyNet + (inInst ? ins.monthly : 0)),
+      monthlyGross: r2(q.monthlyGross + sv.monthlyGross + (inInst ? ins.monthly : 0)),
+      upNet: r2(upNet), upGross: r2(upGross), payNow: r2(payNow)
+    };
+  }
+
+  function viewDetail(id) {
+    const o = offerById(id);
+    if (!o) return page('home', `<div class="wrap"><div class="empty" style="margin:40px 0"><h2>Oferta niedostępna</h2><a class="btn" href="#/">Wróć do ofert</a></div></div>`);
+    const st = cfgState(o);
+    const p = partner(o.partnerId);
+    const unit = o.mileageUnit === 'mth' ? 'mth' : 'km';
+    const specs = [['Rok produkcji', o.year], [o.mileageUnit === 'mth' ? 'Motogodziny' : 'Przebieg', num(o.mileage) + ' ' + unit], ['Napęd / zasilanie', o.fuel], ['Moc / parametry', o.power], ['Typ', o.body], ['Skrzynia', o.gearbox || '—'], ['Kolor', o.color], ['Lokalizacja', o.location], ['Stan', S.data.conditions[o.condition]]];
+    page('home', `<div class="wrap">
+      <div class="crumbs"><a href="#/">Oferta</a> › ${esc(S.data.categories[o.category])} › ${esc(o.make)}</div>
+      <div class="detail">
+        <div>
+          <div class="panel">
+            <div class="row wrapf" style="margin-bottom:12px"><div><h1 style="font-size:28px;margin:0">${esc(o.title)}</h1><div class="muted small">${esc(p.name)} · ${esc(p.type)} · ${esc(o.location)} · ID: ${esc(o.id)}</div></div><span class="sp"></span>
+            <button class="btn ghost sm" data-a="fav" data-id="${o.id}">${S.ui.fav.indexOf(o.id) >= 0 ? '♥ W ulubionych' : '♡ Ulubione'}</button><button class="btn ghost sm" data-a="cmp" data-id="${o.id}">⇄ ${S.ui.cmp.indexOf(o.id) >= 0 ? 'W porównaniu' : 'Porównaj'}</button></div>
+            <div class="gallery"><div class="main" id="gmain">${art(o, st.gal)}</div><div class="thumbs">${[0, 1, 2, 3].map((v) => `<button data-a="gal" data-v="${v}" class="${st.gal === v ? 'on' : ''}" aria-label="Zdjęcie ${v + 1}">${art(o, v)}</button>`).join('')}</div></div>
+          </div>
+          <div class="panel"><h3>Parametry</h3><div class="specs">${specs.map((s) => `<div class="spec-i"><span>${s[0]}</span><b>${esc(s[1])}</b></div>`).join('')}</div>
+            <h3 style="margin-top:18px">Wyposażenie i cechy</h3><div class="feat">${o.features.map((f) => `<span>${esc(f)}</span>`).join('')}</div>
+            <h3 style="margin-top:18px">Opis</h3><p>${esc(o.description)}</p></div>
+          <div class="panel"><h3>Bezpieczny zakup</h3><div class="trust">
+            <div><i>📋</i><div><b>Historia i dokumenty</b><br><span class="muted">${o.badges.indexOf('history') >= 0 ? 'Udokumentowana historia serwisowa i szkodowa' : 'Dokumentacja zakupu (faktura VAT' + (o.vat === 'marza' ? ' marża' : '') + ')'}</span></div></div>
+            <div><i>🔎</i><div><b>Inspekcja techniczna</b><br><span class="muted">${o.badges.indexOf('inspection') >= 0 ? 'Raport niezależnego rzeczoznawcy dostępny' : 'Możesz zamówić niezależną inspekcję jako usługę'}</span></div></div>
+            <div><i>↺</i><div><b>Prawo zwrotu</b><br><span class="muted">${o.modes.purchase.enabled && o.modes.purchase.returnDays ? o.modes.purchase.returnDays + ' dni na zwrot przy zakupie online' : 'Zgodnie z regulaminem (umowy B2B)'}</span></div></div>
+            <div><i>🚚</i><div><b>Dostawa i rejestracja</b><br><span class="muted">Dostawa pod adres, rejestracja i tablice jako usługa</span></div></div>
+          </div></div>
+        </div>
+        <aside class="cfg" id="cfg" aria-label="Konfigurator oferty">${cfgHtml(o, st)}</aside>
+      </div></div>`);
+  }
+
+  function rng(label, key, min, max, step, val, fmtv) {
+    return `<div class="rng"><div class="top-l"><span>${label}</span><b id="rv-${key}">${fmtv(val)}</b></div><input type="range" min="${min}" max="${max}" step="${step}" value="${val}" data-a="prm" data-k="${key}" aria-label="${label}"></div>`;
+  }
+
+  function cfgHtml(o, st) {
+    const modes = enabledModes(o);
+    const c = o.modes[st.mode];
+    const pr = st.params;
+    let ctl = '';
+    if (st.mode === 'lease_op' || st.mode === 'lease_fin') {
+      const base = (o.vat === 'marza' || o.vat === 'zw') ? o.priceGross : o.priceNet;
+      ctl = `<div class="lbl">Okres umowy</div><div class="opts" style="margin:6px 0 10px">${c.terms.map((t) => `<button class="opt ${pr.term === t ? 'on' : ''}" data-a="prmopt" data-k="term" data-v="${t}">${t} mies.</button>`).join('')}</div>
+      ${rng('Opłata wstępna', 'downPct', c.minDownPct, c.maxDownPct, 1, pr.downPct, (v) => v + '% · ' + zl(base * v / 100))}
+      ${rng('Wartość wykupu', 'rvPct', c.minRvPct, c.maxRvPct, 1, pr.rvPct, (v) => v + '% · ' + zl(base * v / 100))}
+      <div class="note">${st.mode === 'lease_op' ? 'Leasing operacyjny: raty netto w kosztach, VAT doliczany do każdej raty. Po zakończeniu wykup za ustaloną kwotę lub zwrot.' : 'Leasing finansowy: przedmiot w Twojej ewidencji (amortyzacja), VAT od całej wartości płatny z pierwszą fakturą, raty bez VAT.'}</div>`;
+    } else if (st.mode === 'ltr') {
+      ctl = `<div class="lbl">Okres najmu</div><div class="opts" style="margin:6px 0 10px">${c.terms.map((t) => `<button class="opt ${pr.term === t ? 'on' : ''}" data-a="prmopt" data-k="term" data-v="${t}">${t} mies.</button>`).join('')}</div>
+      <div class="lbl">Roczny limit ${o.mileageUnit === 'mth' ? 'motogodzin (przeliczenie)' : 'kilometrów'}</div><div class="opts" style="margin:6px 0 10px">${c.kmOptions.map((t) => `<button class="opt ${pr.kmYear === t ? 'on' : ''}" data-a="prmopt" data-k="kmYear" data-v="${t}">${num(t)}</button>`).join('')}</div>
+      ${rng('Opłata wstępna', 'downPct', 0, c.maxDownPct, 1, pr.downPct, (v) => v + '%')}
+      <div class="sec-t">Usługi w racie najmu</div>${Object.keys(c.servicePrices).map((k) => { const s = c.servicePrices[k]; const on = s.mandatory || pr.ltrServices.indexOf(k) >= 0; return `<label class="line-ck"><input type="checkbox" data-a="ltrsvc" value="${k}" ${on ? 'checked' : ''} ${s.mandatory ? 'disabled' : ''}><span>${esc(s.label)}${s.mandatory ? '<small>w standardzie</small>' : ''}</span><span class="pr">${zl(s.monthlyNet)}/m</span></label>`; }).join('')}
+      <div class="note">Najem długoterminowy: bez wykupu, stała rata z usługami. Nadprzebieg rozliczany wg stawki ${zl2(c.extraKmNet || 0.25)}/km netto.</div>`;
+    } else if (st.mode === 'str') {
+      const end = new Date(new Date(pr.start).getTime() + pr.days * 864e5).toISOString().slice(0, 10);
+      ctl = `<div class="f2"><div class="field"><label for="strStart">Odbiór</label><input id="strStart" class="inp" type="date" value="${esc(pr.start)}" data-a="prmdate" data-k="start"></div><div class="field"><label>Zwrot</label><input class="inp" type="date" value="${end}" disabled></div></div>
+      ${rng('Liczba dób', 'days', c.minDays || 1, c.maxDays || 90, 1, pr.days, (v) => v + ' ' + (v === 1 ? 'doba' : v < 5 ? 'doby' : 'dób'))}
+      <div class="note">Rabaty: ${(c.tiers || []).map((t) => 'od ' + t.fromDays + ' dób −' + t.discountPct + '%').join(', ') || 'brak'}. Kaucja (preautoryzacja karty) ${zl(c.deposit)}.${c.kmPerDay ? ' Limit ' + c.kmPerDay + ' km/dobę.' : ''}</div>`;
+    } else {
+      const pc = o.modes.purchase;
+      ctl = `<div class="lbl">Sposób płatności</div><div class="opts" style="margin:6px 0 10px"><button class="opt ${pr.payOption === 'full' ? 'on' : ''}" data-a="prmopt" data-k="payOption" data-v="full">Pełna płatność online</button>${pc.reservationFee ? `<button class="opt ${pr.payOption === 'reservation' ? 'on' : ''}" data-a="prmopt" data-k="payOption" data-v="reservation">Rezerwacja ${zl(pc.reservationFee)}</button>` : ''}</div>
+      ${pc.discountPct ? `<div class="note ok">Rabat przy zakupie online: −${pc.discountPct}%</div>` : ''}${pc.returnDays ? `<div class="note">Gwarancja zwrotu: ${pc.returnDays} dni od odbioru (zakup online).</div>` : ''}`;
+    }
+
+    // ubezpieczenia
+    let insH = '';
+    const t0 = totals(o, st);
+    if (t0.insNote) insH = `<div class="note ok">${t0.insNote}</div>`;
+    else {
+      const prods = S.data.insuranceProducts.filter((p) => o.insurance.static.indexOf(p.code) >= 0 && p.appliesTo.indexOf(o.assetType) >= 0);
+      const opts = [['static', 'Pakiet standardowy']];
+      if (o.insurance.dynamic) opts.push(['dynamic', 'Porównaj oferty']);
+      opts.push(['none', 'Własna polisa']);
+      insH = `<div class="seg light" style="display:flex;margin-bottom:8px">${opts.map((x) => `<button style="flex:1" data-a="instype" data-v="${x[0]}" class="${st.ins.type === x[0] ? 'on' : ''}">${x[1]}</button>`).join('')}</div>`;
+      if (st.ins.type === 'static') {
+        const r = C.calcStaticInsurance(o, prods, { selected: prods.map((p) => p.code), deductiblePct: st.ins.deductiblePct, months: t0.q.term || 36 });
+        insH += prods.map((p) => { const ln = r.lines.find((l) => l.code === p.code); const mand = p.mandatory && o.assetType === 'vehicle'; return `<label class="line-ck"><input type="checkbox" data-a="insck" value="${p.code}" ${(st.ins.selected.indexOf(p.code) >= 0 || mand) ? 'checked' : ''} ${mand ? 'disabled' : ''}><span>${esc(p.label)}${p.desc ? `<small>${esc(p.desc)}</small>` : ''}</span><span class="pr">${zl(ln ? ln.annual : 0)}/rok</span></label>`; }).join('');
+        if (prods.some((p) => p.deductibleSensitive)) insH += `<div class="field" style="margin-top:8px"><label for="ded">Udział własny w szkodzie</label><select id="ded" class="inp" data-a="insded">${[0, 2, 5, 10].map((v) => `<option value="${v}" ${st.ins.deductiblePct === v ? 'selected' : ''}>${v ? v + '% wartości szkody' : 'Bez udziału własnego'}</option>`).join('')}</select></div>`;
+      } else if (st.ins.type === 'dynamic') {
+        const rq = st.ins.dyn.req; const veh = o.assetType === 'vehicle';
+        insH += `<div class="${veh ? 'f2' : ''}">${veh ? `<div class="field"><label for="dAge">Wiek głównego kierowcy</label><input id="dAge" class="inp" type="number" min="18" max="99" value="${rq.driverAge}" data-a="dynreq" data-k="driverAge"></div><div class="field"><label for="dCfy">Lata bezszkodowe</label><input id="dCfy" class="inp" type="number" min="0" max="40" value="${rq.claimFreeYears}" data-a="dynreq" data-k="claimFreeYears"></div>` : ''}
+          <div class="field"><label for="dPc">Kod pocztowy ${veh ? 'zamieszkania / siedziby' : 'lokalizacji mienia'}</label><input id="dPc" class="inp" value="${esc(rq.postcode)}" data-a="dynreq" data-k="postcode" placeholder="00-001"></div>
+          ${veh ? `<div class="field"><label for="dUse">Sposób użytkowania</label><select id="dUse" class="inp" data-a="dynreq" data-k="usage">${[['private', 'Prywatny'], ['business', 'Firmowy'], ['rental', 'Wynajem'], ['taxi', 'Taxi / przewóz osób']].map((x) => `<option value="${x[0]}" ${rq.usage === x[0] ? 'selected' : ''}>${x[1]}</option>`).join('')}</select></div>` : ''}</div>
+          <button class="btn ghost block" data-a="dynquote" ${st.ins.dyn.loading ? 'disabled' : ''}>${st.ins.dyn.loading ? 'Odpytuję agencję ubezpieczeniową…' : '↻ Pobierz oferty od ubezpieczycieli'}</button>`;
+        if (st.ins.dyn.res) insH += st.ins.dyn.res.quotes.map((q, i) => `<div class="quote-card ${st.ins.dyn.chosen && st.ins.dyn.chosen.quoteId === q.quoteId ? 'on' : ''}" data-a="dynpick" data-i="${i}" role="button" tabindex="0"><div><b>${esc(q.insurer.name)}</b> ${i === 0 ? '<span class="badge ok">Najtaniej</span>' : ''}<div class="xs muted">${q.covers.map((c) => esc(c.code)).join(' · ')} · ocena ${q.insurer.rating}/5 · ważna do ${q.validUntil}</div></div><div class="pp">${zl(q.annualPremium)}<div class="xs muted">/rok · ${zl(q.monthly)}/m</div></div></div>`).join('');
+      } else insH += `<div class="note w">Wymagamy cesji praw z polisy AC na finansującego (dla leasingu i najmu). Polisę prześlesz w procesie online.</div>`;
+      if (FIN.indexOf(st.mode) >= 0 && st.ins.type !== 'none') insH += `<label class="line-ck"><input type="checkbox" data-a="insinst" ${st.ins.inInstallment ? 'checked' : ''}><span>Składka w racie<small>rozłożenie składki rocznej na 12 miesięcy, bez kosztów</small></span></label>`;
+    }
+
+    const svcAllowed = S.data.services.filter((s) => o.services.indexOf(s.code) >= 0 && s.appliesTo.indexOf(o.assetType) >= 0);
+    const svcH = svcAllowed.map((s) => `<label class="line-ck"><input type="checkbox" data-a="svc" value="${s.code}" ${st.svc.indexOf(s.code) >= 0 ? 'checked' : ''}><span>${esc(s.label)}${s.desc ? `<small>${esc(s.desc)}</small>` : ''}</span><span class="pr">${s.priceNet ? zl(isB2B() ? s.priceNet : C.grossFromNet(s.priceNet, s.vat)) + (s.billing === 'monthly' ? '/m' : '') : 'bezpł.'}</span></label>`).join('');
+
+    return `<div class="panel">
+      <div class="head"><div><div class="xs muted">Cena ${nettoLbl()}${o.vat === 'marza' ? ' · VAT-marża' : o.vat !== '23' ? ' · VAT ' + (o.vat === 'zw' ? 'zw.' : o.vat + '%') : ''}</div><div class="price-big">${zl(priceOf(o))}</div></div><div class="xs muted" style="text-align:right">${isB2B() ? 'brutto ' + zl(o.priceGross) : 'netto ' + zl(o.priceNet)}</div></div>
+      ${o.status === 'reserved' ? '<div class="note w">Oferta jest zarezerwowana – możesz złożyć wniosek, trafisz na listę rezerwową.</div>' : ''}
+      <div class="tabs" role="tablist">${modes.map((m) => `<button role="tab" data-a="mode" data-v="${m}" class="${st.mode === m ? 'on' : ''}" data-testid="tab-${m}">${MODE_SHORT[m]}</button>`).join('')}</div>
+      <div id="ctl">${ctl}</div>
+      <div id="cfg-res">${resHtml(o, st)}</div>
+      <details ${st.mode !== 'str' ? 'open' : ''}><summary>🛡 Ubezpieczenie</summary><div style="margin-top:8px" id="ins">${insH}</div></details>
+      <details><summary>🧰 Usługi dodatkowe ${st.svc.length ? `<span class="badge acc">${st.svc.length}</span>` : ''}</summary><div style="margin-top:6px">${svcH || '<span class="muted small">Brak usług dla tej oferty</span>'}</div></details>
+      <div class="grid" style="margin-top:14px">
+        <button class="btn lg block" data-a="checkout" data-testid="cta">${st.mode === 'purchase' ? (st.params.payOption === 'reservation' ? 'Zarezerwuj online' : 'Kup online') : st.mode === 'str' ? 'Zarezerwuj najem' : 'Złóż wniosek – decyzja w 15 min'}</button>
+        <div class="row"><button class="btn ghost" style="flex:1" data-a="compareModes">Porównaj formy</button><button class="btn ghost" style="flex:1" data-a="print">Drukuj / PDF</button></div>
+      </div></div>`;
+  }
+
+  function resHtml(o, st) {
+    const t = totals(o, st); const q = t.q;
+    const net = isB2B();
+    const mon = net ? t.monthlyNet : t.monthlyGross, up = net ? t.upNet : t.upGross;
+    let main, rows = [];
+    if (t.fin) {
+      main = `<div class="xs muted">Rata miesięczna ${nettoLbl()}${t.inInst ? ' z ubezpieczeniem' : ''}</div><div class="big" data-testid="monthly">${zl2(mon)}</div><div class="small muted">przez ${q.term} mies. · na start ${zl(up)}</div>`;
+      if (st.mode !== 'ltr') {
+        rows.push(['Rata leasingowa netto', zl2(q.installmentNet)], ['Rata leasingowa brutto', zl2(q.installmentGross)], ['Opłata wstępna (' + q.downPct + '%) netto', zl2(q.down)], ['Opłata przygotowawcza (' + q.prepFeePct + '%)', zl2(q.fee)], ['Wykup (' + q.rvPct + '%) netto', zl2(q.rv)]);
+        if (q.vatUpfront) rows.push(['VAT płatny z góry (leasing fin.)', zl2(q.vatUpfront)]);
+        rows.push(['Oprocentowanie (stałe)', nf2.format(q.ratePct) + '% rocznie'], ['Suma opłat', nf2.format(q.sumOfPaymentsPct) + '% wartości']);
+      } else {
+        rows.push(['Część finansowa netto', zl2(q.financeNet)], ['Usługi w racie netto', zl2(q.servicesNet)], ['Wartość końcowa (' + q.rvPct + '%) – ryzyko najemcy: brak', zl(q.rv)], ['Limit przebiegu', num(q.kmYear) + ' / rok']);
+      }
+    } else if (st.mode === 'str') {
+      main = `<div class="xs muted">Koszt najmu ${nettoLbl()}</div><div class="big" data-testid="monthly">${zl2(net ? q.net : q.gross)}</div><div class="small muted">${q.days} dób × ${zl2(net ? q.dayNet : q.dayGross)}${q.discountPct ? ' (rabat ' + q.discountPct + '%)' : ''} + kaucja ${zl(q.deposit)}</div>`;
+      rows.push(['Najem netto', zl2(q.net)], ['VAT', zl2(q.vat)], ['Najem brutto', zl2(q.gross)], ['Kaucja (zwrotna)', zl2(q.deposit)]);
+      if (q.kmLimit) rows.push(['Limit km w okresie', num(q.kmLimit) + ' km'], ['Nadprzebieg', zl2(q.extraKmNet) + '/km netto']);
+    } else {
+      main = `<div class="xs muted">Do zapłaty ${st.params.payOption === 'reservation' ? 'teraz (rezerwacja)' : nettoLbl()}</div><div class="big" data-testid="monthly">${zl2(st.params.payOption === 'reservation' ? t.payNow : up)}</div>${st.params.payOption === 'reservation' ? `<div class="small muted">pozostała kwota ${zl(t.upGross - t.payNow)} w ciągu 7 dni</div>` : ''}`;
+      rows.push(['Cena netto', zl2(q.net)], ['VAT ' + (o.vat === 'marza' ? '(marża)' : ''), zl2(q.vat)], ['Cena brutto', zl2(q.gross)]);
+    }
+    if (t.ins) rows.push(['Ubezpieczenie' + (t.ins.insurer ? ' (' + t.ins.insurer + ')' : '') + ' – rok', zl2(t.ins.annual) + (t.inInst ? ' (w racie)' : ' (jednorazowo)')]);
+    if (t.sv.oneOffNet) rows.push(['Usługi jednorazowe ' + nettoLbl(), zl2(net ? t.sv.oneOffNet : t.sv.oneOffGross)]);
+    if (t.sv.monthlyNet) rows.push(['Usługi abonamentowe ' + nettoLbl(), zl2(net ? t.sv.monthlyNet : t.sv.monthlyGross) + '/m']);
+    let sched = '';
+    if (q.schedule) sched = `<details><summary>Harmonogram spłat (${q.schedule.length} rat)</summary><div class="scroll"><table class="t"><thead><tr><th>Nr</th><th class="n">Rata netto</th><th class="n">Kapitał</th><th class="n">Odsetki</th><th class="n">Saldo</th></tr></thead><tbody>${q.schedule.map((r) => `<tr><td>${r.no}</td><td class="n">${nf2.format(r.installment)}</td><td class="n">${nf2.format(r.capital)}</td><td class="n">${nf2.format(r.interest)}</td><td class="n">${nf2.format(r.balance)}</td></tr>`).join('')}</tbody></table></div><p class="xs muted">${esc(q.taxNote)}</p></details>`;
+    return `<div class="result">${main}</div><details><summary>Szczegóły kalkulacji</summary>${rows.map((r) => `<div class="kv"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}<div class="kv tot"><span>Płatność na start ${nettoLbl()}</span><b>${zl2(st.params.payOption === 'reservation' ? t.payNow : up)}</b></div></details>${sched}`;
+  }
+
+  function refreshCfg(o, full) {
+    const st = cfgState(o);
+    if (full) { $('#cfg').innerHTML = cfgHtml(o, st); return; }
+    $('#cfg-res').innerHTML = resHtml(o, st);
+  }
+
+  // porównanie form finansowania
+  const MODE_FACTS = {
+    purchase: { own: 'Od razu', vat: 'Od ceny', svc: 'Opcjonalnie', end: '—', acc: 'Środek trwały (amortyzacja)' },
+    str: { own: 'Nie', vat: 'Od najmu', svc: 'W cenie', end: 'Zwrot', acc: 'Koszt usługi' },
+    ltr: { own: 'Nie', vat: 'W racie', svc: 'W racie', end: 'Zwrot (opcj. odkup)', acc: 'Rata w kosztach' },
+    lease_op: { own: 'Po wykupie', vat: 'W racie', svc: 'Opcjonalnie', end: 'Wykup / zwrot', acc: 'Rata netto w kosztach' },
+    lease_fin: { own: 'Po spłacie', vat: 'Z góry', svc: 'Opcjonalnie', end: 'Przeniesienie własności', acc: 'Amortyzacja + odsetki' }
+  };
+  function compareModes(o) {
+    const st = cfgState(o);
+    const modes = enabledModes(o);
+    const cols = modes.map((m) => { const s = clone(st); s.mode = m; resetParams(o, s); s.ins = st.ins; s.svc = st.svc; return { m, t: totals(o, s) }; });
+    const net = isB2B();
+    const val = (c, k) => { const t = c.t; if (k === 'mon') return t.fin ? (net ? t.monthlyNet : t.monthlyGross) : null; if (k === 'up') return net ? t.upNet : t.upGross; if (k === 'tot') { if (t.fin) return (net ? t.upNet : t.upGross) + (net ? t.monthlyNet : t.monthlyGross) * t.q.term + (c.m === 'lease_op' || c.m === 'lease_fin' ? (net ? t.q.rv : t.q.rvGross) : 0); if (c.m === 'str') return net ? t.q.net : t.q.gross; return net ? t.upNet : t.upGross; } };
+    const best = (k) => { const v = cols.map((c) => val(c, k)).filter((x) => x != null); return Math.min.apply(null, v); };
+    const cell = (c, k) => { const v = val(c, k); if (v == null) return '—'; return `<span class="${v === best(k) && k === 'mon' ? 'best' : ''}">${zl(v)}</span>`; };
+    modal(`<button class="x" data-a="closeModal" aria-label="Zamknij">×</button><h2>Porównanie form nabycia</h2><p class="muted small">${esc(o.title)} · kwoty ${nettoLbl()} · domyślne parametry każdej formy, z wybranym ubezpieczeniem i usługami</p>
+      <div style="overflow:auto"><table class="t cmp"><thead><tr><th></th>${cols.map((c) => `<th>${ML[c.m]}</th>`).join('')}</tr></thead><tbody>
+      <tr><td>Rata miesięczna</td>${cols.map((c) => `<td>${cell(c, 'mon')}</td>`).join('')}</tr>
+      <tr><td>Płatność na start</td>${cols.map((c) => `<td>${cell(c, 'up')}</td>`).join('')}</tr>
+      <tr><td>Okres</td>${cols.map((c) => `<td>${c.t.q.term ? c.t.q.term + ' mies.' : c.m === 'str' ? c.t.q.days + ' dób' : '—'}</td>`).join('')}</tr>
+      <tr><td>Łączny koszt (z wykupem)</td>${cols.map((c) => `<td>${cell(c, 'tot')}</td>`).join('')}</tr>
+      ${[['own', 'Własność'], ['vat', 'VAT'], ['svc', 'Serwis / ubezpieczenie'], ['end', 'Koniec umowy'], ['acc', 'Ujęcie księgowe']].map((r) => `<tr><td>${r[1]}</td>${cols.map((c) => `<td class="small">${MODE_FACTS[c.m][r[0]]}</td>`).join('')}</tr>`).join('')}
+      <tr><td></td>${cols.map((c) => `<td><button class="btn sm" data-a="pickMode" data-v="${c.m}">Wybierz</button></td>`).join('')}</tr>
+      </tbody></table></div>`);
+  }
+  function modal(html) {
+    closeModal();
+    const bg = document.createElement('div'); bg.className = 'modal-bg'; bg.id = 'modal';
+    bg.innerHTML = `<div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+    bg.addEventListener('click', (e) => { if (e.target === bg) closeModal(); });
+    document.body.appendChild(bg);
+  }
+  function closeModal() { const m = $('#modal'); if (m) m.remove(); }
+  function askConfirm(msg) {
+    return new Promise((resolve) => {
+      modal(`<h3>${esc(msg)}</h3><div class="row" style="margin-top:16px"><span class="sp"></span><button class="btn ghost" id="cfNo">Anuluj</button><button class="btn" id="cfYes" data-testid="confirmYes">Potwierdź</button></div>`);
+      $('#cfYes').onclick = () => { closeModal(); resolve(true); };
+      $('#cfNo').onclick = () => { closeModal(); resolve(false); };
+    });
+  }
+
+  // ------------------------------------------------------------------ porównanie ofert
+  function viewCompare() {
+    const list = S.ui.cmp.map(offerById).filter(Boolean);
+    if (!list.length) return page('home', `<div class="wrap"><div class="empty" style="margin:40px 0"><h2>Brak ofert do porównania</h2><p class="muted">Dodaj oferty przyciskiem ⇄ na liście.</p><a class="btn" href="#/">Przeglądaj oferty</a></div></div>`);
+    const rows = [['Cena ' + nettoLbl(), (o) => zl(priceOf(o))], ['Rata od', (o) => { const m = fromM(o); return m ? zl(isB2B() ? m.monthlyNet : m.monthlyGross) + ' (' + MODE_SHORT[m.mode] + ')' : '—'; }], ['Rok', (o) => o.year], ['Przebieg', (o) => num(o.mileage) + (o.mileageUnit === 'mth' ? ' mth' : ' km')], ['Napęd', (o) => esc(o.fuel)], ['Moc', (o) => esc(o.power)], ['Stan', (o) => S.data.conditions[o.condition]], ['Formy', (o) => enabledModes(o).map((m) => MODE_SHORT[m]).join(', ')], ['Sprzedawca', (o) => esc(partner(o.partnerId).name)], ['Lokalizacja', (o) => esc(o.location)]];
+    page('home', `<div class="wrap" style="margin:24px auto 60px"><div class="row"><h1 style="font-size:28px">Porównanie ofert</h1><span class="sp"></span><button class="btn ghost" data-a="cmpClear">Wyczyść</button></div>
+      <div class="panel" style="overflow:auto"><table class="t cmp"><thead><tr><th></th>${list.map((o) => `<th style="min-width:200px"><a href="#/oferta/${o.id}"><div style="border-radius:9px;overflow:hidden;aspect-ratio:16/9">${art(o)}</div><div style="margin-top:6px;color:var(--ink)">${esc(o.title)}</div></a></th>`).join('')}</tr></thead>
+      <tbody>${rows.map((r) => `<tr><td><b>${r[0]}</b></td>${list.map((o) => `<td>${r[1](o)}</td>`).join('')}</tr>`).join('')}<tr><td></td>${list.map((o) => `<td><a class="btn sm" href="#/oferta/${o.id}">Konfiguruj</a> <button class="btn ghost sm" data-a="cmp" data-id="${o.id}">Usuń</button></td>`).join('')}</tr></tbody></table></div></div>`);
+  }
+
+  // ------------------------------------------------------------------ checkout
+  const TEST = { good: '90010112318', mid: '90010112370', bad: '90010112394', kycFail: '90010112387', nip: '5260200017', nipMid: '5260200075', nipBad: '5260200098' };
+  function startCheckout(o) {
+    const st = cfgState(o);
+    S.co = { step: 0, offerId: o.id, mode: st.mode, params: clone(st.params), cfg: clone(st), applicant: { type: isB2B() ? 'company' : 'consumer', email: '', phone: '', firstName: '', lastName: '', pesel: '', idDoc: '', street: '', postcode: '', city: '', monthlyIncome: '', employment: 'umowa_o_prace', nip: '', companyName: '', regon: '', annualRevenue: '' }, consents: { terms: false, rodo: false, bik: false, marketing: false }, errors: {}, kyc: null, registry: null, credit: null, decision: null, esign: null, payment: null, policy: null, orderId: null, busy: false, progress: [] };
+    location.hash = '#/checkout';
+  }
+  function coSteps() {
+    return FIN.indexOf(S.co.mode) >= 0 ? ['Podsumowanie', 'Dane', 'Tożsamość', 'Decyzja', 'Umowa i płatność', 'Gotowe'] : ['Podsumowanie', 'Dane', 'Tożsamość', 'Umowa i płatność', 'Gotowe'];
+  }
+  const stepKey = () => { const s = coSteps()[S.co.step]; return { 'Podsumowanie': 'sum', 'Dane': 'data', 'Tożsamość': 'kyc', 'Decyzja': 'dec', 'Umowa i płatność': 'sign', 'Gotowe': 'done' }[s]; };
+  const coOffer = () => offerById(S.co.offerId);
+  const coTotals = () => { const st = clone(S.co.cfg); st.mode = S.co.mode; st.params = S.co.params; return totals(coOffer(), st); };
+
+  function viewCheckout() {
+    if (!S.co || !coOffer()) return page('home', `<div class="wrap"><div class="empty" style="margin:40px 0"><h2>Brak aktywnego wniosku</h2><a class="btn" href="#/">Wybierz ofertę</a></div></div>`);
+    const steps = coSteps(); const k = stepKey();
+    const o = coOffer(); const t = coTotals();
+    const body = { sum: coSum, data: coData, kyc: coKyc, dec: coDec, sign: coSign, done: coDone }[k]();
+    page('home', `<div class="wrap">
+      <div class="steps">${steps.map((s, i) => `<div class="step ${i === S.co.step ? 'on' : i < S.co.step ? 'done' : ''}"><span class="no">${i < S.co.step ? '✓' : i + 1}</span>${s}</div>`).join('')}</div>
+      <div class="co"><div class="panel" id="cobody" data-step="${k}">${body}</div>
+      <aside class="panel" style="position:sticky;top:80px"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;margin-bottom:10px">${art(o)}</div><b>${esc(o.title)}</b><div class="small muted">${ML[S.co.mode]} · ${esc(partner(o.partnerId).name)}</div>
+        <div style="margin-top:10px">${t.fin ? `<div class="kv"><span>Rata ${nettoLbl()}</span><b>${zl2(isB2B() ? t.monthlyNet : t.monthlyGross)}</b></div><div class="kv"><span>Okres</span><b>${t.q.term} mies.</b></div><div class="kv"><span>Opłata wstępna</span><b>${t.q.downPct}%</b></div>` : ''}
+        ${S.co.mode === 'str' ? `<div class="kv"><span>Okres najmu</span><b>${t.q.days} dób od ${esc(S.co.params.start)}</b></div>` : ''}
+        ${t.ins ? `<div class="kv"><span>Ubezpieczenie</span><b>${zl(t.ins.annual)}/rok</b></div>` : ''}
+        ${t.sv.lines.length ? `<div class="kv"><span>Usługi</span><b>${t.sv.lines.length}</b></div>` : ''}
+        <div class="kv tot"><span>Do zapłaty online (brutto)</span><b data-testid="paynow">${zl2(t.payNow)}</b></div></div>
+        ${S.co.step < steps.length - 1 && S.co.step > 0 ? '<button class="link small" data-a="coBack" style="margin-top:10px">‹ Wstecz</button>' : ''}
+      </aside></div></div>`);
+  }
+
+  function coSum() {
+    const a = S.co.applicant; const o = coOffer(); const t = coTotals();
+    const types = [['consumer', '👤', 'Konsument', 'Osoba fizyczna'], ['jdg', '🧾', 'Jednoosobowa firma', 'JDG / CEIDG'], ['company', '🏢', 'Spółka', 'KRS / spółka cywilna']];
+    return `<h2>Kto zawiera umowę?</h2><p class="muted">Dobierzemy wymagane dane i sposób oceny. ${t.fin ? 'Wniosek przejdzie automatyczną ocenę (BIK, rejestry, scoring).' : ''}</p>
+      <div class="typecards">${types.map((x) => `<button class="tc ${a.type === x[0] ? 'on' : ''}" data-a="coType" data-v="${x[0]}" data-testid="type-${x[0]}"><span style="font-size:22px">${x[1]}</span><b>${x[2]}</b><span>${x[3]}</span></button>`).join('')}</div>
+      <div class="sec-t">Podsumowanie konfiguracji</div>
+      ${t.fin && t.q.schedule ? `<div class="kv"><span>Forma</span><b>${ML[S.co.mode]}</b></div><div class="kv"><span>Rata netto / brutto</span><b>${zl2(t.q.installmentNet)} / ${zl2(t.q.installmentGross)}</b></div><div class="kv"><span>Wykup</span><b>${t.q.rvPct}% (${zl(t.q.rv)} netto)</b></div>` : ''}
+      ${S.co.mode === 'ltr' ? `<div class="kv"><span>Forma</span><b>Najem długoterminowy, ${num(t.q.kmYear)} km/rok</b></div><div class="kv"><span>Usługi w racie</span><b>${t.q.services.map((s) => s.label).join(', ')}</b></div>` : ''}
+      ${S.co.mode === 'purchase' ? `<div class="kv"><span>Cena brutto</span><b>${zl2(t.q.gross)}</b></div><div class="kv"><span>Płatność</span><b>${S.co.params.payOption === 'reservation' ? 'Rezerwacja ' + zl(t.q.reservationFee) : 'Pełna online'}</b></div>` : ''}
+      ${t.ins ? `<div class="kv"><span>Ubezpieczenie</span><b>${t.ins.lines.map((l) => esc(l.label.split(' (')[0])).join(', ')}${t.ins.insurer ? ' – ' + esc(t.ins.insurer) : ''}</b></div>` : t.insNote ? `<div class="kv"><span>Ubezpieczenie</span><b>w cenie</b></div>` : ''}
+      ${t.sv.lines.map((l) => `<div class="kv"><span>${esc(l.label)}</span><b>${zl(l.gross)}${l.billing === 'monthly' ? '/m' : ''}</b></div>`).join('')}
+      <div class="row" style="margin-top:18px"><a class="btn ghost" href="#/oferta/${o.id}">Zmień konfigurację</a><span class="sp"></span><button class="btn lg" data-a="coNext" data-testid="next">Dalej</button></div>`;
+  }
+
+  function fld(key, label, opts) {
+    opts = opts || {};
+    const a = S.co.applicant; const err = S.co.errors[key];
+    const inp = opts.select ? `<select id="f-${key}" class="inp ${err ? 'err' : ''}" data-a="coField" data-k="${key}">${opts.select.map((x) => `<option value="${x[0]}" ${a[key] === x[0] ? 'selected' : ''}>${x[1]}</option>`).join('')}</select>`
+      : `<input id="f-${key}" class="inp ${err ? 'err' : ''}" data-a="coField" data-k="${key}" value="${esc(a[key])}" ${opts.type ? 'type="' + opts.type + '"' : ''} ${opts.ph ? 'placeholder="' + esc(opts.ph) + '"' : ''} ${opts.mode ? 'inputmode="' + opts.mode + '"' : ''} autocomplete="${opts.ac || 'off'}">`;
+    return `<div class="field"><label for="f-${key}">${label}${opts.req === false ? '' : ' *'}</label>${inp}${err ? `<span class="ferr">${esc(err)}</span>` : ''}</div>`;
+  }
+  function coData() {
+    const a = S.co.applicant, fin = FIN.indexOf(S.co.mode) >= 0, cs = S.co.consents;
+    const company = a.type !== 'consumer';
+    let h = `<h2>Dane ${company ? 'firmy i reprezentanta' : 'osobowe'}</h2>
+      <div class="note">Dane testowe: PESEL <b>${TEST.good}</b> (decyzja pozytywna), <b>${TEST.mid}</b> (warunkowa), <b>${TEST.bad}</b> (odmowa), <b>${TEST.kycFail}</b> (błąd weryfikacji), NIP <b>${TEST.nip}</b> (pozytywny), <b>${TEST.nipMid}</b> (warunkowa), <b>${TEST.nipBad}</b> (odmowa). <button class="link" data-a="coFillTest">Wypełnij danymi testowymi</button></div>`;
+    if (company) {
+      h += `<div class="sec-t">Firma</div><div class="row" style="align-items:flex-end"><div style="flex:1">${fld('nip', 'NIP', { ph: '0000000000', mode: 'numeric' })}</div><button class="btn ghost" style="margin-bottom:12px" data-a="coRegistry" ${S.co.busy ? 'disabled' : ''}>${S.co.busy ? 'Pobieram…' : 'Pobierz z GUS / CEIDG / KRS'}</button></div>
+        ${S.co.registry && S.co.registry.ok ? `<div class="note ok">✓ ${esc(S.co.registry.source)}: ${esc(S.co.registry.name)}, REGON ${esc(S.co.registry.regon)}, działalność od ${esc(S.co.registry.startDate)} (${S.co.registry.monthsActive} mies.), PKD ${esc(S.co.registry.pkd)}, czynny podatnik VAT</div>` : ''}
+        <div class="f2">${fld('companyName', 'Nazwa firmy')}${fld('regon', 'REGON', { req: false })}</div>${fin ? fld('annualRevenue', 'Przychód za ostatni rok [zł]', { type: 'number', mode: 'numeric' }) : ''}
+        <div class="sec-t">${a.type === 'jdg' ? 'Właściciel' : 'Osoba reprezentująca'}</div>`;
+    }
+    h += `<div class="f2">${fld('firstName', 'Imię', { ac: 'given-name' })}${fld('lastName', 'Nazwisko', { ac: 'family-name' })}</div>
+      <div class="f2">${fld('pesel', 'PESEL', { mode: 'numeric', ph: '11 cyfr' })}${fld('idDoc', 'Seria i nr dowodu osobistego', { ph: 'ABC123456' })}</div>
+      <div class="f2">${fld('email', 'E-mail', { type: 'email', ac: 'email' })}${fld('phone', 'Telefon', { type: 'tel', ac: 'tel', ph: '+48 600 000 000' })}</div>
+      <div class="f3">${fld('street', 'Ulica i nr', { ac: 'street-address' })}${fld('postcode', 'Kod pocztowy', { ph: '00-000', ac: 'postal-code' })}${fld('city', 'Miejscowość', { ac: 'address-level2' })}</div>`;
+    if (fin && !company) h += `<div class="f2">${fld('monthlyIncome', 'Dochód netto miesięcznie [zł]', { type: 'number', mode: 'numeric' })}${fld('employment', 'Źródło dochodu', { select: [['umowa_o_prace', 'Umowa o pracę – czas nieokreślony'], ['umowa_okres', 'Umowa o pracę – czas określony'], ['dzialalnosc', 'Działalność gospodarcza'], ['emerytura', 'Emerytura / renta'], ['inne', 'Inne (B2B, umowa zlecenie)']] })}</div>`;
+    h += `<div class="sec-t">Zgody</div>
+      <label class="consent"><input type="checkbox" data-a="coConsent" data-k="terms" ${cs.terms ? 'checked' : ''}><span>* Akceptuję regulamin platformy i zawierania umów na odległość oraz OWU wybranych produktów.</span></label>
+      <label class="consent"><input type="checkbox" data-a="coConsent" data-k="rodo" ${cs.rodo ? 'checked' : ''}><span>* Zapoznałem(-am) się z klauzulą informacyjną RODO (administrator: operator platformy i finansujący).</span></label>
+      ${fin ? `<label class="consent"><input type="checkbox" data-a="coConsent" data-k="bik" ${cs.bik ? 'checked' : ''}><span>* Upoważniam do pozyskania informacji z BIK, BIG (KRD, ERIF, BIG InfoMonitor) oraz rejestrów publicznych w celu oceny wniosku (art. 105 i 105a Prawa bankowego, ustawa o udostępnianiu informacji gospodarczych).</span></label>` : ''}
+      <label class="consent"><input type="checkbox" data-a="coConsent" data-k="marketing" ${cs.marketing ? 'checked' : ''}><span>Chcę otrzymywać informacje o nowych ofertach (opcjonalnie).</span></label>
+      ${S.co.errors._consents ? `<div class="ferr">${S.co.errors._consents}</div>` : ''}
+      <div class="row" style="margin-top:18px"><span class="sp"></span><button class="btn lg" data-a="coNext" data-testid="next">Dalej – weryfikacja tożsamości</button></div>`;
+    return h;
+  }
+  function validateData() {
+    const a = S.co.applicant, e = {}, fin = FIN.indexOf(S.co.mode) >= 0, company = a.type !== 'consumer';
+    const req = (k, m) => { if (!String(a[k] || '').trim()) e[k] = m || 'Pole wymagane'; };
+    ['firstName', 'lastName', 'email', 'phone', 'street', 'postcode', 'city', 'pesel', 'idDoc'].forEach((k) => req(k));
+    if (a.pesel && !V.pesel(a.pesel)) e.pesel = 'Nieprawidłowy numer PESEL';
+    else if (a.pesel && V.ageFromPesel(a.pesel) < 18) e.pesel = 'Wymagana pełnoletność';
+    if (a.email && !V.email(a.email)) e.email = 'Nieprawidłowy e-mail';
+    if (a.phone && !V.phone(a.phone)) e.phone = 'Podaj 9 cyfr (opcjonalnie +48)';
+    if (a.postcode && !V.postcode(a.postcode)) e.postcode = 'Format 00-000';
+    if (a.idDoc && !/^[A-Z]{3}\s?\d{6}$/i.test(a.idDoc.trim())) e.idDoc = 'Format ABC123456';
+    if (company) { req('nip'); req('companyName'); if (a.nip && !V.nip(a.nip)) e.nip = 'Nieprawidłowy NIP'; if (fin) req('annualRevenue'); }
+    if (fin && !company) { req('monthlyIncome'); }
+    const cs = S.co.consents;
+    if (!cs.terms || !cs.rodo || (fin && !cs.bik)) e._consents = 'Zaznacz wymagane zgody (*)';
+    S.co.errors = e; return Object.keys(e).length === 0;
+  }
+  // wnioskodawca na potrzeby usług (konsument: PESEL; firma: NIP + PESEL reprezentanta)
+  function applicantDto() {
+    const a = S.co.applicant;
+    return a.type === 'consumer' ? { type: 'consumer', pesel: a.pesel, name: a.firstName + ' ' + a.lastName, monthlyIncome: Number(a.monthlyIncome || 0), employment: a.employment }
+      : { type: a.type, nip: a.nip, pesel: a.pesel, name: a.companyName, representative: a.firstName + ' ' + a.lastName, annualRevenue: Number(a.annualRevenue || 0) };
+  }
+
+  function coKyc() {
+    const k = S.co.kyc;
+    const methods = [['mobywatel', '📱', 'mObywatel', 'Zeskanuj kod QR w aplikacji – najszybciej'], ['mojeid', '🏦', 'mojeID', 'Zaloguj się do swojego banku'], ['transfer', '💸', 'Przelew weryfikacyjny', '1 zł z Twojego rachunku'], ['selfie', '🤳', 'Selfie + dowód', 'Zdjęcie dokumentu i weryfikacja liveness']];
+    let h = `<h2>Potwierdź tożsamość</h2><p class="muted">Wybierz metodę. Dane zostaną porównane z wnioskiem i sprawdzone na listach sankcyjnych / PEP (AML).</p>`;
+    if (S.co.busy) return h + `<ul class="progress"><li class="run"><span class="st"></span>Łączenie z dostawcą tożsamości…</li></ul>`;
+    if (k && k.ok) return h + `<div class="decision approved"><h2>✓ Tożsamość potwierdzona</h2><div class="small">${esc(k.provider)} · poziom ${esc(k.level)} · ID ${esc(k.verificationId)}<br>Zgodne pola: ${k.matchedFields.join(', ')} · PEP: nie · sankcje: nie</div></div><div class="row"><span class="sp"></span><button class="btn lg" data-a="coNext" data-testid="next">${FIN.indexOf(S.co.mode) >= 0 ? 'Dalej – ocena wniosku' : 'Dalej – umowa i płatność'}</button></div>`;
+    if (k && !k.ok) h += `<div class="note d">✕ ${esc(k.reason)}. Spróbuj inną metodą lub skontaktuj się z doradcą.</div>`;
+    return h + `<div class="kyc">${methods.map((m) => `<button class="tc" data-a="coKyc" data-v="${m[0]}" data-testid="kyc-${m[0]}"><span style="font-size:22px">${m[1]}</span><b>${m[2]}</b><span>${m[3]}</span></button>`).join('')}</div>`;
+  }
+
+  function coDec() {
+    const pr = S.co.progress; const d = S.co.decision;
+    let h = `<h2>Ocena wniosku</h2><p class="muted">Automatycznie sprawdzamy rejestry, historię kredytową i zdolność. Zwykle trwa to kilkanaście sekund.</p><ul class="progress">${pr.map((p) => `<li class="${p.st}"><span class="st">${p.st === 'ok' ? '✓' : p.st === 'bad' ? '✕' : p.st === 'wait' ? '!' : ''}</span><div><b>${esc(p.label)}</b>${p.info ? `<div class="small muted">${p.info}</div>` : ''}</div></li>`).join('')}</ul>`;
+    if (!d) return h;
+    const map = { approved: ['✓ Wniosek zaakceptowany', 'Gratulacje! Możesz podpisać umowę online.'], conditional: ['Decyzja warunkowa', 'Finansowanie możliwe po spełnieniu warunku.'], manual: ['Wniosek przekazany do analityka', 'Odezwiemy się w ciągu 24 godzin roboczych.'], rejected: ['Nie możemy teraz udzielić finansowania', 'Sprawdź alternatywy poniżej.'] };
+    h += `<div class="decision ${d.decision}" data-testid="decision" data-decision="${d.decision}"><h2>${map[d.decision][0]}</h2><div>${map[d.decision][1]}</div><ul class="small">${d.reasons.map((r) => `<li>${esc(r)}</li>`).join('')}</ul><div class="xs muted">Nr wniosku ${esc(d.applicationId)} · decyzja ważna do ${esc(d.validUntil)}${d.dti != null ? ' · DTI ' + d.dti + '%' : ''}</div></div>`;
+    if (d.decision === 'approved') h += `<div class="row"><span class="sp"></span><button class="btn lg" data-a="coNext" data-testid="next">Dalej – podpis umowy</button></div>`;
+    else if (d.decision === 'conditional') h += `<div class="row"><button class="btn warn lg" data-a="coAcceptCond" data-testid="acceptCond">Zwiększ opłatę wstępną do ${d.conditions.minDownPct}% i ponów decyzję</button></div>`;
+    else if (d.decision === 'manual') h += `<div class="row"><a class="btn ghost" href="#/moje">Moje wnioski</a><span class="sp"></span><a class="btn" href="#/">Wróć do ofert</a></div>`;
+    else {
+      const o = coOffer();
+      h += `<div class="sec-t">Alternatywy</div><div class="row wrapf">${o.modes.purchase.enabled ? '<button class="btn ghost" data-a="coSwitch" data-v="purchase">Kup za gotówkę / własnym kredytem</button>' : ''}${o.modes.str.enabled ? '<button class="btn ghost" data-a="coSwitch" data-v="str">Najem krótkoterminowy</button>' : ''}<a class="btn ghost" href="#/">Inne oferty</a></div>`;
+    }
+    return h;
+  }
+
+  function coDocs() {
+    const m = S.co.mode, t = coTotals();
+    const d = { purchase: ['Umowa sprzedaży', 'Faktura proforma'], str: ['Umowa najmu krótkoterminowego', 'Protokół wydania (online)'], ltr: ['Umowa najmu długoterminowego', 'Tabela opłat i usług', 'Protokół wydania'], lease_op: ['Umowa leasingu operacyjnego', 'Harmonogram opłat', 'Ogólne Warunki Umowy Leasingu', 'Protokół odbioru'], lease_fin: ['Umowa leasingu finansowego', 'Harmonogram opłat', 'Ogólne Warunki Umowy Leasingu', 'Protokół odbioru'] }[m].slice();
+    if (t.ins) d.push('Wniosek ubezpieczeniowy + OWU (' + (t.ins.insurer || 'pakiet') + ')');
+    if (t.sv.lines.length) d.push('Zamówienie usług dodatkowych (' + t.sv.lines.length + ')');
+    d.push('Formularz informacyjny i klauzule RODO');
+    return d;
+  }
+  function coSign() {
+    const t = coTotals(); const es = S.co.esign;
+    let h = `<h2>Umowa i płatność</h2><div class="sec-t">Dokumenty do podpisu</div>${coDocs().map((d) => `<div class="doc"><span class="ic">📄</span>${esc(d)}<span class="sp"></span>${es ? '<span class="badge ok">Podpisano</span>' : '<span class="badge">Do podpisu</span>'}</div>`).join('')}`;
+    if (!es) return h + `<p class="small muted">Podpis elektroniczny z weryfikacją przez mObywatel (podpis kwalifikowany jednorazowy) – równoważny podpisowi własnoręcznemu (eIDAS).</p><div class="row"><span class="sp"></span><button class="btn lg" data-a="coSign" data-testid="sign" ${S.co.busy ? 'disabled' : ''}>${S.co.busy ? 'Podpisywanie…' : '🖊 Podpisz elektronicznie'}</button></div>`;
+    h += `<div class="note ok">✓ Podpisano · koperta ${esc(es.envelopeId)} · ${new Date(es.signedAt).toLocaleString('pl-PL')}</div>`;
+    if (S.co.policy) h += `<div class="note ok">✓ Polisa ${esc(S.co.policy.policyNo)} wystawiona, ochrona od ${esc(S.co.policy.startDate)}</div>`;
+    const pm = S.co.payMethod || 'blik';
+    h += `<div class="sec-t">Płatność ${t.payNow > 0 ? zl2(t.payNow) : ''}</div>`;
+    if (t.payNow <= 0) return h + `<div class="note">Brak płatności na start – pierwsza faktura po wydaniu przedmiotu.</div><div class="row"><span class="sp"></span><button class="btn lg" data-a="coPay" data-testid="pay">Zakończ</button></div>`;
+    h += `<div class="pay">${[['blik', 'BLIK'], ['pbl', 'Szybki przelew'], ['card', 'Karta płatnicza']].map((x) => `<button class="tc ${pm === x[0] ? 'on' : ''}" data-a="coPm" data-v="${x[0]}"><b>${x[1]}</b></button>`).join('')}</div>`;
+    if (pm === 'blik') h += `<div class="field" style="margin-top:12px;max-width:220px"><label for="blik">Kod BLIK</label><input id="blik" class="inp" inputmode="numeric" maxlength="6" placeholder="000 000" value="${esc(S.co.blik || '')}" data-a="coBlik" style="font-size:20px;letter-spacing:4px;text-align:center"></div>`;
+    if (pm === 'pbl') h += `<div class="field" style="margin-top:12px"><label for="bank">Bank</label><select id="bank" class="inp"><option>Bank A</option><option>Bank B</option><option>Bank C</option></select></div>`;
+    if (pm === 'card') h += `<div class="note" style="margin-top:12px">Dane karty wprowadzisz w bezpiecznym oknie operatora płatności (3-D Secure).</div>`;
+    if (S.co.mode === 'str') h += `<div class="note">Kaucja ${zl(t.q.deposit)} zostanie zablokowana (preautoryzacja) i zwolniona po zwrocie.</div>`;
+    if (S.co.errors.pay) h += `<div class="ferr">${esc(S.co.errors.pay)}</div>`;
+    return h + `<div class="row" style="margin-top:14px"><span class="sp"></span><button class="btn lg" data-a="coPay" data-testid="pay" ${S.co.busy ? 'disabled' : ''}>${S.co.busy ? 'Przetwarzanie…' : 'Zapłać ' + zl2(t.payNow)}</button></div>`;
+  }
+
+  function coDone() {
+    const o = coOffer(); const t = coTotals(); const m = S.co.mode;
+    const tl = {
+      purchase: ['Potwierdzenie płatności i faktura (e-mail)', 'Przygotowanie pojazdu i dokumentów (1–2 dni)', 'Rejestracja (jeśli zamówiona)', 'Dostawa lub odbiór u partnera', S.co.params.payOption === 'reservation' ? 'Dopłata pozostałej kwoty w 7 dni' : o.modes.purchase.returnDays ? o.modes.purchase.returnDays + ' dni na zwrot' : 'Gwarancja i serwis'],
+      str: ['Potwierdzenie rezerwacji (e-mail, SMS)', 'Odbiór ' + S.co.params.start + ' – protokół w aplikacji', 'Zwrot i rozliczenie kaucji'],
+      ltr: ['Zamówienie pojazdu u dostawcy', 'Rejestracja i ubezpieczenie po naszej stronie', 'Wydanie pojazdu z protokołem', 'Dostęp do portalu kierowcy (serwis, szkody, faktury)'],
+      lease_op: ['Zakup przedmiotu od dostawcy przez finansującego', 'Rejestracja / ubezpieczenie', 'Wydanie i protokół odbioru', 'Faktury rat w e-BOK'],
+      lease_fin: ['Zakup przedmiotu od dostawcy przez finansującego', 'Faktura VAT na całą wartość', 'Wydanie i protokół odbioru', 'Faktury rat w e-BOK']
+    }[m];
+    return `<div class="decision approved"><h2>✓ ${m === 'purchase' ? (S.co.params.payOption === 'reservation' ? 'Rezerwacja potwierdzona' : 'Zakup zakończony') : m === 'str' ? 'Najem zarezerwowany' : 'Umowa zawarta'}</h2><div>Numer zamówienia: <b data-testid="orderId">${esc(S.co.orderId)}</b></div><div class="small">Potwierdzenie wysłaliśmy na ${esc(S.co.applicant.email)}. Płatność ${esc(S.co.payment ? S.co.payment.transactionId : '—')}.</div></div>
+      <div class="sec-t">Co dalej</div><div class="timeline">${tl.map((x) => `<div>${esc(x)}</div>`).join('')}</div>
+      <div class="row wrapf" style="margin-top:18px"><a class="btn ghost" href="#/moje">Moje wnioski</a><button class="btn ghost" data-a="print">Drukuj potwierdzenie</button><span class="sp"></span><a class="btn" href="#/">Wróć do ofert</a></div>`;
+  }
+
+  async function saveOrder(status, extra) {
+    const t = coTotals(); const c = S.co;
+    const order = Object.assign({ id: c.orderId || null, offerId: c.offerId, offerTitle: coOffer().title, mode: c.mode, params: c.params, status, applicant: c.applicant, consents: c.consents, kyc: c.kyc, registry: c.registry, credit: c.credit, decision: c.decision, esign: c.esign, payment: c.payment, policy: c.policy, insurance: t.ins, insuranceInInstallment: c.cfg.ins.inInstallment, insuranceDeductiblePct: c.cfg.ins.deductiblePct, services: t.sv.lines, totals: { monthlyNet: t.monthlyNet, monthlyGross: t.monthlyGross, upNet: t.upNet, upGross: t.upGross, payNow: t.payNow } }, extra || {});
+    const r = await api('orders.save', { order });
+    c.orderId = r.id;
+    if (S.ui.myOrders.indexOf(r.id) < 0) { S.ui.myOrders.unshift(r.id); saveUi(); }
+    return r;
+  }
+
+  async function runDecision() {
+    const c = S.co; const a = applicantDto();
+    const steps = [];
+    const show = () => { c.progress = steps; if (stepKey() === 'dec') viewCheckout(); };
+    try {
+      if (a.type !== 'consumer') {
+        steps.push({ label: 'Rejestry przedsiębiorców (GUS/CEIDG/KRS, Biała lista VAT)', st: 'run' }); show();
+        if (!c.registry) c.registry = await api('registry.lookup', { nip: a.nip });
+        steps[0].st = c.registry.ok ? 'ok' : 'bad'; steps[0].info = c.registry.ok ? esc(c.registry.name) + ' · ' + c.registry.monthsActive + ' mies. działalności' : esc(c.registry.error);
+        if (!c.registry.ok) { show(); return; }
+      }
+      const bi = steps.push({ label: a.type === 'consumer' ? 'Biuro Informacji Kredytowej (BIK) + BIG' : 'BIK Przedsiębiorcy + BIG (KRD/ERIF)', st: 'run' }) - 1; show();
+      c.credit = await api('bik.check', { applicant: a });
+      steps[bi].st = c.credit.status === 'negative' ? 'bad' : c.credit.status === 'medium' ? 'wait' : 'ok';
+      steps[bi].info = 'Scoring ' + c.credit.score + '/' + c.credit.scoreMax + ' · zobowiązania aktywne: ' + c.credit.activeCredits + ' · zaległości: ' + c.credit.overdueAccounts;
+      const si = steps.push({ label: 'Scoring i decyzja finansującego', st: 'run' }) - 1; show();
+      c.decision = await api('leasing.decide', { applicant: a, credit: c.credit, registry: c.registry, offerId: c.offerId, mode: c.mode, params: c.params });
+      steps[si].st = c.decision.decision === 'approved' ? 'ok' : c.decision.decision === 'rejected' ? 'bad' : 'wait';
+      steps[si].info = esc(c.decision.reasons.join('; '));
+      await saveOrder({ approved: 'approved', conditional: 'conditional', manual: 'manual', rejected: 'rejected' }[c.decision.decision] === 'manual' ? 'manual_review' : c.decision.decision);
+    } catch (e) { steps.push({ label: 'Błąd usługi: ' + e.message, st: 'bad' }); }
+    show();
+  }
+
+  // ------------------------------------------------------------------ moje wnioski
+  async function viewMine() {
+    page('mine', `<div class="wrap" style="margin:24px auto 60px"><h1 style="font-size:28px">Moje wnioski i zamówienia</h1><div class="panel" id="mine">Ładowanie…</div></div>`);
+    const list = await api('orders.mine', { ids: S.ui.myOrders });
+    $('#mine').innerHTML = list.length ? `<table class="t"><thead><tr><th>Nr</th><th>Data</th><th>Przedmiot</th><th>Forma</th><th class="n">Kwota</th><th>Status</th></tr></thead><tbody>${list.map((o) => `<tr><td><b>${esc(o.id)}</b></td><td>${new Date(o.createdAt).toLocaleDateString('pl-PL')}</td><td><a href="#/oferta/${o.offerId}">${esc(o.offerTitle)}</a></td><td>${ML[o.mode]}</td><td class="n">${FIN.indexOf(o.mode) >= 0 ? zl(o.totals.monthlyGross) + '/m' : zl(o.totals.upGross)}</td><td>${pill(o.status)}</td></tr>`).join('')}</tbody></table>` : '<p class="muted">Nie masz jeszcze wniosków w tej przeglądarce.</p><a class="btn" href="#/">Przeglądaj oferty</a>';
+  }
+
+  function viewHow() {
+    page('how', `<div class="wrap" style="margin:28px auto 60px;max-width:1000px">
+      <h1>Jak to działa</h1><p class="lead muted">Cały proces – od wyboru do podpisania umowy – przeprowadzisz online.</p>
+      <div class="panel"><div class="timeline"><div><b>1. Wybierz przedmiot i formę</b><br><span class="muted">Zakup, najem krótko- lub długoterminowy, leasing operacyjny lub finansowy. Kalkulator pokazuje ratę netto i brutto, harmonogram i porównanie form.</span></div><div><b>2. Dodaj ubezpieczenie i usługi</b><br><span class="muted">Pakiet standardowy lub porównanie ofert kilku ubezpieczycieli z agencji. Rejestracja, dostawa, gwarancja, serwis, opony, GAP.</span></div><div><b>3. Wypełnij dane</b><br><span class="muted">Dla firm dane pobieramy automatycznie z GUS / CEIDG / KRS po numerze NIP.</span></div><div><b>4. Potwierdź tożsamość</b><br><span class="muted">mObywatel, mojeID, przelew weryfikacyjny lub selfie z dokumentem.</span></div><div><b>5. Decyzja nawet w 15 minut</b><br><span class="muted">Automatyczna weryfikacja BIK / BIG i scoring finansującego. Decyzja pozytywna, warunkowa lub analiza indywidualna.</span></div><div><b>6. Podpis i płatność</b><br><span class="muted">E-podpis umowy, płatność BLIK / przelewem / kartą, wydanie lub dostawa przedmiotu.</span></div></div></div>
+      <div class="panel"><h2>Formy nabycia – w skrócie</h2><table class="t"><thead><tr><th></th><th>Własność</th><th>VAT</th><th>Serwis / ubezpieczenie</th><th>Koniec umowy</th></tr></thead><tbody>${MODE_ORDER.map((m) => `<tr><td><b>${ML[m]}</b></td><td>${MODE_FACTS[m].own}</td><td>${MODE_FACTS[m].vat}</td><td>${MODE_FACTS[m].svc}</td><td>${MODE_FACTS[m].end}</td></tr>`).join('')}</tbody></table></div>
+      <div class="panel"><h2>Najczęstsze pytania</h2>
+      <details><summary>Czy konsument może wziąć leasing?</summary><p>Tak – leasing konsumencki i najem długoterminowy są dostępne dla osób fizycznych. Ocena zdolności opiera się na dochodach i raporcie BIK.</p></details>
+      <details><summary>Czy firma z krótkim stażem dostanie finansowanie?</summary><p>Tak – w procedurze uproszczonej finansujemy od pierwszego dnia działalności, z ewentualnie wyższą opłatą wstępną.</p></details>
+      <details><summary>Czy mogę zwrócić samochód kupiony online?</summary><p>Przy ofertach oznaczonych „dni na zwrot” możesz zwrócić auto w podanym terminie od odbioru (z limitem przebiegu).</p></details>
+      <details><summary>Jak działa ubezpieczenie w racie?</summary><p>Składkę roczną rozkładamy na 12 rat bez kosztów; polisa jest odnawiana co roku, a finansujący jest uposażony z AC.</p></details></div></div>`);
+  }
+
+  // ------------------------------------------------------------------ panel operatora
+  const ADM_TABS = [['dash', '📊', 'Pulpit'], ['offers', '🚗', 'Oferty'], ['orders', '📥', 'Wnioski i zamówienia'], ['insurance', '🛡', 'Ubezpieczenia'], ['services', '🧰', 'Usługi dodatkowe'], ['partners', '🤝', 'Partnerzy'], ['integrations', '🔌', 'Integracje'], ['settings', '⚙', 'Ustawienia']];
+  async function viewAdmin(tab) {
+    if (!S.admin.authed) {
+      return page('admin', `<div class="wrap" style="max-width:440px;margin:60px auto"><div class="panel"><h2>Panel operatora</h2><p class="muted small">${CONFIG.apiBase ? 'Podaj token administracyjny (ADMIN_TOKEN z konfiguracji serwera).' : 'Wersja demonstracyjna – PIN: <b>admin</b>'}</p><div class="field"><label for="pin">${CONFIG.apiBase ? 'Token' : 'PIN'}</label><input id="pin" class="inp" type="password" data-a="pinEnter"></div><button class="btn block" data-a="login" data-testid="login">Zaloguj</button></div></div>`);
+    }
+    S.admin.tab = tab || S.admin.tab;
+    if (['dash', 'orders'].indexOf(S.admin.tab) >= 0) S.admin.orders = await api('admin.orders.list');
+    if (S.admin.tab === 'integrations') S.admin.log = await api('admin.log');
+    if (['insurance', 'services', 'partners'].indexOf(S.admin.tab) >= 0 && !S.admin.cat) S.admin.cat = clone({ services: S.data.services, insuranceProducts: S.data.insuranceProducts, partners: S.data.partners });
+    if (S.admin.tab === 'settings' && !S.admin.set) S.admin.set = clone(S.data.settings);
+    const body = { dash: admDash, offers: admOffers, orders: admOrders, insurance: admIns, services: admSvc, partners: admPartners, integrations: admInt, settings: admSettings }[S.admin.tab]();
+    page('admin', `<div class="wrap"><div class="admin"><nav class="side">${ADM_TABS.map((t) => `<button class="${S.admin.tab === t[0] ? 'on' : ''}" data-a="admTab" data-v="${t[0]}">${t[1]} ${t[2]}</button>`).join('')}<hr style="border:0;border-top:1px solid var(--line)"><button data-a="logout">↩ Wyloguj</button></nav><section id="adm">${body}</section></div></div>`);
+  }
+  function admDash() {
+    const os = S.admin.orders; const offers = S.data.offers;
+    const fin = os.filter((o) => FIN.indexOf(o.mode) >= 0);
+    const appr = fin.filter((o) => ['approved', 'paid', 'signed', 'delivered', 'completed'].indexOf(o.status) >= 0).length;
+    const val = os.filter((o) => ['paid', 'reserved', 'signed', 'delivered', 'completed'].indexOf(o.status) >= 0).reduce((a, o) => a + (o.quote ? (o.quote.base || o.quote.net || 0) : 0), 0);
+    const byMode = {}; os.forEach((o) => { byMode[o.mode] = (byMode[o.mode] || 0) + 1; });
+    return `<h1 style="font-size:26px">Pulpit</h1><div class="kpis"><div class="kpi"><span>Aktywne oferty</span><b>${offers.filter((o) => o.status !== 'sold').length}</b></div><div class="kpi"><span>Wnioski / zamówienia</span><b>${os.length}</b></div><div class="kpi"><span>Akceptacja wniosków fin.</span><b>${fin.length ? Math.round(appr / fin.length * 100) + '%' : '—'}</b></div><div class="kpi"><span>Wartość sfinalizowana (netto)</span><b>${zl(val)}</b></div></div>
+      <div class="panel"><h3>Struktura według formy</h3>${MODE_ORDER.map((m) => { const n = byMode[m] || 0; const pct = os.length ? n / os.length * 100 : 0; return `<div class="kv"><span style="width:180px">${ML[m]}</span><span class="sp" style="background:#eef1f6;border-radius:6px;height:10px;margin:6px 10px;position:relative"><span style="position:absolute;left:0;top:0;bottom:0;width:${pct}%;background:var(--accent);border-radius:6px"></span></span><b>${n}</b></div>`; }).join('')}</div>
+      <div class="panel"><h3>Ostatnie zdarzenia</h3>${os.slice(0, 6).map((o) => `<div class="kv"><span>${esc(o.id)} · ${esc(o.offerTitle)} · ${ML[o.mode]}</span>${pill(o.status)}</div>`).join('') || '<p class="muted">Brak wniosków – przejdź ścieżkę klienta, aby zobaczyć dane.</p>'}</div>`;
+  }
+  function admOffers() {
+    if (S.admin.edit) return admOfferEdit();
+    const q = (S.admin.q || '').toLowerCase();
+    const list = S.data.offers.filter((o) => !q || (o.title + o.id).toLowerCase().indexOf(q) >= 0);
+    return `<div class="row wrapf"><h1 style="font-size:26px">Oferty</h1><span class="sp"></span><input class="inp" style="max-width:240px" placeholder="Szukaj…" value="${esc(S.admin.q || '')}" data-a="admQ"><button class="btn" data-a="offNew" data-testid="offNew">+ Nowa oferta</button></div>
+      <div class="panel" style="overflow:auto;margin-top:12px"><table class="t"><thead><tr><th>ID</th><th>Przedmiot</th><th>Kategoria</th><th class="n">Netto</th><th>VAT</th><th class="n">Brutto</th><th>Formy</th><th>Status</th><th></th></tr></thead><tbody>
+      ${list.map((o) => `<tr><td>${esc(o.id)}</td><td><b>${esc(o.title)}</b><div class="xs muted">${esc(partner(o.partnerId).name)}</div></td><td>${esc(S.data.categories[o.category])}</td><td class="n">${nf2.format(o.priceNet)}</td><td>${o.vat === 'marza' ? 'marża' : o.vat === 'zw' ? 'zw.' : o.vat + '%'}</td><td class="n">${nf2.format(o.priceGross)}</td><td class="small">${enabledModes(o).map((m) => MODE_SHORT[m]).join(', ')}</td><td><span class="badge ${o.status === 'available' ? 'ok' : o.status === 'reserved' ? 'w' : 'd'}">${{ available: 'Dostępna', reserved: 'Rezerwacja', sold: 'Sprzedana', hidden: 'Ukryta' }[o.status] || o.status}</span></td><td style="white-space:nowrap"><button class="btn ghost sm" data-a="offEdit" data-id="${o.id}" data-testid="edit-${o.id}">Edytuj</button> <button class="btn ghost sm" data-a="offDup" data-id="${o.id}">Duplikuj</button></td></tr>`).join('')}</tbody></table></div>`;
+  }
+  const ef = (path, label, opts) => {
+    opts = opts || {}; const v = getPath(S.admin.edit, path);
+    const t = opts.t || 's';
+    if (opts.select) return `<div class="field"><label>${label}</label><select class="inp" data-a="ed" data-p="${path}" data-t="${t}">${opts.select.map((x) => `<option value="${esc(x[0])}" ${String(v) === String(x[0]) ? 'selected' : ''}>${esc(x[1])}</option>`).join('')}</select></div>`;
+    if (t === 'b') return `<label class="row small" style="gap:8px;margin-bottom:12px"><span class="switch"><input type="checkbox" data-a="ed" data-p="${path}" data-t="b" ${v ? 'checked' : ''}><span></span></span>${label}</label>`;
+    let val = v;
+    if (t === 'list') val = (v || []).join(', ');
+    if (t === 'pairs') val = (v || []).map((x) => x[opts.k1] + ':' + x[opts.k2]).join(', ');
+    return `<div class="field"><label>${label}</label><input class="inp" data-a="ed" data-p="${path}" data-t="${t}" ${opts.k1 ? `data-k1="${opts.k1}" data-k2="${opts.k2}"` : ''} value="${esc(val == null ? '' : val)}" ${t === 'n' ? 'type="number" step="any"' : ''} ${opts.ph ? `placeholder="${esc(opts.ph)}"` : ''}></div>`;
+  };
+  function admOfferEdit() {
+    const o = S.admin.edit; const cats = S.data.categories;
+    const vatOpts = [['23', '23%'], ['8', '8%'], ['5', '5%'], ['0', '0%'], ['zw', 'zwolniony'], ['marza', 'VAT-marża']];
+    const mb = (m, title, inner) => `<div class="mode-box ${o.modes[m].enabled ? '' : 'off'}"><div class="mh"><label class="switch"><input type="checkbox" data-a="ed" data-p="modes.${m}.enabled" data-t="b" ${o.modes[m].enabled ? 'checked' : ''} data-testid="en-${m}" aria-label="${title}"><span></span></label>${title}</div>${o.modes[m].enabled ? `<div style="margin-top:10px">${inner}</div>` : ''}</div>`;
+    const sp = o.modes.ltr.servicePrices || {};
+    return `<div class="row wrapf"><h1 style="font-size:24px">${o._new ? 'Nowa oferta' : 'Edycja: ' + esc(o.title)}</h1><span class="sp"></span><button class="btn ghost" data-a="offCancel">Anuluj</button>${o._new ? '' : '<button class="btn danger" data-a="offDel">Usuń</button>'}<button class="btn" data-a="offSave" data-testid="offSave">Zapisz ofertę</button></div>
+      <div class="detail" style="grid-template-columns:minmax(0,1fr) 340px;margin-top:12px">
+      <div>
+      <div class="panel"><h3>Dane przedmiotu</h3>${ef('title', 'Nazwa oferty')}
+        <div class="f4">${ef('make', 'Marka / producent')}${ef('model', 'Model')}${ef('category', 'Kategoria', { select: Object.keys(cats).map((k) => [k, cats[k]]) })}${ef('assetType', 'Typ aktywa', { select: [['vehicle', 'Pojazd mechaniczny'], ['asset', 'Inny środek trwały']] })}</div>
+        <div class="f4">${ef('condition', 'Stan', { select: [['new', 'Nowy'], ['used', 'Używany'], ['exlease', 'Poleasingowy']] })}${ef('year', 'Rok', { t: 'n' })}${ef('mileage', 'Przebieg / mth', { t: 'n' })}${ef('mileageUnit', 'Jednostka', { select: [['', 'km'], ['mth', 'motogodziny']] })}</div>
+        <div class="f4">${ef('fuel', 'Napęd')}${ef('power', 'Moc / parametry')}${ef('body', 'Typ nadwozia / maszyny')}${ef('gearbox', 'Skrzynia')}</div>
+        <div class="f4">${ef('color', 'Kolor')}${ef('location', 'Lokalizacja')}${ef('partnerId', 'Partner / sprzedawca', { select: S.data.partners.map((p) => [p.id, p.name]) })}${ef('status', 'Status', { select: [['available', 'Dostępna'], ['reserved', 'Zarezerwowana'], ['sold', 'Sprzedana'], ['hidden', 'Ukryta']] })}</div>
+        ${ef('features', 'Wyposażenie (po przecinku)', { t: 'list' })}${ef('badges', 'Oznaczenia (history, inspection, warranty, firstOwner, new)', { t: 'list' })}
+        <div class="field"><label>Opis</label><textarea class="inp" rows="3" data-a="ed" data-p="description" data-t="s">${esc(o.description)}</textarea></div>
+        ${ef('hue', 'Kolor ilustracji (0–360)', { t: 'n' })}</div>
+      <div class="panel"><h3>Cena</h3><div class="f3">${ef('priceNet', 'Cena netto [zł]', { t: 'n' })}${ef('vat', 'Stawka VAT', { select: vatOpts })}${ef('priceGross', 'Cena brutto [zł]', { t: 'n' })}</div><p class="xs muted">Zmiana netto lub stawki przelicza brutto; edycja brutto przelicza netto. Dla VAT-marża cena brutto = cena sprzedaży (VAT nie wykazywany, leasing finansuje kwotę brutto).</p></div>
+      <div class="panel"><h3>Formy nabycia i parametry oferty</h3>
+        ${mb('purchase', 'Zakup bezpośredni', `<div class="f3">${ef('modes.purchase.discountPct', 'Rabat online [%]', { t: 'n' })}${ef('modes.purchase.reservationFee', 'Opłata rezerwacyjna [zł]', { t: 'n' })}${ef('modes.purchase.returnDays', 'Dni na zwrot', { t: 'n' })}</div>`)}
+        ${mb('str', 'Najem krótkoterminowy', `<div class="f4">${ef('modes.str.dayRateNet', 'Stawka dobowa netto [zł]', { t: 'n' })}${ef('modes.str.deposit', 'Kaucja [zł]', { t: 'n' })}${ef('modes.str.minDays', 'Min. dób', { t: 'n' })}${ef('modes.str.maxDays', 'Maks. dób', { t: 'n' })}</div><div class="f3">${ef('modes.str.kmPerDay', 'Limit km/dobę (0 = brak)', { t: 'n' })}${ef('modes.str.extraKmNet', 'Nadprzebieg [zł/km]', { t: 'n' })}${ef('modes.str.tiers', 'Rabaty progowe (doby:%)', { t: 'pairs', k1: 'fromDays', k2: 'discountPct', ph: '7:10, 30:25' })}</div>`)}
+        ${mb('ltr', 'Najem długoterminowy', `<div class="f4">${ef('modes.ltr.ratePct', 'Oprocentowanie [%/rok]', { t: 'n' })}${ef('modes.ltr.terms', 'Okresy [mies.]', { t: 'list' })}${ef('modes.ltr.kmOptions', 'Limity km/rok', { t: 'list' })}${ef('modes.ltr.maxDownPct', 'Maks. opłata wstępna [%]', { t: 'n' })}</div><div class="f4">${ef('modes.ltr.rvTable', 'Wartość rezydualna (mies.:%)', { t: 'pairs', k1: 'term', k2: 'rvPct', ph: '24:60, 36:50' })}${ef('modes.ltr.refKmYear', 'Przebieg referencyjny', { t: 'n' })}${ef('modes.ltr.rvPenaltyPer10k', 'Korekta RV / 10 tys. km [pp]', { t: 'n' })}${ef('modes.ltr.extraKmNet', 'Nadprzebieg [zł/km]', { t: 'n' })}</div>
+          <div class="lbl">Usługi w racie (miesięcznie netto)</div><div class="f5">${Object.keys(sp).map((k) => ef('modes.ltr.servicePrices.' + k + '.monthlyNet', sp[k].label, { t: 'n' })).join('')}</div>`)}
+        ${['lease_op', 'lease_fin'].map((m) => mb(m, ML[m], `<div class="f4">${ef('modes.' + m + '.ratePct', 'Oprocentowanie [%/rok]', { t: 'n' })}${ef('modes.' + m + '.prepFeePct', 'Opłata przygotowawcza [%]', { t: 'n' })}${ef('modes.' + m + '.terms', 'Okresy [mies.]', { t: 'list' })}${ef('modes.' + m + '.defaultDownPct', 'Domyślna opłata wstępna [%]', { t: 'n' })}</div><div class="f4">${ef('modes.' + m + '.minDownPct', 'Opłata wstępna min [%]', { t: 'n' })}${ef('modes.' + m + '.maxDownPct', 'Opłata wstępna maks [%]', { t: 'n' })}${ef('modes.' + m + '.minRvPct', 'Wykup min [%]', { t: 'n' })}${ef('modes.' + m + '.maxRvPct', 'Wykup maks [%]', { t: 'n' })}</div><div class="f4">${ef('modes.' + m + '.defaultRvPct', 'Domyślny wykup [%]', { t: 'n' })}${ef('modes.' + m + '.minTerm', 'Okres min', { t: 'n' })}${ef('modes.' + m + '.maxTerm', 'Okres maks', { t: 'n' })}</div>`)).join('')}
+      </div>
+      <div class="panel"><h3>Ubezpieczenia i usługi dostępne dla oferty</h3>
+        <label class="row small" style="gap:8px;margin-bottom:10px"><span class="switch"><input type="checkbox" data-a="ed" data-p="insurance.dynamic" data-t="b" ${o.insurance.dynamic ? 'checked' : ''}><span></span></span>Kalkulacja dynamiczna przez agencję ubezpieczeniową</label>
+        <div class="lbl">Pakiety statyczne</div><div class="row wrapf" style="margin:6px 0 12px">${S.data.insuranceProducts.filter((p) => p.appliesTo.indexOf(o.assetType) >= 0).map((p) => `<label class="ck"><input type="checkbox" data-a="edArr" data-p="insurance.static" value="${p.code}" ${o.insurance.static.indexOf(p.code) >= 0 ? 'checked' : ''}>${esc(p.label)}</label>`).join('')}</div>
+        <div class="lbl">Usługi dodatkowe</div><div class="row wrapf" style="margin-top:6px">${S.data.services.filter((s) => s.appliesTo.indexOf(o.assetType) >= 0).map((s) => `<label class="ck"><input type="checkbox" data-a="edArr" data-p="services" value="${s.code}" ${o.services.indexOf(s.code) >= 0 ? 'checked' : ''}>${esc(s.label)}</label>`).join('')}</div></div>
+      </div>
+      <aside class="cfg"><div class="panel"><h3>Podgląd kalkulacji</h3><div id="edPrev">${admPreview()}</div></div><div class="panel"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9" id="edArt">${art(o)}</div></div></aside></div>`;
+  }
+  function admPreview() {
+    const o = S.admin.edit;
+    try {
+      const rows = enabledModes(o).map((m) => { const q = C.quote(o, m, {}); return `<div class="kv"><span>${ML[m]}</span><b>${FIN.indexOf(m) >= 0 ? zl2(q.monthlyNet) + '/m netto' : m === 'str' ? zl2(q.dayNet) + '/doba' : zl2(q.gross) + ' brutto'}</b></div>`; });
+      return `<div class="kv"><span>Netto</span><b>${zl2(o.priceNet)}</b></div><div class="kv"><span>Brutto</span><b>${zl2(o.priceGross)}</b></div><hr style="border:0;border-top:1px solid var(--line)">${rows.join('') || '<span class="muted small">Włącz co najmniej jedną formę</span>'}`;
+    } catch (e) { return `<div class="note d">Błąd parametrów: ${esc(e.message)}</div>`; }
+  }
+  function admOrders() {
+    const os = S.admin.orders;
+    const det = (o) => `<tr><td colspan="7" style="background:#fafbfd"><div class="f3 small">
+      <div><b>Klient</b><br>${esc(o.applicant.type === 'consumer' ? o.applicant.firstName + ' ' + o.applicant.lastName : o.applicant.companyName + ' (NIP ' + o.applicant.nip + ')')}<br>${esc(o.applicant.email)} · ${esc(o.applicant.phone)}<br>${esc(o.applicant.street)}, ${esc(o.applicant.postcode)} ${esc(o.applicant.city)}</div>
+      <div><b>Weryfikacje</b><br>KYC: ${o.kyc ? esc(o.kyc.provider) + (o.kyc.ok ? ' ✓' : ' ✕') : '—'}<br>BIK: ${o.credit ? o.credit.score + '/' + o.credit.scoreMax + ' (' + o.credit.status + ')' : '—'}<br>Rejestr: ${o.registry && o.registry.ok ? esc(o.registry.source) : '—'}<br>Decyzja: ${o.decision ? esc(o.decision.decision) + ' – ' + esc(o.decision.reasons.join('; ')) : '—'}</div>
+      <div><b>Transakcja</b><br>Ubezpieczenie: ${o.insurance ? zl(o.insurance.annual) + '/rok ' + esc(o.insurance.insurer || 'pakiet') : '—'}${o.policy ? ' · polisa ' + esc(o.policy.policyNo) : ''}<br>Usługi: ${(o.services || []).map((s) => esc(s.label)).join(', ') || '—'}<br>Płatność: ${o.payment ? zl2(o.payment.amount) + ' ' + esc(o.payment.method) + ' ' + esc(o.payment.transactionId) : '—'}<br>E-podpis: ${o.esign ? esc(o.esign.envelopeId) : '—'}</div></div></td></tr>`;
+    return `<h1 style="font-size:26px">Wnioski i zamówienia</h1><div class="panel" style="overflow:auto">${os.length ? `<table class="t"><thead><tr><th>Nr</th><th>Data</th><th>Klient</th><th>Przedmiot / forma</th><th class="n">Kwota</th><th>Status</th><th>Zmień status</th></tr></thead><tbody>${os.map((o) => `<tr><td><button class="link" data-a="ordToggle" data-id="${esc(o.id)}">${S.admin.open[o.id] ? '▾' : '▸'} ${esc(o.id)}</button></td><td>${new Date(o.createdAt).toLocaleString('pl-PL')}</td><td>${esc(o.applicant.type === 'consumer' ? o.applicant.firstName + ' ' + o.applicant.lastName : o.applicant.companyName)}<div class="xs muted">${{ consumer: 'Konsument', jdg: 'JDG', company: 'Spółka' }[o.applicant.type]}</div></td><td>${esc(o.offerTitle)}<div class="xs muted">${ML[o.mode]}</div></td><td class="n">${FIN.indexOf(o.mode) >= 0 ? zl2(o.totals.monthlyNet) + '/m' : zl2(o.totals.upGross)}</td><td>${pill(o.status)}</td><td><select class="inp" style="width:auto" data-a="ordStatus" data-id="${esc(o.id)}">${Object.keys(STATUS).map((s) => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${STATUS[s][0]}</option>`).join('')}</select></td></tr>${S.admin.open[o.id] ? det(o) : ''}`).join('')}</tbody></table>` : '<p class="muted">Brak wniosków.</p>'}</div>`;
+  }
+  const cf = (path, opts) => {
+    opts = opts || {}; const v = getPath(S.admin.cat, path); const t = opts.t || 's';
+    if (opts.select) return `<select class="inp" data-a="catEd" data-p="${path}" data-t="${t}">${opts.select.map((x) => `<option value="${x[0]}" ${String(v) === String(x[0]) ? 'selected' : ''}>${x[1]}</option>`).join('')}</select>`;
+    return `<input class="inp" data-a="catEd" data-p="${path}" data-t="${t}" value="${esc(t === 'list' ? (v || []).join(',') : v == null ? '' : v)}" ${t === 'n' ? 'type="number" step="any"' : ''}>`;
+  };
+  function admIns() {
+    const ps = S.admin.cat.insuranceProducts; const ig = S.data.settings.integrations.insurance;
+    return `<div class="row"><h1 style="font-size:26px">Ubezpieczenia</h1><span class="sp"></span><button class="btn ghost" data-a="catAdd" data-k="insuranceProducts">+ Produkt</button><button class="btn" data-a="catSave">Zapisz</button></div>
+      <div class="panel" style="overflow:auto"><h3>Oferta statyczna (taryfa konfigurowana na stronie)</h3><table class="t"><thead><tr><th>Kod</th><th>Nazwa</th><th>Typ</th><th>Stawka %</th><th>Kwota [zł]</th><th>Min. składka</th><th>Dotyczy</th><th>Obowiązk.</th></tr></thead><tbody>
+      ${ps.map((p, i) => `<tr><td style="width:90px">${cf('insuranceProducts.' + i + '.code')}</td><td>${cf('insuranceProducts.' + i + '.label')}</td><td>${cf('insuranceProducts.' + i + '.type', { select: [['pctValue', '% wartości'], ['fixed', 'stała kwota']] })}</td><td style="width:90px">${cf('insuranceProducts.' + i + '.ratePct', { t: 'n' })}</td><td style="width:100px">${cf('insuranceProducts.' + i + '.fixed', { t: 'n' })}</td><td style="width:100px">${cf('insuranceProducts.' + i + '.minPremium', { t: 'n' })}</td><td style="width:140px">${cf('insuranceProducts.' + i + '.appliesTo', { t: 'list' })}</td><td>${cf('insuranceProducts.' + i + '.mandatory', { select: [['', 'nie'], ['true', 'tak']], t: 'bool' })}</td></tr>`).join('')}</tbody></table>
+      <p class="xs muted">„Dotyczy”: vehicle (pojazdy mechaniczne – OC/AC/NNW) i/lub asset (mienie, maszyny, sprzęt). Składki ubezpieczeniowe są zwolnione z VAT.</p></div>
+      <div class="panel"><h3>Oferta dynamiczna – agencja ubezpieczeniowa</h3><p class="small muted">Front wysyła parametry ryzyka (wartość, kategoria, kod pocztowy, wiek kierowcy, lata bezszkodowe, sposób użytkowania) do usługi <code>insurance.quotes</code>; backend odpytuje API agencji i zwraca oferty kilku towarzystw, a po wyborze wiąże polisę (<code>insurance.bind</code>).</p>
+      <div class="kv"><span>Endpoint</span><b>${esc(ig.url)}</b></div><div class="kv"><span>Tryb</span><b>${S.data.settings.integrations.mode}</b></div>
+      <button class="btn ghost" data-a="insTest" style="margin-top:10px">Test: odpytaj agencję (auto 100 000 zł)</button><div id="insTestOut"></div></div>`;
+  }
+  function admSvc() {
+    const ss = S.admin.cat.services;
+    return `<div class="row"><h1 style="font-size:26px">Usługi dodatkowe</h1><span class="sp"></span><button class="btn ghost" data-a="catAdd" data-k="services">+ Usługa</button><button class="btn" data-a="catSave">Zapisz</button></div>
+      <div class="panel" style="overflow:auto"><table class="t"><thead><tr><th>Kod</th><th>Nazwa</th><th>Cena netto</th><th>VAT</th><th>Rozliczenie</th><th>Dotyczy</th></tr></thead><tbody>
+      ${ss.map((s, i) => `<tr><td style="width:100px">${cf('services.' + i + '.code')}</td><td>${cf('services.' + i + '.label')}</td><td style="width:110px">${cf('services.' + i + '.priceNet', { t: 'n' })}</td><td style="width:90px">${cf('services.' + i + '.vat', { select: [['23', '23%'], ['8', '8%'], ['zw', 'zw.']] })}</td><td style="width:140px">${cf('services.' + i + '.billing', { select: [['oneoff', 'jednorazowo'], ['monthly', 'miesięcznie']] })}</td><td style="width:150px">${cf('services.' + i + '.appliesTo', { t: 'list' })}</td></tr>`).join('')}</tbody></table></div>`;
+  }
+  function admPartners() {
+    const ps = S.admin.cat.partners;
+    return `<div class="row"><h1 style="font-size:26px">Partnerzy i dostawcy</h1><span class="sp"></span><button class="btn ghost" data-a="catAdd" data-k="partners">+ Partner</button><button class="btn" data-a="catSave">Zapisz</button></div>
+      <div class="panel"><table class="t"><thead><tr><th>ID</th><th>Nazwa</th><th>Typ</th><th>Miasto</th><th class="n">Oferty</th></tr></thead><tbody>${ps.map((p, i) => `<tr><td style="width:80px">${cf('partners.' + i + '.id')}</td><td>${cf('partners.' + i + '.name')}</td><td>${cf('partners.' + i + '.type')}</td><td>${cf('partners.' + i + '.city')}</td><td class="n">${S.data.offers.filter((o) => o.partnerId === p.id).length}</td></tr>`).join('')}</tbody></table>
+      <p class="small muted">Partnerzy (dealerzy, dostawcy maszyn, centrum poleasingowe, wypożyczalnie) mogą otrzymać dostęp do panelu z rolą „Dostawca” – zarządzanie własnymi ofertami bez dostępu do danych klientów (rola do włączenia w backendzie).</p></div>`;
+  }
+  function admInt() {
+    const ig = (S.admin.set || S.data.settings).integrations;
+    const names = { leasingCore: 'System leasingowy (wnioski, scoring, umowy)', bik: 'BIK / BIG (raporty kredytowe)', kyc: 'Broker tożsamości (mObywatel, mojeID, przelew)', registry: 'GUS BIR / CEIDG / KRS / Biała lista', insurance: 'Agencja ubezpieczeniowa (kalkulacje, polisy)', esign: 'Podpis elektroniczny', payments: 'Bramka płatności (BLIK, PBL, karty)' };
+    return `<h1 style="font-size:26px">Integracje</h1><div class="panel"><div class="note ${CONFIG.apiBase ? 'ok' : 'w'}">${CONFIG.apiBase ? 'Front połączony z backendem: ' + esc(CONFIG.apiBase) + '. Tryb adapterów ustawia zmienna INTEGRATION_MODE na serwerze.' : 'Tryb demonstracyjny: usługi symulowane w przeglądarce (te same algorytmy co adaptery mock w backendzie). Produkcyjnie front łączy się z backendem (AM_CONFIG.apiBase), który trzyma klucze API i komunikuje się z usługami.'}</div>
+      <table class="t"><thead><tr><th>Usługa</th><th>Endpoint (konfiguracja backendu)</th><th>Status</th></tr></thead><tbody>${Object.keys(names).map((k) => `<tr><td><b>${names[k]}</b><div class="xs muted">${k}</div></td><td><code class="small">${esc(ig[k].url)}</code></td><td><span class="badge ${ig[k].enabled ? 'ok' : ''}">${ig[k].enabled ? (ig.mode === 'live' ? 'LIVE' : 'MOCK') : 'wył.'}</span></td></tr>`).join('')}</tbody></table></div>
+      <div class="panel"><div class="row"><h3>Dziennik wywołań (ostatnie ${S.admin.log.length})</h3><span class="sp"></span><button class="btn ghost sm" data-a="admTab" data-v="integrations">Odśwież</button></div><div class="log">${S.admin.log.map((l) => esc(new Date(l.at).toLocaleTimeString('pl-PL') + '  ' + l.svc + '  →  ' + JSON.stringify(l.res).slice(0, 220))).join('\n') || 'Brak wywołań'}</div></div>`;
+  }
+  function admSettings() {
+    const s = S.admin.set;
+    const sf = (p, l, t) => `<div class="field"><label>${l}</label><input class="inp" data-a="setEd" data-p="${p}" data-t="${t || 's'}" value="${esc(getPath(s, p))}" ${t === 'n' ? 'type="number" step="any"' : ''}></div>`;
+    return `<div class="row"><h1 style="font-size:26px">Ustawienia</h1><span class="sp"></span><button class="btn" data-a="setSave">Zapisz</button></div>
+      <div class="panel"><h3>Marka</h3><div class="f2">${sf('brand', 'Nazwa platformy')}${sf('company', 'Operator')}</div>${sf('tagline', 'Hasło')}</div>
+      <div class="panel"><h3>Reguły decyzyjne (procedura uproszczona)</h3><div class="f3">${sf('decisionRules.autoApproveLimit', 'Limit automatycznej decyzji [zł netto]', 'n')}${sf('decisionRules.minScore', 'Min. scoring BIK (odmowa poniżej)', 'n')}${sf('decisionRules.conditionalScore', 'Scoring dla decyzji bez warunków', 'n')}</div><div class="f3">${sf('decisionRules.maxDti', 'Maks. DTI konsumenta (0–1)', 'n')}${sf('decisionRules.minCompanyMonths', 'Min. staż firmy [mies.]', 'n')}${sf('decisionRules.conditionalDownPct', 'Opłata wstępna przy decyzji warunkowej [%]', 'n')}</div>${sf('baseRatePct', 'Stopa bazowa (informacyjnie) [%]', 'n')}</div>
+      <div class="panel"><h3>Integracje</h3><div class="field"><label>Tryb integracji</label><select class="inp" data-a="setEd" data-p="integrations.mode" data-t="s"><option value="mock" ${s.integrations.mode === 'mock' ? 'selected' : ''}>mock (symulacja)</option><option value="live" ${s.integrations.mode === 'live' ? 'selected' : ''}>live (produkcyjne API przez backend)</option></select></div>${Object.keys(s.integrations).filter((k) => k !== 'mode').map((k) => sf('integrations.' + k + '.url', k)).join('')}</div>
+      ${CONFIG.apiBase ? '' : '<div class="panel"><h3>Dane demonstracyjne</h3><p class="small muted">Przywraca katalog, cenniki i usuwa wnioski zapisane w tej przeglądarce.</p><button class="btn danger" data-a="reset">Przywróć dane demonstracyjne</button></div>'}`;
+  }
+
+  // ------------------------------------------------------------------ zdarzenia
+  async function reload() { S.data = await api('bootstrap'); }
+  const parseT = (el) => {
+    const t = el.dataset.t; const v = el.type === 'checkbox' ? el.checked : el.value;
+    if (t === 'n') return v === '' ? 0 : Number(v);
+    if (t === 'b') return !!v;
+    if (t === 'bool') return v === 'true';
+    if (t === 'list') { const arr = String(v).split(',').map((x) => x.trim()).filter(Boolean); return arr.every((x) => /^-?\d+(\.\d+)?$/.test(x)) ? arr.map(Number) : arr; }
+    if (t === 'pairs') return String(v).split(',').map((x) => x.split(':').map((y) => Number(y.trim()))).filter((x) => x.length === 2 && x.every(isFinite)).map((x) => ({ [el.dataset.k1]: x[0], [el.dataset.k2]: x[1] }));
+    return v;
+  };
+  const curOffer = () => (S.route.name === 'detail' ? offerById(S.route.id) : null);
+
+  const A = {
+    client(el) { S.ui.client = el.dataset.v; saveUi(); route(); },
+    burger() { S.navOpen = !S.navOpen; $('#nav').classList.toggle('open', S.navOpen); },
+    fav(el) { const id = el.dataset.id, i = S.ui.fav.indexOf(id); if (i >= 0) S.ui.fav.splice(i, 1); else S.ui.fav.push(id); saveUi(); route(); },
+    cmp(el) { const id = el.dataset.id, i = S.ui.cmp.indexOf(id); if (i >= 0) S.ui.cmp.splice(i, 1); else { if (S.ui.cmp.length >= 4) { toast('Możesz porównać maks. 4 oferty'); return; } S.ui.cmp.push(id); } saveUi(); route(); },
+    cmpClear() { S.ui.cmp = []; saveUi(); route(); },
+    'fck-chip'(el) { const k = el.dataset.k, v = el.dataset.v, a = S.f[k], i = a.indexOf(v); if (i >= 0) a.splice(i, 1); else a.push(v); viewHome(); },
+    go() { S.f.q = $('#q').value; viewHome(); },
+    freset() { S.f = { q: '', cat: [], cond: [], mode: [], make: [], partner: [], fuel: [], maxPrice: '', maxMonthly: '', yearFrom: '' }; if (S.route.query.ulubione) location.hash = '#/'; else viewHome(); },
+    gal(el) { const o = curOffer(); const st = cfgState(o); st.gal = Number(el.dataset.v); $('#gmain').innerHTML = art(o, st.gal); $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === st.gal)); },
+    mode(el) { const o = curOffer(); const st = cfgState(o); st.mode = el.dataset.v; resetParams(o, st); refreshCfg(o, true); },
+    pickMode(el) { closeModal(); const o = curOffer(); const st = cfgState(o); st.mode = el.dataset.v; resetParams(o, st); refreshCfg(o, true); },
+    prmopt(el) { const o = curOffer(); const st = cfgState(o); const v = el.dataset.v; st.params[el.dataset.k] = isNaN(Number(v)) ? v : Number(v); refreshCfg(o, true); },
+    instype(el) { const o = curOffer(); const st = cfgState(o); st.ins.type = el.dataset.v; refreshCfg(o, true); },
+    async dynquote() {
+      const o = curOffer(); const st = cfgState(o); st.ins.dyn.loading = true; refreshCfg(o, true);
+      try { st.ins.dyn.res = await api('insurance.quotes', { req: Object.assign({ assetType: o.assetType, category: o.category, value: o.priceGross, offerId: o.id }, st.ins.dyn.req) }); st.ins.dyn.chosen = st.ins.dyn.res.quotes[0]; }
+      catch (e) { toast('Agencja niedostępna: ' + e.message); }
+      st.ins.dyn.loading = false; if (curOffer() === o) refreshCfg(o, true);
+    },
+    dynpick(el) { const o = curOffer(); const st = cfgState(o); st.ins.dyn.chosen = st.ins.dyn.res.quotes[Number(el.dataset.i)]; refreshCfg(o, true); },
+    compareModes() { compareModes(curOffer()); },
+    closeModal() { closeModal(); },
+    print() { try { window.print(); } catch (e) { toast('Drukowanie niedostępne w tym widoku – użyj Ctrl+P'); } },
+    checkout() { startCheckout(curOffer()); },
+    // checkout
+    coType(el) { S.co.applicant.type = el.dataset.v; S.co.registry = null; viewCheckout(); },
+    coFillTest() { const a = S.co.applicant; Object.assign(a, { firstName: 'Anna', lastName: 'Testowa', pesel: TEST.good, idDoc: 'ABC123456', email: 'anna.testowa@example.com', phone: '600700800', street: 'ul. Prosta 1', postcode: '00-838', city: 'Warszawa', monthlyIncome: '14500', annualRevenue: '2400000' }); if (a.type !== 'consumer') { a.nip = TEST.nip; } Object.assign(S.co.consents, { terms: true, rodo: true, bik: true }); S.co.errors = {}; viewCheckout(); if (a.type !== 'consumer') A.coRegistry(); },
+    async coRegistry() {
+      const a = S.co.applicant; if (!V.nip(a.nip)) { S.co.errors.nip = 'Nieprawidłowy NIP'; viewCheckout(); return; }
+      S.co.busy = true; viewCheckout();
+      try { const r = await api('registry.lookup', { nip: a.nip }); S.co.registry = r; if (r.ok) { a.companyName = r.name; a.regon = r.regon; if (!a.street) { a.street = r.address.street; a.postcode = r.address.postcode; a.city = r.address.city; } } else S.co.errors.nip = r.error; }
+      catch (e) { toast(e.message); }
+      S.co.busy = false; viewCheckout();
+    },
+    coBack() { if (S.co.step > 0) { S.co.step--; if (stepKey() === 'dec') S.co.step--; viewCheckout(); } },
+    async coNext() {
+      const k = stepKey();
+      if (k === 'data' && !validateData()) { viewCheckout(); const e = $('.inp.err') || $('.ferr'); if (e) e.scrollIntoView({ block: 'center' }); return; }
+      S.co.step++; window.scrollTo(0, 0); viewCheckout();
+      if (stepKey() === 'dec' && !S.co.decision) runDecision();
+    },
+    async coKyc(el) {
+      S.co.busy = true; viewCheckout();
+      try { const a = S.co.applicant; S.co.kyc = await api('kyc.verify', { applicant: { type: 'consumer', pesel: a.pesel, name: a.firstName + ' ' + a.lastName, idDoc: a.idDoc }, method: el.dataset.v }); } catch (e) { toast(e.message); }
+      S.co.busy = false;
+      if (S.co.kyc && !S.co.kyc.ok) await saveOrder('kyc_failed');
+      viewCheckout();
+    },
+    async coAcceptCond() {
+      const d = S.co.decision; S.co.params.downPct = Math.max(S.co.params.downPct || 0, d.conditions.minDownPct);
+      const st = S.cfg[S.co.offerId]; if (st && st.mode === S.co.mode) st.params.downPct = S.co.params.downPct;
+      S.co.decision = null; S.co.progress = []; viewCheckout(); runDecision();
+    },
+    coSwitch(el) { const o = coOffer(); const st = cfgState(o); st.mode = el.dataset.v; resetParams(o, st); location.hash = '#/oferta/' + o.id; },
+    async coSign() {
+      S.co.busy = true; viewCheckout();
+      try {
+        const t = coTotals();
+        if (t.ins && t.ins.kind === 'dynamic') S.co.policy = await api('insurance.bind', { quoteId: t.ins.quoteId });
+        S.co.esign = await api('esign.sign', { docs: coDocs(), signer: { name: S.co.applicant.firstName + ' ' + S.co.applicant.lastName, email: S.co.applicant.email } });
+        await saveOrder('signed');
+      } catch (e) { toast(e.message); }
+      S.co.busy = false; viewCheckout();
+    },
+    coPm(el) { S.co.payMethod = el.dataset.v; viewCheckout(); },
+    async coPay() {
+      const t = coTotals(); const pm = S.co.payMethod || 'blik';
+      if (t.payNow > 0 && pm === 'blik' && !/^\d{6}$/.test(String(S.co.blik || '').replace(/\s/g, ''))) { S.co.errors.pay = 'Wpisz 6-cyfrowy kod BLIK (w wersji demo dowolne 6 cyfr)'; viewCheckout(); return; }
+      S.co.errors.pay = null; S.co.busy = true; viewCheckout();
+      try {
+        if (t.payNow > 0) S.co.payment = await api('payments.pay', { amount: t.payNow, method: pm, orderId: S.co.orderId });
+        await saveOrder(S.co.mode === 'purchase' && S.co.params.payOption === 'reservation' ? 'reserved' : 'paid');
+        await reload();
+        S.co.step++;
+      } catch (e) { toast(e.message); }
+      S.co.busy = false; window.scrollTo(0, 0); viewCheckout();
+    },
+    // admin
+    async login() {
+      const v = $('#pin').value;
+      if (CONFIG.apiBase) { sessionStorage.setItem('am_admin_token', v); try { await api('admin.orders.list'); S.admin.authed = true; } catch (e) { sessionStorage.removeItem('am_admin_token'); toast('Nieprawidłowy token'); return; } }
+      else { const r = await api('admin.login', { pin: v }); if (!r.ok) { toast('Nieprawidłowy PIN'); return; } S.admin.authed = true; }
+      viewAdmin('dash');
+    },
+    logout() { S.admin.authed = false; sessionStorage.removeItem('am_admin_token'); viewAdmin(); },
+    admTab(el) { S.admin.edit = null; S.admin.cat = null; S.admin.set = null; location.hash = '#/admin/' + el.dataset.v; },
+    offEdit(el) { S.admin.edit = clone(offerById(el.dataset.id)); viewAdmin('offers'); },
+    offDup(el) { const o = clone(offerById(el.dataset.id)); delete o.id; o.title += ' (kopia)'; o.status = 'available'; o._new = true; S.admin.edit = o; viewAdmin('offers'); },
+    offNew() { const o = SEED.offer({ title: 'Nowa oferta', make: '', model: '', category: 'car', body: '', condition: 'new', year: new Date().getFullYear(), mileage: 0, fuel: 'Benzyna', gearbox: '', power: '', color: '', location: '', partnerId: S.data.partners[0].id, priceNet: 100000, hue: 200, description: '' }); delete o.id; o._new = true; S.admin.edit = o; viewAdmin('offers'); },
+    offCancel() { S.admin.edit = null; viewAdmin('offers'); },
+    async offSave() {
+      const o = clone(S.admin.edit); delete o._new;
+      if (!o.title || !(o.priceNet > 0)) { toast('Uzupełnij nazwę i cenę netto'); return; }
+      if (!enabledModes(o).length) { toast('Włącz co najmniej jedną formę nabycia'); return; }
+      await api('admin.offer.save', { offer: o }); await reload(); delete S.cfg[o.id]; S.admin.edit = null; toast('Zapisano ofertę'); viewAdmin('offers');
+    },
+    async offDel() { if (!(await askConfirm('Usunąć ofertę ' + S.admin.edit.title + '?'))) return; await api('admin.offer.delete', { id: S.admin.edit.id }); await reload(); S.admin.edit = null; toast('Usunięto'); viewAdmin('offers'); },
+    edArr(el) { const arr = getPath(S.admin.edit, el.dataset.p); const i = arr.indexOf(el.value); if (el.checked && i < 0) arr.push(el.value); if (!el.checked && i >= 0) arr.splice(i, 1); },
+    ordToggle(el) { S.admin.open[el.dataset.id] = !S.admin.open[el.dataset.id]; viewAdmin('orders'); },
+    catAdd(el) { const k = el.dataset.k; const tpl = { services: { code: 'NEW', label: 'Nowa usługa', priceNet: 0, vat: '23', billing: 'oneoff', appliesTo: ['vehicle', 'asset'] }, insuranceProducts: { code: 'NEW', label: 'Nowy produkt', type: 'fixed', fixed: 0, ratePct: 0, appliesTo: ['vehicle'] }, partners: { id: 'p' + (S.admin.cat.partners.length + 1), name: 'Nowy partner', type: '', city: '' } }[k]; S.admin.cat[k].push(tpl); viewAdmin(); },
+    async catSave() { await api('admin.catalog.save', clone(S.admin.cat)); await reload(); S.admin.cat = null; toast('Zapisano'); viewAdmin(); },
+    async insTest() { const r = await api('insurance.quotes', { req: { assetType: 'vehicle', value: 100000, postcode: '00-001', driverAge: 35, claimFreeYears: 5 } }); $('#insTestOut').innerHTML = `<div class="log" style="margin-top:10px">${esc(JSON.stringify(r, null, 2))}</div>`; },
+    async setSave() { await api('admin.settings.save', { settings: S.admin.set }); await reload(); toast('Zapisano ustawienia'); viewAdmin(); },
+    async reset() { if (!(await askConfirm('Przywrócić dane demonstracyjne?'))) return; await api('admin.reset'); await reload(); S.cfg = {}; S.ui.myOrders = []; saveUi(); S.admin.set = null; toast('Przywrócono dane'); viewAdmin('dash'); }
+  };
+
+  // obsługa input/change (pola formularzy)
+  const I = {
+    q(el, ev) { if (ev.type === 'keydown' && ev.key === 'Enter') { S.f.q = el.value; viewHome(); } },
+    catsel(el) { S.f.cat = el.value ? [el.value] : []; viewHome(); },
+    fck(el) { const k = el.dataset.k, a = S.f[k], i = a.indexOf(el.value); if (el.checked && i < 0) a.push(el.value); if (!el.checked && i >= 0) a.splice(i, 1); viewHome(); },
+    fnum(el) { S.f[el.dataset.k] = el.value; clearTimeout(I._t); I._t = setTimeout(() => { const pos = el.dataset.k; viewHome(); const n = $(`[data-k="${pos}"]`); if (n) { n.focus(); n.setSelectionRange && n.type !== 'number' && n.setSelectionRange(n.value.length, n.value.length); } }, 500); },
+    sort(el) { S.ui.sort = el.value; saveUi(); viewHome(); },
+    prm(el) { const o = curOffer(); const st = cfgState(o); st.params[el.dataset.k] = Number(el.value); const b = $('#rv-' + el.dataset.k); if (b) { const base = (o.vat === 'marza' || o.vat === 'zw') ? o.priceGross : o.priceNet; const v = Number(el.value); b.textContent = el.dataset.k === 'days' ? v + ' ' + (v === 1 ? 'doba' : v < 5 ? 'doby' : 'dób') : el.dataset.k === 'downPct' && st.mode === 'ltr' ? v + '%' : v + '% · ' + zl(base * v / 100); } refreshCfg(o); if (el.dataset.k === 'days') { const ret = $$('#ctl input[type=date]')[1]; if (ret) ret.value = new Date(new Date(st.params.start).getTime() + st.params.days * 864e5).toISOString().slice(0, 10); } },
+    prmdate(el) { const o = curOffer(); const st = cfgState(o); st.params.start = el.value; refreshCfg(o, true); },
+    ltrsvc(el) { const o = curOffer(); const st = cfgState(o); const a = st.params.ltrServices; const i = a.indexOf(el.value); if (el.checked && i < 0) a.push(el.value); if (!el.checked && i >= 0) a.splice(i, 1); refreshCfg(o, true); },
+    insck(el) { const o = curOffer(); const st = cfgState(o); const a = st.ins.selected; const i = a.indexOf(el.value); if (el.checked && i < 0) a.push(el.value); if (!el.checked && i >= 0) a.splice(i, 1); refreshCfg(o); },
+    insded(el) { const o = curOffer(); const st = cfgState(o); st.ins.deductiblePct = Number(el.value); refreshCfg(o, true); },
+    insinst(el) { const o = curOffer(); const st = cfgState(o); st.ins.inInstallment = el.checked; refreshCfg(o); },
+    dynreq(el) { const o = curOffer(); const st = cfgState(o); st.ins.dyn.req[el.dataset.k] = el.type === 'number' ? Number(el.value) : el.value; },
+    svc(el) { const o = curOffer(); const st = cfgState(o); const a = st.svc; const i = a.indexOf(el.value); if (el.checked && i < 0) a.push(el.value); if (!el.checked && i >= 0) a.splice(i, 1); refreshCfg(o); },
+    coField(el) { S.co.applicant[el.dataset.k] = el.value; if (S.co.errors[el.dataset.k]) { delete S.co.errors[el.dataset.k]; el.classList.remove('err'); const n = el.parentNode.querySelector('.ferr'); if (n) n.remove(); } },
+    coBlik(el) { S.co.blik = el.value; },
+    coConsent(el) { S.co.consents[el.dataset.k] = el.checked; if (S.co.errors._consents) { delete S.co.errors._consents; const n = $('.consent ~ .ferr'); if (n) n.remove(); } },
+    pinEnter(el, ev) { if (ev.type === 'keydown' && ev.key === 'Enter') A.login(); },
+    admQ(el) { S.admin.q = el.value; clearTimeout(I._t); I._t = setTimeout(() => { viewAdmin('offers'); const n = $('[data-a="admQ"]'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); }, 400); },
+    ed(el) {
+      const o = S.admin.edit; const p = el.dataset.p; const v = parseT(el);
+      setPath(o, p, v);
+      if (p === 'priceNet' || p === 'vat') { if (o.vat !== 'marza') o.priceGross = C.grossFromNet(Number(o.priceNet), o.vat); const g = $('[data-p="priceGross"]'); if (g) g.value = o.priceGross; }
+      if (p === 'priceGross') { if (o.vat !== 'marza') { o.priceNet = C.netFromGross(Number(o.priceGross), o.vat); } else o.priceNet = Number(o.priceGross); const n = $('[data-p="priceNet"]'); if (n) n.value = o.priceNet; }
+      if (p === 'assetType' && o.modes.ltr) { o.modes.ltr.servicePrices = SEED.modes(o.assetType).ltr.servicePrices; }
+      if (el.dataset.t === 'b' && /\.enabled$/.test(p) || p === 'assetType') { viewAdmin('offers'); return; }
+      const pv = $('#edPrev'); if (pv) pv.innerHTML = admPreview();
+      if (p === 'hue' || p === 'category') { const a = $('#edArt'); if (a) a.innerHTML = art(o); }
+    },
+    catEd(el) { setPath(S.admin.cat, el.dataset.p, parseT(el)); },
+    setEd(el) { setPath(S.admin.set, el.dataset.p, parseT(el)); },
+    async ordStatus(el) { await api('admin.orders.status', { id: el.dataset.id, status: el.value }); toast('Zmieniono status'); viewAdmin('orders'); }
+  };
+
+  document.addEventListener('click', (ev) => {
+    const el = ev.target.closest('[data-a]');
+    if (!el) return;
+    const a = el.dataset.a;
+    if (A[a] && (el.tagName === 'BUTTON' || el.tagName === 'A' || el.getAttribute('role') === 'button')) { ev.preventDefault(); Promise.resolve(A[a](el, ev)).catch((e) => toast('Błąd: ' + e.message)); }
+  });
+  ['input', 'change'].forEach((t) => document.addEventListener(t, (ev) => {
+    const el = ev.target; if (!el.dataset || !el.dataset.a) return;
+    const h = I[el.dataset.a]; if (!h) return;
+    const isText = el.tagName === 'INPUT' && /^(text|email|tel|number|password|search|)$/.test(el.type) || el.tagName === 'TEXTAREA';
+    const live = ['prm', 'coField', 'coBlik', 'dynreq', 'fnum', 'admQ', 'ed', 'catEd', 'setEd'];
+    if (t === 'input' && live.indexOf(el.dataset.a) < 0) return;
+    if (t === 'change' && isText && live.indexOf(el.dataset.a) >= 0 && el.dataset.a !== 'ed') return;
+    if (t === 'change' && el.dataset.a === 'ed' && isText) return;
+    if (t === 'input' && el.dataset.a === 'ed' && !isText && el.tagName !== 'TEXTAREA') return;
+    Promise.resolve(h(el, ev)).catch((e) => toast('Błąd: ' + e.message));
+  }));
+  document.addEventListener('keydown', (ev) => {
+    const el = ev.target; if (el.dataset && (el.dataset.a === 'q' || el.dataset.a === 'pinEnter')) I[el.dataset.a](el, ev);
+    if (ev.key === 'Escape') closeModal();
+    if ((ev.key === 'Enter' || ev.key === ' ') && el.getAttribute && el.getAttribute('role') === 'button' && el.dataset.a) { ev.preventDefault(); A[el.dataset.a](el, ev); }
+  });
+
+  // ------------------------------------------------------------------ router
+  function parseRoute() {
+    const h = location.hash.replace(/^#/, '') || '/';
+    const [path, qs] = h.split('?');
+    const parts = path.split('/').filter(Boolean);
+    const query = {}; (qs || '').split('&').filter(Boolean).forEach((kv) => { const [k, v] = kv.split('='); query[decodeURIComponent(k)] = decodeURIComponent(v || ''); });
+    let r = { name: 'home', query };
+    if (parts[0] === 'oferta') r = { name: 'detail', id: parts[1], query };
+    else if (parts[0] === 'checkout') r = { name: 'checkout', query };
+    else if (parts[0] === 'porownaj') r = { name: 'compare', query };
+    else if (parts[0] === 'moje') r = { name: 'mine', query };
+    else if (parts[0] === 'jak-to-dziala') r = { name: 'how', query };
+    else if (parts[0] === 'admin') r = { name: 'admin', tab: parts[1], query };
+    return r;
+  }
+  let lastRoute = '';
+  function route() {
+    closeModal();
+    S.navOpen = false;
+    S.route = parseRoute();
+    const key = location.hash;
+    if (key !== lastRoute) { window.scrollTo(0, 0); lastRoute = key; }
+    const r = S.route;
+    try {
+      if (r.name === 'detail') viewDetail(r.id);
+      else if (r.name === 'checkout') viewCheckout();
+      else if (r.name === 'compare') viewCompare();
+      else if (r.name === 'mine') viewMine();
+      else if (r.name === 'how') viewHow();
+      else if (r.name === 'admin') viewAdmin(r.tab);
+      else viewHome();
+    } catch (e) { console.error(e); $('#app').innerHTML = `<div class="wrap"><div class="empty" style="margin:40px 0"><h2>Wystąpił błąd</h2><p class="muted">${esc(e.message)}</p><a class="btn" href="#/">Strona główna</a></div></div>`; }
+    // komunikacja z osadzającą stroną (iframe auto-height)
+    try { if (window.parent !== window) window.parent.postMessage({ type: 'assetmarket:resize', height: document.documentElement.scrollHeight }, '*'); } catch (e) { /* ignore */ }
+  }
+  window.addEventListener('hashchange', route);
+
+  async function boot() {
+    if (!CONFIG.apiBase) LocalDB.load();
+    try { S.data = await api('bootstrap'); }
+    catch (e) { $('#app').innerHTML = `<div class="wrap"><div class="empty" style="margin:60px 0"><h2>Nie można połączyć się z serwerem</h2><p class="muted">${esc(e.message)}</p></div></div>`; return; }
+    document.title = S.data.settings.brand + ' – pojazdy i środki trwałe online';
+    route();
+  }
+  window.AssetMarket = { S, api, totals, version: '1.0.0' };
+  boot();
+})();
+</script>
+</body>
+</html>
