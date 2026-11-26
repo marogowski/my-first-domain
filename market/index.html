@@ -254,6 +254,17 @@ footer .wrap>div:first-child{flex:1;min-width:280px}
 }
 @media (max-width:520px){.props{grid-template-columns:1fr}.f2,.f3,.f4,.f5{grid-template-columns:1fr}.top .wrap{gap:10px}}
 @media print{.top,footer,.no-print{display:none!important}body{background:#fff}.panel{box-shadow:none;border:1px solid #ddd}}
+
+/* zdjęcia */
+.card .media img,.gallery .main img,.thumbs img,.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph,.card .media{background:#e9edf3}
+.fb,.fb svg{display:block;width:100%;height:100%}
+.gallery .main{background:#e9edf3}
+.phgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.phitem{border-radius:10px;overflow:hidden;aspect-ratio:4/3;position:relative;border:1px solid var(--line)}
+.phbar{position:absolute;left:6px;right:6px;bottom:6px;display:flex;gap:6px;align-items:center}
+.phbar .btn{background:rgba(255,255,255,.92);padding:4px 8px}
+.credit{font-size:11.5px;color:var(--ink-3);margin-top:6px;line-height:1.4}.credit a{color:var(--ink-3);text-decoration:underline}
 </style>
 </head>
 <body>
@@ -829,6 +840,8 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
 })(typeof self !== 'undefined' ? self : this, function (C) {
   'use strict';
 
+  const version = '2026-11-26b';
+
   const settings = {
     brand: 'AssetMarket',
     tagline: 'Pojazdy i środki trwałe – kup, wynajmij lub sfinansuj w pełni online',
@@ -944,13 +957,204 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     offer({ id: 'o12', title: 'Wózek widłowy Linde E20 PH (elektryczny)', make: 'Linde', model: 'E20 PH', category: 'forklift', assetType: 'asset', body: 'Wózek widłowy', condition: 'exlease', year: 2021, mileage: 6200, mileageUnit: 'mth', fuel: 'Elektryczny', power: '2 t / 4,7 m', color: 'Czerwony', location: 'Magnice', partnerId: 'p2', priceNet: 54900, badges: ['inspection'], hue: 355, features: ['Przesuw boczny', 'Bateria Li-Ion 2024', 'Pozycjoner wideł'], description: 'Wózek po leasingu, nowa bateria Li-Ion. Dostępny także na wynajem krótkoterminowy.', modesOverride: { str: { enabled: true, dayRateNet: 149, deposit: 2500, kmPerDay: 0, minDays: 7 } } })
   ];
 
+  // Zdjęcia poglądowe (Wikimedia Commons) – pliki w folderze img/ obok index.html
+  const PHOTOS = {
+ "o1": {
+  "photos": [
+   "img/o1-1.jpg",
+   "img/o1-2.jpg"
+  ],
+  "photoCredits": {
+   "img/o1-1.jpg": {
+    "author": "Alexander Migl",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Skoda_Octavia_IV_Combi_IMG_2795.jpg"
+   },
+   "img/o1-2.jpg": {
+    "author": "Alexander Migl",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Skoda_Octavia_IV_Combi_IMG_3910.jpg"
+   }
+  }
+ },
+ "o2": {
+  "photos": [
+   "img/o2-1.jpg",
+   "img/o2-2.jpg"
+  ],
+  "photoCredits": {
+   "img/o2-1.jpg": {
+    "author": "Dinkun Chen",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Toyota_RAV4_%28XA50%29_Hybrid_%285%29.jpg"
+   },
+   "img/o2-2.jpg": {
+    "author": "Volardiculous",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:2022_MY_Toyota_RAV4_Hybrid_facelift_XA50.jpg"
+   }
+  }
+ },
+ "o3": {
+  "photos": [
+   "img/o3-2.jpg",
+   "img/o3-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o3-2.jpg": {
+    "author": "Damian B Oh",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:BMW_G21_320d_Touring_Alpine_White_%282%29.jpg"
+   },
+   "img/o3-1.jpg": {
+    "author": "Damian B Oh",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:BMW_G21_320d_Touring_M_Sport_Alpine_White_%281%29.jpg"
+   }
+  }
+ },
+ "o4": {
+  "photos": [
+   "img/o4-1.jpg",
+   "img/o4-2.jpg"
+  ],
+  "photoCredits": {
+   "img/o4-1.jpg": {
+    "author": "Alexander Migl",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:VW_Crafter_IMG_0772.jpg"
+   },
+   "img/o4-2.jpg": {
+    "author": "Vauxford",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:2017_Volkswagen_Crafter_CR35_Trendline_TD_2.0_Front.jpg"
+   }
+  }
+ },
+ "o5": {
+  "photos": [
+   "img/o5-1.jpg",
+   "img/o5-2.jpg"
+  ],
+  "photoCredits": {
+   "img/o5-1.jpg": {
+    "author": "Alexander Migl",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Kia_EV6_GT-Line_1X7A0317.jpg"
+   },
+   "img/o5-2.jpg": {
+    "author": "Alexander Migl",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Kia_EV6_GT-Line_IAA_2021_1X7A0110.jpg"
+   }
+  }
+ },
+ "o6": {
+  "photos": [
+   "img/o6-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o6-1.jpg": {
+    "author": "Charles from Port Chester, New York (Flickr: usf1fan2)",
+    "license": "CC BY 2.0",
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Fiat_500_1.0_6V_Mild-Hybrid_%282021%29_%2852172142252%29.jpg"
+   }
+  }
+ },
+ "o7": {
+  "photos": [
+   "img/o7-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o7-1.jpg": {
+    "author": "Midnight Runner",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:DAF_XF_480_Euro_6_Super_Space_Cab_-_PL.jpg"
+   }
+  }
+ },
+ "o8": {
+  "photos": [
+   "img/o8-1.jpg",
+   "img/o8-2.jpg"
+  ],
+  "photoCredits": {
+   "img/o8-1.jpg": {
+    "author": "Vauxford",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:JCB_3CX_ECO_Backhoe_Loader_Rear.jpg"
+   },
+   "img/o8-2.jpg": {
+    "author": "SrA S. Lampkin, U.S. Air Force",
+    "license": "domena publiczna",
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:JCB_3CX_Backhoe_loader.jpg"
+   }
+  }
+ },
+ "o9": {
+  "photos": [
+   "img/o9-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o9-1.jpg": {
+    "author": "Matti Blume (MB-one)",
+    "license": "CC BY-SA 2.0",
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:John_Deere_6R_150%2C_Agritechnica_2023%2C_Hanover_%28P1140827%29.jpg"
+   }
+  }
+ },
+ "o10": {
+  "photos": [
+   "img/o10-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o10-1.jpg": {
+    "author": "Stilfehler",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:CNC_Mill_2.jpg"
+   }
+  }
+ },
+ "o12": {
+  "photos": [
+   "img/o12-1.jpg"
+  ],
+  "photoCredits": {
+   "img/o12-1.jpg": {
+    "author": "Mdornseif",
+    "license": null,
+    "source": "Wikimedia Commons",
+    "page": "https://commons.wikimedia.org/wiki/File:Forklift.jpeg"
+   }
+  }
+ }
+};
+  const COLORS = { o1: 'Srebrny', o2: 'Biały', o3: 'Biały', o4: 'Biały', o6: 'Granatowy', o12: 'Pomarańczowy' };
+  offers.forEach((o) => { if (PHOTOS[o.id]) Object.assign(o, JSON.parse(JSON.stringify(PHOTOS[o.id])), { photosIllustrative: true }); if (COLORS[o.id]) o.color = COLORS[o.id]; });
+
   const categories = {
     car: 'Samochody osobowe', lcv: 'Dostawcze', truck: 'Ciężarowe', construction: 'Maszyny budowlane',
     agri: 'Maszyny rolnicze', industrial: 'Maszyny przemysłowe', medical: 'Sprzęt medyczny', forklift: 'Wózki i magazyn', it: 'IT / elektronika'
   };
   const conditions = { new: 'Nowy', used: 'Używany', exlease: 'Poleasingowy' };
 
-  return { settings, partners, insuranceProducts, services, offers, categories, conditions, modes, offer };
+  return { version, settings, partners, insuranceProducts, services, offers, categories, conditions, modes, offer };
 });
 
 /* ---- web/app.js ---- */
@@ -973,7 +1177,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
   const delay = (ms) => new Promise((r) => setTimeout(r, CONFIG.latency ? ms : 0));
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* tryb prywatny / iframe */ } }
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
   };
   function setPath(obj, path, val) {
     const ks = path.split('.'); let o = obj;
@@ -1000,12 +1204,20 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
   const DBKEY = 'am_db_v1';
   const LocalDB = {
     db: null,
-    load() { this.db = store.get(DBKEY, null); if (!this.db || !this.db.offers) this.reset(); },
+    load() {
+      this.db = store.get(DBKEY, null);
+      if (!this.db || !this.db.offers) return this.reset();
+      // nowa wersja danych wbudowanych (np. zdjęcia) – odśwież katalog, zachowaj wnioski
+      if (this.db.seedVersion !== SEED.version && !this.db.catalogVersion) {
+        ['settings', 'partners', 'services', 'insuranceProducts', 'offers'].forEach((k) => { this.db[k] = clone(SEED[k]); });
+        this.db.seedVersion = SEED.version; this.save();
+      }
+    },
     reset() {
-      this.db = clone({ settings: SEED.settings, partners: SEED.partners, services: SEED.services, insuranceProducts: SEED.insuranceProducts, offers: SEED.offers, orders: [], log: [] });
+      this.db = clone({ seedVersion: SEED.version, settings: SEED.settings, partners: SEED.partners, services: SEED.services, insuranceProducts: SEED.insuranceProducts, offers: SEED.offers, orders: [], log: [] });
       this.save();
     },
-    save() { store.set(DBKEY, this.db); },
+    save() { if (!store.set(DBKEY, this.db)) toast('Nie udało się zapisać danych w przeglądarce (limit pamięci – zmniejsz liczbę/rozmiar zdjęć)'); },
     log(svc, req, res) { this.db.log.unshift({ at: new Date().toISOString(), svc, req, res }); this.db.log = this.db.log.slice(0, 150); this.save(); }
   };
   const INTEGRATION = { 'registry.lookup': 700, 'kyc.verify': 1400, 'bik.check': 1200, 'leasing.decide': 1500, 'insurance.quotes': 1300, 'insurance.bind': 700, 'esign.sign': 1300, 'payments.pay': 1100 };
@@ -1110,6 +1322,22 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(o.title)}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="${v === 1 ? 0 : 1}" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="320" height="200" fill="url(#${id})"/><circle cx="${v === 1 ? 70 : 262}" cy="44" r="${dark ? 14 : 26}" fill="${dark ? '#f5f0c8' : '#fff'}" opacity="${dark ? .8 : .55}"/><rect y="166" width="320" height="34" fill="${dark ? '#0a1220' : `hsl(${h},25%,72%)`}" opacity=".55"/><g ${tr}>${s}</g></svg>`;
   }
 
+  /** Zdjęcie oferty (jeśli jest) albo ilustracja SVG; przy błędzie ładowania – automatyczny powrót do ilustracji */
+  const photos = (o) => (Array.isArray(o.photos) ? o.photos.filter(Boolean) : []);
+  function media(o, v) {
+    v = v || 0; const ph = photos(o);
+    if (ph[v]) return `<img src="${esc(ph[v])}" alt="${esc(o.title)}" loading="lazy" decoding="async" data-fb="${esc(o.id)}:${v}">`;
+    return art(o, ph.length ? 0 : v);
+  }
+  document.addEventListener('error', (ev) => {
+    const el = ev.target;
+    if (!el || el.tagName !== 'IMG' || !el.dataset.fb) return;
+    const [id, v] = el.dataset.fb.split(':');
+    const o = (S.admin.edit && (S.admin.edit.id === id || !id)) ? S.admin.edit : (S.data && S.data.offers.find((x) => x.id === id));
+    const span = document.createElement('span'); span.className = 'fb'; span.innerHTML = o ? art(o, 0) : '';
+    el.replaceWith(span);
+  }, true);
+
   // ------------------------------------------------------------------ layout
   function header(active) {
     const d = S.data.settings;
@@ -1126,7 +1354,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
   }
   function footer() {
     const d = S.data.settings;
-    return `<footer><div class="wrap row wrapf"><div><b style="color:#fff">${esc(d.brand)}</b> · ${esc(d.tagline)}<br><span class="xs">Kalkulacje mają charakter informacyjny i nie stanowią oferty w rozumieniu art. 66 KC. Ostateczne warunki zależą od oceny wniosku. Tryb: ${S.data.mode === 'standalone' ? 'demonstracyjny (symulowane integracje)' : 'API'}.</span></div><span class="sp"></span><a href="#/jak-to-dziala">Jak to działa</a>&nbsp;·&nbsp;<a href="#/admin">Panel operatora</a></div></footer>`;
+    return `<footer><div class="wrap row wrapf"><div><b style="color:#fff">${esc(d.brand)}</b> · ${esc(d.tagline)}<br><span class="xs">Kalkulacje mają charakter informacyjny i nie stanowią oferty w rozumieniu art. 66 KC. Ostateczne warunki zależą od oceny wniosku. Tryb: ${S.data.mode === 'standalone' ? 'demonstracyjny (symulowane integracje)' : 'API'}.</span></div><span class="sp"></span><a href="#/jak-to-dziala">Jak to działa</a>&nbsp;·&nbsp;<a href="#/jak-to-dziala">Źródła zdjęć</a>&nbsp;·&nbsp;<a href="#/admin">Panel operatora</a></div></footer>`;
   }
   function page(active, inner) {
     $('#app').innerHTML = header(active) + `<main id="view">${inner}</main>` + footer();
@@ -1175,7 +1403,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     const fav = S.ui.fav.indexOf(o.id) >= 0, cmp = S.ui.cmp.indexOf(o.id) >= 0;
     const unit = o.mileageUnit === 'mth' ? 'mth' : 'km';
     return `<article class="card" data-testid="card-${o.id}">
-      <a class="media" href="#/oferta/${o.id}">${art(o)}<span class="cond badge ${o.condition === 'new' ? 'acc' : o.condition === 'exlease' ? 'w' : ''}">${esc(S.data.conditions[o.condition])}</span>${o.status === 'reserved' ? '<span class="badge d" style="position:absolute;left:10px;bottom:10px">Zarezerwowany</span>' : ''}</a>
+      <a class="media" href="#/oferta/${o.id}">${media(o)}<span class="cond badge ${o.condition === 'new' ? 'acc' : o.condition === 'exlease' ? 'w' : ''}">${esc(S.data.conditions[o.condition])}</span>${o.status === 'reserved' ? '<span class="badge d" style="position:absolute;left:10px;bottom:10px">Zarezerwowany</span>' : ''}</a>
       <div class="tools"><button data-a="fav" data-id="${o.id}" class="${fav ? 'on' : ''}" title="Ulubione" aria-label="Ulubione">♥</button><button data-a="cmp" data-id="${o.id}" class="${cmp ? 'on' : ''}" title="Porównaj" aria-label="Porównaj">⇄</button></div>
       <div class="body">
         <a href="#/oferta/${o.id}" style="color:inherit"><h3>${esc(o.title)}</h3></a>
@@ -1299,7 +1527,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
           <div class="panel">
             <div class="row wrapf" style="margin-bottom:12px"><div><h1 style="font-size:28px;margin:0">${esc(o.title)}</h1><div class="muted small">${esc(p.name)} · ${esc(p.type)} · ${esc(o.location)} · ID: ${esc(o.id)}</div></div><span class="sp"></span>
             <button class="btn ghost sm" data-a="fav" data-id="${o.id}">${S.ui.fav.indexOf(o.id) >= 0 ? '♥ W ulubionych' : '♡ Ulubione'}</button><button class="btn ghost sm" data-a="cmp" data-id="${o.id}">⇄ ${S.ui.cmp.indexOf(o.id) >= 0 ? 'W porównaniu' : 'Porównaj'}</button></div>
-            <div class="gallery"><div class="main" id="gmain">${art(o, st.gal)}</div><div class="thumbs">${[0, 1, 2, 3].map((v) => `<button data-a="gal" data-v="${v}" class="${st.gal === v ? 'on' : ''}" aria-label="Zdjęcie ${v + 1}">${art(o, v)}</button>`).join('')}</div></div>
+            <div class="gallery"><div class="main ph" id="gmain">${media(o, st.gal)}</div><div id="gcredit">${creditHtml(o, st.gal)}</div>${galThumbs(o, st)}</div>
           </div>
           <div class="panel"><h3>Parametry</h3><div class="specs">${specs.map((s) => `<div class="spec-i"><span>${s[0]}</span><b>${esc(s[1])}</b></div>`).join('')}</div>
             <h3 style="margin-top:18px">Wyposażenie i cechy</h3><div class="feat">${o.features.map((f) => `<span>${esc(f)}</span>`).join('')}</div>
@@ -1315,6 +1543,20 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
       </div></div>`);
   }
 
+  function creditHtml(o, v) {
+    const u = photos(o)[v || 0]; if (!u) return '';
+    const c = (o.photoCredits || {})[u];
+    const ill = o.photosIllustrative ? 'Zdjęcie poglądowe' : '';
+    if (!c) return ill ? `<div class="credit">${ill}</div>` : '';
+    return `<div class="credit">${ill ? ill + ' · ' : ''}Fot. ${esc(c.author)}${c.source ? ', ' + esc(c.source) : ''}${c.license ? ', ' + esc(c.license) : ''}${c.page ? ` · <a href="${esc(c.page)}" target="_blank" rel="noopener">źródło i licencja</a>` : ''}</div>`;
+  }
+  function galThumbs(o, st) {
+    const n = photos(o).length;
+    const idx = n ? Array.from({ length: n }, (_, i) => i) : [0, 1, 2, 3];
+    if (n === 1) return '';
+    if (st.gal >= idx.length) st.gal = 0;
+    return `<div class="thumbs">${idx.map((v) => `<button data-a="gal" data-v="${v}" class="${st.gal === v ? 'on' : ''}" aria-label="Zdjęcie ${v + 1}">${media(o, v)}</button>`).join('')}</div>`;
+  }
   function rng(label, key, min, max, step, val, fmtv) {
     return `<div class="rng"><div class="top-l"><span>${label}</span><b id="rv-${key}">${fmtv(val)}</b></div><input type="range" min="${min}" max="${max}" step="${step}" value="${val}" data-a="prm" data-k="${key}" aria-label="${label}"></div>`;
   }
@@ -1459,6 +1701,25 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     document.body.appendChild(bg);
   }
   function closeModal() { const m = $('#modal'); if (m) m.remove(); }
+  function resizeImage(file, max, q) {
+    return new Promise((resolve, reject) => {
+      if (!/^image\//.test(file.type)) return reject(new Error('To nie jest obraz'));
+      const fr = new FileReader();
+      fr.onerror = reject;
+      fr.onload = () => {
+        const img = new Image();
+        img.onerror = reject;
+        img.onload = () => {
+          const k = Math.min(1, max / Math.max(img.width, img.height));
+          const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+          const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+          resolve(c.toDataURL('image/jpeg', q));
+        };
+        img.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
   function askConfirm(msg) {
     return new Promise((resolve) => {
       modal(`<h3>${esc(msg)}</h3><div class="row" style="margin-top:16px"><span class="sp"></span><button class="btn ghost" id="cfNo">Anuluj</button><button class="btn" id="cfYes" data-testid="confirmYes">Potwierdź</button></div>`);
@@ -1473,7 +1734,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     if (!list.length) return page('home', `<div class="wrap"><div class="empty" style="margin:40px 0"><h2>Brak ofert do porównania</h2><p class="muted">Dodaj oferty przyciskiem ⇄ na liście.</p><a class="btn" href="#/">Przeglądaj oferty</a></div></div>`);
     const rows = [['Cena ' + nettoLbl(), (o) => zl(priceOf(o))], ['Rata od', (o) => { const m = fromM(o); return m ? zl(isB2B() ? m.monthlyNet : m.monthlyGross) + ' (' + MODE_SHORT[m.mode] + ')' : '—'; }], ['Rok', (o) => o.year], ['Przebieg', (o) => num(o.mileage) + (o.mileageUnit === 'mth' ? ' mth' : ' km')], ['Napęd', (o) => esc(o.fuel)], ['Moc', (o) => esc(o.power)], ['Stan', (o) => S.data.conditions[o.condition]], ['Formy', (o) => enabledModes(o).map((m) => MODE_SHORT[m]).join(', ')], ['Sprzedawca', (o) => esc(partner(o.partnerId).name)], ['Lokalizacja', (o) => esc(o.location)]];
     page('home', `<div class="wrap" style="margin:24px auto 60px"><div class="row"><h1 style="font-size:28px">Porównanie ofert</h1><span class="sp"></span><button class="btn ghost" data-a="cmpClear">Wyczyść</button></div>
-      <div class="panel" style="overflow:auto"><table class="t cmp"><thead><tr><th></th>${list.map((o) => `<th style="min-width:200px"><a href="#/oferta/${o.id}"><div style="border-radius:9px;overflow:hidden;aspect-ratio:16/9">${art(o)}</div><div style="margin-top:6px;color:var(--ink)">${esc(o.title)}</div></a></th>`).join('')}</tr></thead>
+      <div class="panel" style="overflow:auto"><table class="t cmp"><thead><tr><th></th>${list.map((o) => `<th style="min-width:200px"><a href="#/oferta/${o.id}"><div style="border-radius:9px;overflow:hidden;aspect-ratio:16/9" class="ph">${media(o)}</div><div style="margin-top:6px;color:var(--ink)">${esc(o.title)}</div></a></th>`).join('')}</tr></thead>
       <tbody>${rows.map((r) => `<tr><td><b>${r[0]}</b></td>${list.map((o) => `<td>${r[1](o)}</td>`).join('')}</tr>`).join('')}<tr><td></td>${list.map((o) => `<td><a class="btn sm" href="#/oferta/${o.id}">Konfiguruj</a> <button class="btn ghost sm" data-a="cmp" data-id="${o.id}">Usuń</button></td>`).join('')}</tr></tbody></table></div></div>`);
   }
 
@@ -1499,7 +1760,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     page('home', `<div class="wrap">
       <div class="steps">${steps.map((s, i) => `<div class="step ${i === S.co.step ? 'on' : i < S.co.step ? 'done' : ''}"><span class="no">${i < S.co.step ? '✓' : i + 1}</span>${s}</div>`).join('')}</div>
       <div class="co"><div class="panel" id="cobody" data-step="${k}">${body}</div>
-      <aside class="panel" style="position:sticky;top:80px"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;margin-bottom:10px">${art(o)}</div><b>${esc(o.title)}</b><div class="small muted">${ML[S.co.mode]} · ${esc(partner(o.partnerId).name)}</div>
+      <aside class="panel" style="position:sticky;top:80px"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;margin-bottom:10px" class="ph">${media(o)}</div><b>${esc(o.title)}</b><div class="small muted">${ML[S.co.mode]} · ${esc(partner(o.partnerId).name)}</div>
         <div style="margin-top:10px">${t.fin ? `<div class="kv"><span>Rata ${nettoLbl()}</span><b>${zl2(isB2B() ? t.monthlyNet : t.monthlyGross)}</b></div><div class="kv"><span>Okres</span><b>${t.q.term} mies.</b></div><div class="kv"><span>Opłata wstępna</span><b>${t.q.downPct}%</b></div>` : ''}
         ${S.co.mode === 'str' ? `<div class="kv"><span>Okres najmu</span><b>${t.q.days} dób od ${esc(S.co.params.start)}</b></div>` : ''}
         ${t.ins ? `<div class="kv"><span>Ubezpieczenie</span><b>${zl(t.ins.annual)}/rok</b></div>` : ''}
@@ -1684,6 +1945,12 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     $('#mine').innerHTML = list.length ? `<table class="t"><thead><tr><th>Nr</th><th>Data</th><th>Przedmiot</th><th>Forma</th><th class="n">Kwota</th><th>Status</th></tr></thead><tbody>${list.map((o) => `<tr><td><b>${esc(o.id)}</b></td><td>${new Date(o.createdAt).toLocaleDateString('pl-PL')}</td><td><a href="#/oferta/${o.offerId}">${esc(o.offerTitle)}</a></td><td>${ML[o.mode]}</td><td class="n">${FIN.indexOf(o.mode) >= 0 ? zl(o.totals.monthlyGross) + '/m' : zl(o.totals.upGross)}</td><td>${pill(o.status)}</td></tr>`).join('')}</tbody></table>` : '<p class="muted">Nie masz jeszcze wniosków w tej przeglądarce.</p><a class="btn" href="#/">Przeglądaj oferty</a>';
   }
 
+  function photoSources() {
+    const rows = [];
+    S.data.offers.forEach((o) => photos(o).forEach((u) => { const c = (o.photoCredits || {})[u]; if (c) rows.push([o.title, c]); }));
+    if (!rows.length) return '';
+    return `<div class="panel"><h2>Źródła zdjęć</h2><p class="small muted">Zdjęcia poglądowe – nie przedstawiają konkretnych egzemplarzy z oferty. Pochodzą z Wikimedia Commons; licencje na stronach plików.</p><table class="t"><thead><tr><th>Oferta</th><th>Autor</th><th>Licencja</th><th>Źródło</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${esc(r[0])}</td><td>${esc(r[1].author)}</td><td>${esc(r[1].license || 'zob. stronę pliku')}</td><td><a href="${esc(r[1].page)}" target="_blank" rel="noopener">Wikimedia Commons</a></td></tr>`).join('')}</tbody></table></div>`;
+  }
   function viewHow() {
     page('how', `<div class="wrap" style="margin:28px auto 60px;max-width:1000px">
       <h1>Jak to działa</h1><p class="lead muted">Cały proces – od wyboru do podpisania umowy – przeprowadzisz online.</p>
@@ -1693,7 +1960,8 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
       <details><summary>Czy konsument może wziąć leasing?</summary><p>Tak – leasing konsumencki i najem długoterminowy są dostępne dla osób fizycznych. Ocena zdolności opiera się na dochodach i raporcie BIK.</p></details>
       <details><summary>Czy firma z krótkim stażem dostanie finansowanie?</summary><p>Tak – w procedurze uproszczonej finansujemy od pierwszego dnia działalności, z ewentualnie wyższą opłatą wstępną.</p></details>
       <details><summary>Czy mogę zwrócić samochód kupiony online?</summary><p>Przy ofertach oznaczonych „dni na zwrot” możesz zwrócić auto w podanym terminie od odbioru (z limitem przebiegu).</p></details>
-      <details><summary>Jak działa ubezpieczenie w racie?</summary><p>Składkę roczną rozkładamy na 12 rat bez kosztów; polisa jest odnawiana co roku, a finansujący jest uposażony z AC.</p></details></div></div>`);
+      <details><summary>Jak działa ubezpieczenie w racie?</summary><p>Składkę roczną rozkładamy na 12 rat bez kosztów; polisa jest odnawiana co roku, a finansujący jest uposażony z AC.</p></details></div>
+      ${photoSources()}</div>`);
   }
 
   // ------------------------------------------------------------------ panel operatora
@@ -1724,7 +1992,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     if (S.admin.edit) return admOfferEdit();
     const q = (S.admin.q || '').toLowerCase();
     const list = S.data.offers.filter((o) => !q || (o.title + o.id).toLowerCase().indexOf(q) >= 0);
-    return `<div class="row wrapf"><h1 style="font-size:26px">Oferty</h1><span class="sp"></span><input class="inp" style="max-width:240px" placeholder="Szukaj…" value="${esc(S.admin.q || '')}" data-a="admQ"><button class="btn" data-a="offNew" data-testid="offNew">+ Nowa oferta</button></div>
+    return `<div class="row wrapf"><h1 style="font-size:26px">Oferty</h1><span class="sp"></span><input class="inp" style="max-width:240px" placeholder="Szukaj…" value="${esc(S.admin.q || '')}" data-a="admQ">${CONFIG.apiBase ? '' : '<button class="btn ghost" data-a="catExport" title="Plik do opublikowania obok index.html – wszyscy odwiedzający zobaczą ten katalog">⬇ Eksport katalogu</button>'}<button class="btn" data-a="offNew" data-testid="offNew">+ Nowa oferta</button></div>
       <div class="panel" style="overflow:auto;margin-top:12px"><table class="t"><thead><tr><th>ID</th><th>Przedmiot</th><th>Kategoria</th><th class="n">Netto</th><th>VAT</th><th class="n">Brutto</th><th>Formy</th><th>Status</th><th></th></tr></thead><tbody>
       ${list.map((o) => `<tr><td>${esc(o.id)}</td><td><b>${esc(o.title)}</b><div class="xs muted">${esc(partner(o.partnerId).name)}</div></td><td>${esc(S.data.categories[o.category])}</td><td class="n">${nf2.format(o.priceNet)}</td><td>${o.vat === 'marza' ? 'marża' : o.vat === 'zw' ? 'zw.' : o.vat + '%'}</td><td class="n">${nf2.format(o.priceGross)}</td><td class="small">${enabledModes(o).map((m) => MODE_SHORT[m]).join(', ')}</td><td><span class="badge ${o.status === 'available' ? 'ok' : o.status === 'reserved' ? 'w' : 'd'}">${{ available: 'Dostępna', reserved: 'Rezerwacja', sold: 'Sprzedana', hidden: 'Ukryta' }[o.status] || o.status}</span></td><td style="white-space:nowrap"><button class="btn ghost sm" data-a="offEdit" data-id="${o.id}" data-testid="edit-${o.id}">Edytuj</button> <button class="btn ghost sm" data-a="offDup" data-id="${o.id}">Duplikuj</button></td></tr>`).join('')}</tbody></table></div>`;
   }
@@ -1754,6 +2022,10 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
         ${ef('features', 'Wyposażenie (po przecinku)', { t: 'list' })}${ef('badges', 'Oznaczenia (history, inspection, warranty, firstOwner, new)', { t: 'list' })}
         <div class="field"><label>Opis</label><textarea class="inp" rows="3" data-a="ed" data-p="description" data-t="s">${esc(o.description)}</textarea></div>
         ${ef('hue', 'Kolor ilustracji (0–360)', { t: 'n' })}</div>
+      <div class="panel"><h3>Zdjęcia <span class="muted small">(${photos(o).length})</span></h3>
+        <div class="phgrid">${photos(o).map((u, i) => `<div class="phitem ph">${media(o, i)}<div class="phbar">${i ? `<button class="btn ghost sm" data-a="phMove" data-i="${i}" data-d="-1" title="W lewo" aria-label="Przesuń w lewo">←</button>` : '<span class="badge acc">Główne</span>'}<span class="sp"></span><button class="btn ghost sm" data-a="phDel" data-i="${i}" aria-label="Usuń zdjęcie">✕</button></div></div>`).join('')}</div>
+        <div class="row wrapf" style="margin-top:10px"><label class="btn ghost" for="phFile">⬆ Wgraj zdjęcia</label><input id="phFile" type="file" accept="image/*" multiple class="sr" data-a="phFile" data-testid="phFile"><input id="phUrl" class="inp" style="flex:1;min-width:200px" placeholder="lub adres: img/octavia-1.jpg albo https://…"><button class="btn ghost" data-a="phAdd">Dodaj adres</button></div>
+        <p class="xs muted">Pierwsze zdjęcie jest główne (lista ofert). Wgrane pliki są zmniejszane do 1280 px (JPEG). Na GitHub Pages najlepiej trzymać pliki w folderze <code>market/img/</code> i podawać ścieżkę <code>img/nazwa.jpg</code>. Bez zdjęć wyświetla się ilustracja.</p></div>
       <div class="panel"><h3>Cena</h3><div class="f3">${ef('priceNet', 'Cena netto [zł]', { t: 'n' })}${ef('vat', 'Stawka VAT', { select: vatOpts })}${ef('priceGross', 'Cena brutto [zł]', { t: 'n' })}</div><p class="xs muted">Zmiana netto lub stawki przelicza brutto; edycja brutto przelicza netto. Dla VAT-marża cena brutto = cena sprzedaży (VAT nie wykazywany, leasing finansuje kwotę brutto).</p></div>
       <div class="panel"><h3>Formy nabycia i parametry oferty</h3>
         ${mb('purchase', 'Zakup bezpośredni', `<div class="f3">${ef('modes.purchase.discountPct', 'Rabat online [%]', { t: 'n' })}${ef('modes.purchase.reservationFee', 'Opłata rezerwacyjna [zł]', { t: 'n' })}${ef('modes.purchase.returnDays', 'Dni na zwrot', { t: 'n' })}</div>`)}
@@ -1767,7 +2039,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
         <div class="lbl">Pakiety statyczne</div><div class="row wrapf" style="margin:6px 0 12px">${S.data.insuranceProducts.filter((p) => p.appliesTo.indexOf(o.assetType) >= 0).map((p) => `<label class="ck"><input type="checkbox" data-a="edArr" data-p="insurance.static" value="${p.code}" ${o.insurance.static.indexOf(p.code) >= 0 ? 'checked' : ''}>${esc(p.label)}</label>`).join('')}</div>
         <div class="lbl">Usługi dodatkowe</div><div class="row wrapf" style="margin-top:6px">${S.data.services.filter((s) => s.appliesTo.indexOf(o.assetType) >= 0).map((s) => `<label class="ck"><input type="checkbox" data-a="edArr" data-p="services" value="${s.code}" ${o.services.indexOf(s.code) >= 0 ? 'checked' : ''}>${esc(s.label)}</label>`).join('')}</div></div>
       </div>
-      <aside class="cfg"><div class="panel"><h3>Podgląd kalkulacji</h3><div id="edPrev">${admPreview()}</div></div><div class="panel"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9" id="edArt">${art(o)}</div></div></aside></div>`;
+      <aside class="cfg"><div class="panel"><h3>Podgląd kalkulacji</h3><div id="edPrev">${admPreview()}</div></div><div class="panel"><div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9" id="edArt" class="ph">${media(o)}</div></div></aside></div>`;
   }
   function admPreview() {
     const o = S.admin.edit;
@@ -1850,7 +2122,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     'fck-chip'(el) { const k = el.dataset.k, v = el.dataset.v, a = S.f[k], i = a.indexOf(v); if (i >= 0) a.splice(i, 1); else a.push(v); viewHome(); },
     go() { S.f.q = $('#q').value; viewHome(); },
     freset() { S.f = { q: '', cat: [], cond: [], mode: [], make: [], partner: [], fuel: [], maxPrice: '', maxMonthly: '', yearFrom: '' }; if (S.route.query.ulubione) location.hash = '#/'; else viewHome(); },
-    gal(el) { const o = curOffer(); const st = cfgState(o); st.gal = Number(el.dataset.v); $('#gmain').innerHTML = art(o, st.gal); $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === st.gal)); },
+    gal(el) { const o = curOffer(); const st = cfgState(o); st.gal = Number(el.dataset.v); $('#gmain').innerHTML = media(o, st.gal); $('#gcredit').innerHTML = creditHtml(o, st.gal); $$('.thumbs button').forEach((b, i) => b.classList.toggle('on', i === st.gal)); },
     mode(el) { const o = curOffer(); const st = cfgState(o); st.mode = el.dataset.v; resetParams(o, st); refreshCfg(o, true); },
     pickMode(el) { closeModal(); const o = curOffer(); const st = cfgState(o); st.mode = el.dataset.v; resetParams(o, st); refreshCfg(o, true); },
     prmopt(el) { const o = curOffer(); const st = cfgState(o); const v = el.dataset.v; st.params[el.dataset.k] = isNaN(Number(v)) ? v : Number(v); refreshCfg(o, true); },
@@ -1940,6 +2212,16 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     },
     async offDel() { if (!(await askConfirm('Usunąć ofertę ' + S.admin.edit.title + '?'))) return; await api('admin.offer.delete', { id: S.admin.edit.id }); await reload(); S.admin.edit = null; toast('Usunięto'); viewAdmin('offers'); },
     edArr(el) { const arr = getPath(S.admin.edit, el.dataset.p); const i = arr.indexOf(el.value); if (el.checked && i < 0) arr.push(el.value); if (!el.checked && i >= 0) arr.splice(i, 1); },
+    phDel(el) { S.admin.edit.photos.splice(Number(el.dataset.i), 1); viewAdmin('offers'); },
+    phMove(el) { const a = S.admin.edit.photos, i = Number(el.dataset.i), j = i + Number(el.dataset.d); const t = a[i]; a[i] = a[j]; a[j] = t; viewAdmin('offers'); },
+    phAdd() { const v = $('#phUrl').value.trim(); if (!v) return; if (!/^(https:\/\/|img\/|\.?\/|data:image\/)/i.test(v)) { toast('Podaj adres https://… lub ścieżkę img/…'); return; } (S.admin.edit.photos = photos(S.admin.edit)).push(v); viewAdmin('offers'); },
+    async catExport() {
+      const d = await api('bootstrap');
+      const cat = { version: new Date().toISOString(), settings: d.settings, partners: d.partners, services: d.services, insuranceProducts: d.insuranceProducts, offers: d.offers };
+      const txt = JSON.stringify(cat);
+      try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' })); a.download = 'catalog.json'; document.body.appendChild(a); a.click(); a.remove(); toast('Pobrano catalog.json (' + Math.round(txt.length / 1024) + ' KB)'); }
+      catch (e) { try { await navigator.clipboard.writeText(txt); toast('Skopiowano katalog do schowka'); } catch (e2) { toast('Eksport niedostępny w tym widoku'); } }
+    },
     ordToggle(el) { S.admin.open[el.dataset.id] = !S.admin.open[el.dataset.id]; viewAdmin('orders'); },
     catAdd(el) { const k = el.dataset.k; const tpl = { services: { code: 'NEW', label: 'Nowa usługa', priceNet: 0, vat: '23', billing: 'oneoff', appliesTo: ['vehicle', 'asset'] }, insuranceProducts: { code: 'NEW', label: 'Nowy produkt', type: 'fixed', fixed: 0, ratePct: 0, appliesTo: ['vehicle'] }, partners: { id: 'p' + (S.admin.cat.partners.length + 1), name: 'Nowy partner', type: '', city: '' } }[k]; S.admin.cat[k].push(tpl); viewAdmin(); },
     async catSave() { await api('admin.catalog.save', clone(S.admin.cat)); await reload(); S.admin.cat = null; toast('Zapisano'); viewAdmin(); },
@@ -1976,9 +2258,17 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
       if (p === 'assetType' && o.modes.ltr) { o.modes.ltr.servicePrices = SEED.modes(o.assetType).ltr.servicePrices; }
       if (el.dataset.t === 'b' && /\.enabled$/.test(p) || p === 'assetType') { viewAdmin('offers'); return; }
       const pv = $('#edPrev'); if (pv) pv.innerHTML = admPreview();
-      if (p === 'hue' || p === 'category') { const a = $('#edArt'); if (a) a.innerHTML = art(o); }
+      if (p === 'hue' || p === 'category') { const a = $('#edArt'); if (a) a.innerHTML = media(o); }
     },
     catEd(el) { setPath(S.admin.cat, el.dataset.p, parseT(el)); },
+    async phFile(el) {
+      const files = Array.from(el.files || []).slice(0, 12);
+      const out = [];
+      for (const f of files) { try { out.push(await resizeImage(f, 1280, 0.78)); } catch (e) { toast('Nie można odczytać pliku ' + f.name); } }
+      (S.admin.edit.photos = photos(S.admin.edit)).push(...out);
+      if (out.length) toast('Dodano zdjęcia: ' + out.length);
+      viewAdmin('offers');
+    },
     setEd(el) { setPath(S.admin.set, el.dataset.p, parseT(el)); },
     async ordStatus(el) { await api('admin.orders.status', { id: el.dataset.id, status: el.value }); toast('Zmieniono status'); viewAdmin('orders'); }
   };
@@ -1993,6 +2283,7 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
     const el = ev.target; if (!el.dataset || !el.dataset.a) return;
     const h = I[el.dataset.a]; if (!h) return;
     const isText = el.tagName === 'INPUT' && /^(text|email|tel|number|password|search|)$/.test(el.type) || el.tagName === 'TEXTAREA';
+    if (el.dataset.a === 'phFile' && t === 'input') return;
     const live = ['prm', 'coField', 'coBlik', 'dynreq', 'fnum', 'admQ', 'ed', 'catEd', 'setEd'];
     if (t === 'input' && live.indexOf(el.dataset.a) < 0) return;
     if (t === 'change' && isText && live.indexOf(el.dataset.a) >= 0 && el.dataset.a !== 'ed') return;
@@ -2044,7 +2335,22 @@ window.AM_CONFIG = Object.assign({ apiBase: '', adminPin: 'admin' }, window.AM_C
   window.addEventListener('hashchange', route);
 
   async function boot() {
-    if (!CONFIG.apiBase) LocalDB.load();
+    if (!CONFIG.apiBase) {
+      LocalDB.load();
+      // Opublikowany katalog (catalog.json obok index.html) – zmiany operatora widoczne dla wszystkich odwiedzających
+      if (location.protocol.indexOf('http') === 0 && CONFIG.catalogUrl !== false) {
+        try {
+          const r = await fetch(CONFIG.catalogUrl || 'catalog.json', { cache: 'no-cache' });
+          if (r.ok) {
+            const cat = await r.json();
+            if (cat && Array.isArray(cat.offers) && cat.version && cat.version !== LocalDB.db.catalogVersion) {
+              ['settings', 'partners', 'services', 'insuranceProducts', 'offers'].forEach((k) => { if (cat[k]) LocalDB.db[k] = cat[k]; });
+              LocalDB.db.catalogVersion = cat.version; LocalDB.save();
+            }
+          }
+        } catch (e) { /* brak katalogu – dane wbudowane */ }
+      }
+    }
     try { S.data = await api('bootstrap'); }
     catch (e) { $('#app').innerHTML = `<div class="wrap"><div class="empty" style="margin:60px 0"><h2>Nie można połączyć się z serwerem</h2><p class="muted">${esc(e.message)}</p></div></div>`; return; }
     document.title = S.data.settings.brand + ' – pojazdy i środki trwałe online';
